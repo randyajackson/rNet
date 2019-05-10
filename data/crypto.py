@@ -1,20 +1,33 @@
-import os
 import time
-#from bs4 import BeautifulSoup
-from urllib.request import urlopen as uReq
-from selenium import webdriver
-from selenium.webdriver.common.by import By
+from bs4 import BeautifulSoup
+import requests
 
-chrome_path = r"C:\Users\dell\Desktop\chromeDriver\chromedriver.exe"
-driver = webdriver.Chrome(chrome_path)
-url = r"https://www.cryptocompare.com/coins/list/USD/1"
-driver.get(url)
+r = requests.get(r"https://www.cryptocompare.com/")
 
-table = driver.find_elements_by_class_name("table-coins")
+data = r.text
+soup = BeautifulSoup(data, 'html5lib')
 
-prices = []
+div = soup.div
+crypto = div.select("div", _class="panel-body")
 
-data = table[0].text.splitlines()
+print(crypto)
 
-for x in data:
-    prices.append(x)
+
+
+# from urllib.request import urlopen as uReq
+# from selenium import webdriver
+# from selenium.webdriver.common.by import By
+
+# chrome_path = r"C:\Users\dell\Desktop\chromeDriver\chromedriver.exe"
+# driver = webdriver.Chrome(chrome_path)
+# url = r"https://www.cryptocompare.com/coins/list/USD/1"
+# driver.get(url)
+
+# table = driver.find_elements_by_class_name("table-coins")
+
+# prices = []
+
+# data = table[0].text.splitlines()
+
+# for x in data:
+#     prices.append(x)
