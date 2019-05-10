@@ -28,10 +28,23 @@ driver.get(url)
 time.sleep(15)
 table = driver.find_elements_by_class_name("table-coins")
 
-prices = []
-
 data = table[0].text.splitlines()
 
-for x in data:
-    prices.append(x)
-print(prices)
+client = MongoClient()
+db = client['crypto']
+prices = db.crypto_data_prices
+
+x = 7
+
+while x < len(data):
+    entry = {}
+    entry['id#'] = data[x]
+    entry['coinName'] = data[x + 1]
+    entry['coinSName'] = data[x + 2]
+    entry['coinPrice'] = data[x + 3]
+    entry['coinTotal'] = data[x + 4]
+    entry['coin24'] = data[x + 5]
+    x += 6
+    prices.insert_one(entry)
+    
+
