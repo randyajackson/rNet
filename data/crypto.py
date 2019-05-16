@@ -46,7 +46,6 @@ def collect():
 
     driver.refresh()
     time.sleep(5)
-    #test
 
 collect()
 
