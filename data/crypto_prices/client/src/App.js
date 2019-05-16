@@ -1,10 +1,15 @@
 import React from 'react';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello World</h1>
+function App(){
+  
+  const sayHello = () => {
+    alert("hello");
+  };
+
+  return(
+    <div> 
+      <h1>Hello React</h1>
+      <button onClick={sayHello}>Hello</button>
     </div>
   );
 }
