@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 //import axios from "axios";
 
 //const mongoose = require('../node_modules/mongoose');
-//test2
 //mongoose.Promise = global.Promise;
 //mongoose.Connect("mongodb://localhost:5000/crypto");
 
