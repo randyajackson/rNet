@@ -5,8 +5,15 @@ var mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:5000/crypto");
 
-function App(){
+function getDataFromDb() 
+{
+  fetch("http://localhost:3001/api/getData")
+    .then(data => data.json())
+    .then(res => this.setState({ data: res.data }));
+};
 
+
+function App(){
   return(
     <div> 
       <h1>Hello React</h1>
