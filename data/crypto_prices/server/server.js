@@ -4,7 +4,6 @@ const mongoose = require("mongoose")
 const app = express()
 
 app.use(express.json())
-
 const db = "mongodb://localhost/crypto"
 
 mongoose.connect(db, ({useNewUrlParser: true}))

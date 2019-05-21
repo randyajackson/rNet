@@ -1,24 +1,41 @@
-import React from 'react';
-import axios from "axios";
+import React, { Component } from 'react';
+//import axios from "axios";
 
-var mongoose = require("mongoose");
-mongoose.Promise = global.Promise;
-mongoose.connect("mongodb://localhost:5000/crypto");
+//const mongoose = require('../node_modules/mongoose');
 
-function getDataFromDb() 
+//mongoose.Promise = global.Promise;
+//mongoose.Connect("mongodb://localhost:5000/crypto");
+
+class App extends Component 
 {
-  fetch("http://localhost:3001/api/getData")
-    .then(data => data.json())
-    .then(res => this.setState({ data: res.data }));
-};
 
+  constructor(props) {
+    super(props);
 
-function App(){
-  return(
-    //test
-    <div> 
-      <h1>Hello React</h1>
-    </div>
-  );
+    this.state = {
+      data: null,
+    };
+  }
+
+  componentDidMount() {
+    fetch('http://localhost:5000/crypto')
+      .then(response => response.json())
+      .then(data => this.setState({ data }));
+  }
+
+  render()
+  {
+    const { items } = this.state;
+
+      return(
+      <div> 
+        {items}
+      </div>
+      );
+  }
 }
+
+
+
+
 export default App;
