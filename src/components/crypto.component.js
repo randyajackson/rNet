@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import ReactDOM from 'react-dom';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from 'react-responsive-carousel';
 
 const Price = props => (
     <tr>
@@ -39,6 +42,16 @@ export default class PricesList extends Component {
     }
 
     render() {
+        
+        const items1 = this.state.prices.slice(0, 9).map(
+            (currentprice) => <div><Price price = {currentprice} /></div>
+         )
+        
+        const items2 = this.state.prices.slice(10, 19).map(
+            (currentprice) => <div><Price price = {currentprice} /></div>
+         )
+        
+        //under tbody => { this.pricesList() }
         return (
             <div>
                 <h3>Crypto Prices</h3>
@@ -54,10 +67,18 @@ export default class PricesList extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                        { this.pricesList() }
+                        <Carousel>
+                            <div>
+                                {items1}
+                            </div>
+                            <div>
+                                {items2}
+                            </div>
+                        </Carousel>    
                     </tbody>
                 </table>
             </div>
         );
+        ReactDOM.render(<PricesList />, document.querySelector('.demo-carousel'));
     }
 }
