@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import ReactDOM from 'react-dom';
-import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { Carousel } from 'react-responsive-carousel';
+import '../css/fader.css';
 
 const Price = props => (
     <tr>
@@ -43,20 +41,14 @@ export default class PricesList extends Component {
 
     render() {
         
-        const items1 = this.state.prices.slice(0, 9).map(
-            (currentprice) => <div><Price price = {currentprice} /></div>
-         )
+        let items;
+
+        while (true) {
+            items = this.state.prices.slice(0, 9).map(
+                (currentprice) => <Price price = {currentprice} />)
         
-        const items2 = this.state.prices.slice(10, 19).map(
-            (currentprice) => <div><Price price = {currentprice} /></div>
-         )
-        
-        //under tbody => { this.pricesList() }
-        return (
-            <div>
-                <h3>Crypto Prices</h3>
-                <table className = "table">
-                    <thead className = "thead-light">
+        let output = <table className = "table">
+                        <thead className = "thead-light">
                         <tr>
                             <th>ID Number</th>
                             <th>Coin Name</th>
@@ -65,20 +57,18 @@ export default class PricesList extends Component {
                             <th>Coin Total</th>
                             <th>Coin Price Last 24</th>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <Carousel>
-                            <div>
-                                {items1}
-                            </div>
-                            <div>
-                                {items2}
-                            </div>
-                        </Carousel>    
-                    </tbody>
-                </table>
+                        </thead>    
+                        <tbody class="elementToFadeInAndOut">
+                            { items }
+                        </tbody>
+                    </table>
+                    
+        return (
+            <div>
+                <h3>Crypto Prices</h3>
+                {output}
             </div>
         );
-        ReactDOM.render(<PricesList />, document.querySelector('.demo-carousel'));
+        }
     }
 }

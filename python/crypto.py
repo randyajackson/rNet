@@ -3,6 +3,7 @@ from urllib.request import urlopen as uReq
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from pymongo import MongoClient
+import pymongo
 import threading
 
 chrome_path = r"C:\Users\dell\Desktop\chromeDriver\chromedriver.exe"
@@ -26,23 +27,33 @@ def collect():
     db = client['crypto']
     prices = db.crypto_data_prices
 
-    x = 7
+    x = 1
 
-    while x < len(data):
-        prices.update_one(
-            {"coinName" : data[x + 1] },
-                {"$set" :
-                    {
-                        'id#' : data[x],
-                        'coinName' : data[x + 1],
-                        'coinSName' : data[x + 2],
-                        'coinPrice' : data[x + 3],
-                        'coinTotal' : data[x + 4],
-                        'coin24' : data[x + 5]
+    while x < len(data):   
+            prices.update_one(
+                {"coinName" : data[x + 1] },
+                    {"$set" :
+                        {
+                            'id#' : data[x],
+                            'coinName' : data[x + 1],
+                            'coinSName' : data[x + 2],
+                            'coinPrice' : data[x + 3],
+                            'coinTotal' : data[x + 4],
+                            'coin24' : data[x + 5]
+                        }
                     }
-                }
-        )
-        x += 6
+            )
+            # prices.insert_one(
+            #     {
+            #         'id#' : data[x],
+            #         'coinName' : data[x + 1],
+            #         'coinSName' : data[x + 2],
+            #         'coinPrice' : data[x + 3],
+            #         'coinTotal' : data[x + 4],
+            #         'coin24' : data[x + 5]        
+            #     }
+            # )
+            x += 6
 
     driver.refresh()
     time.sleep(5)
