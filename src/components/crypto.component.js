@@ -24,13 +24,15 @@ export default class PricesList extends Component {
 
     componentDidMount()
     {
-        axios.get('http://localhost:5000/crypto')
-        .then(response => {
-            this.setState({ prices: response.data})
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        setInterval( () => {
+            axios.get('http://localhost:5000/crypto')
+            .then(response => {
+                this.setState({ prices: response.data})
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+        }, 3000)
     }
 
     pricesList() {
@@ -42,12 +44,13 @@ export default class PricesList extends Component {
     render() {
         
         let items;
+        let cycle = 0;
+        let output;
 
-        while (true) {
-            items = this.state.prices.slice(0, 9).map(
-                (currentprice) => <Price price = {currentprice} />)
+            items = this.state.prices.slice(cycle, cycle + 9).map(
+                (currentprice) =>  <Price price = {currentprice} />)
         
-        let output = <table className = "table">
+            output = <table className = "table">
                         <thead className = "thead-light">
                         <tr>
                             <th>ID Number</th>
@@ -63,12 +66,12 @@ export default class PricesList extends Component {
                         </tbody>
                     </table>
                     
-        return (
-            <div>
-                <h3>Crypto Prices</h3>
-                {output}
-            </div>
-        );
+            return (
+                <div>
+                    <h3>Crypto Prices</h3>
+                    {output}
+                </div>
+            );
+            
         }
     }
-}
