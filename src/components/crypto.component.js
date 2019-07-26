@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../css/fader.css';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 
 const Price = props => (
     <tr>
@@ -35,43 +35,61 @@ export default class PricesList extends Component {
         }, 3000)
     }
 
-    pricesList() {
-        return this.state.prices.map(currentprice => {
-            return <Price price = {currentprice} />;
-        })
-    }
-
     render() {
-        
-        let items;
-        let cycle = 0;
-        let output;
+        var outputData = new Array(10);
 
-            items = this.state.prices.slice(cycle, cycle + 9).map(
+        for(var i = 0; i < 10; i++)
+        {
+            outputData[i] = this.state.prices.slice(i * 10, i + 9).map(
                 (currentprice) =>  <Price price = {currentprice} />)
-        
-            output = <table className = "table">
-                        <thead className = "thead-light">
-                        <tr>
-                            <th>ID Number</th>
-                            <th>Coin Name</th>
-                            <th>Coin Short Name</th>
-                            <th>Coin Price</th>
-                            <th>Coin Total</th>
-                            <th>Coin Price Last 24</th>
-                        </tr>
-                        </thead>    
-                        <tbody class="elementToFadeInAndOut">
-                            { items }
-                        </tbody>
+        }
+
+        for(var i = 0; i < 10; i++)
+        {
+            outputData[i] =  <div>
+            <h3>Crypto Prices</h3>
+            <table className = "table">
+            <thead className = "thead-light">
+            <tr>
+                <th>ID Number</th>
+                <th>Coin Name</th>
+                <th>Coin Short Name</th>
+                <th>Coin Price</th>
+                <th>Coin Total</th>
+                <th>Coin Price Last 24</th>
+            </tr>
+            </thead>    
+            <tbody>
+             {outputData[i]} 
+             </tbody>
                     </table>
+            </div>;
+        }
                     
-            return (
-                <div>
-                    <h3>Crypto Prices</h3>
-                    {output}
-                </div>
-            );
+        return (
+            
+            <CarouselProvider
+            naturalSlideWidth={100}
+            naturalSlideHeight={125}
+            totalSlides={10}
+          >
+                            <Slider>
+                            <Slide index={0}><div className="my-slide primary">{outputData[0]}</div></Slide>
+                            <Slide index={1}><div className="my-slide primary">{outputData[1]}</div></Slide>
+                            <Slide index={2}><div className="my-slide primary">{outputData[2]}</div></Slide>
+                            <Slide index={3}><div className="my-slide primary">{outputData[3]}</div></Slide>
+                            <Slide index={4}><div className="my-slide primary">{outputData[4]}</div></Slide>
+                            <Slide index={5}><div className="my-slide primary">{outputData[5]}</div></Slide>
+                            <Slide index={6}><div className="my-slide primary">{outputData[6]}</div></Slide>
+                            <Slide index={7}><div className="my-slide primary">{outputData[7]}</div></Slide>
+                            <Slide index={8}><div className="my-slide primary">{outputData[8]}</div></Slide>
+                            <Slide index={9}><div className="my-slide primary">{outputData[9]}</div></Slide>
+                            </Slider>
+            </CarouselProvider>
+                        
+        );
             
         }
+
+
     }
