@@ -12,23 +12,29 @@ const Price = props => (
         <td>{props.price.coinSName}</td>
         
         {(() => {
-            if (parseCurrency(props.price.coinPrice) > parseCurrency(props.prevPrice.coinPrice))
-                {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice}</td>)}
-            else if (parseCurrency(props.price.coinPrice) < parseCurrency(props.prevPrice.coinPrice))
-                {return(<td style = {{color: 'red'}}>{props.price.coinPrice}</td>)}
-            else
-                {return(<td style = {{color: 'black'}}>{props.price.coinPrice}</td>)}
+            if(typeof props.prevPrice !== "undefined")
+            {
+                if (parseCurrency(props.price.coinPrice) > parseCurrency(props.prevPrice.coinPrice))
+                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice}</td>)}
+                else if (parseCurrency(props.price.coinPrice) < parseCurrency(props.prevPrice.coinPrice))
+                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice}</td>)}
+                else
+                    {return(<td style = {{color: 'black'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice} </td>)}
+            }
         })()}
 
         <td>{props.price.coinTotal}</td>
 
         {(() => {
-            if (parseCurrency(props.price.coin24) > parseCurrency(props.price.coin24))
-                {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.price.coin24)} {props.price.coin24} {props.prevPrice.coin24}</td>)}    
-            else if (parseCurrency(props.price.coin24) < parseCurrency(props.prevPrice.coin24))
-                {return(<td style = {{color: 'red'}}>{props.price.coin24} {props.prevPrice.coin24}</td>)}
-            else
-                {return(<td style = {{color: 'black'}}>{props.price.coin24} {props.prevPrice.coin24}</td>)}
+            if(typeof props.prevPrice !== "undefined")
+            {
+                if (parseCurrency(props.price.coin24) > parseCurrency(props.price.coin24))
+                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} </td>)}    
+                else if (parseCurrency(props.price.coin24) < parseCurrency(props.prevPrice.coin24))
+                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} </td>)}
+                else
+                    {return(<td style = {{color: 'black'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} </td>)}
+            }
         })()} 
 
     </tr>
@@ -40,7 +46,7 @@ export default class PricesList extends Component {
         super(props);
 
         this.state = { 
-                        prices: [] ,
+                        prices: [],
                         prices1: [],
                         prices2: [],
                         prices3: [],
@@ -71,17 +77,8 @@ export default class PricesList extends Component {
             axios.get('http://localhost:5000/crypto')
             
             .then(response => {
+                this.getPrevPrice();
                 this.setState({
-                    prevPrices1 : this.state.prices1.map(obj => ({...obj})),
-                    prevPrices2 : this.state.prices2.map(obj => ({...obj})),
-                    prevPrices3 : this.state.prices3.map(obj => ({...obj})),
-                    prevPrices4 : this.state.prices4.map(obj => ({...obj})),
-                    prevPrices5 : this.state.prices5.map(obj => ({...obj})),
-                    prevPrices6 : this.state.prices6.map(obj => ({...obj})),
-                    prevPrices7 : this.state.prices7.map(obj => ({...obj})),
-                    prevPrices8 : this.state.prices8.map(obj => ({...obj})),
-                    prevPrices9 : this.state.prices9.map(obj => ({...obj})),
-                    prevPrices10 : this.state.prices10.map(obj => ({...obj})),
 
                     prices: response.data,
 
@@ -96,45 +93,63 @@ export default class PricesList extends Component {
                     prices9: response.data.slice(80,89),
                     prices10: response.data.slice(90,99)
                 })
+                
             })
             .catch((error) => {
                 console.log(error);
             })
         }, 3000)
+        
+    }
+
+    getPrevPrice()
+    {
+        this.setState({
+            prevPrices1 : this.state.prices1.slice(),
+            prevPrices2 : this.state.prices2.slice(),
+            prevPrices3 : this.state.prices3.slice(),
+            prevPrices4 : this.state.prices4.slice(),
+            prevPrices5 : this.state.prices5.slice(),
+            prevPrices6 : this.state.prices6.slice(),
+            prevPrices7 : this.state.prices7.slice(),
+            prevPrices8 : this.state.prices8.slice(),
+            prevPrices9 : this.state.prices9.slice(),
+            prevPrices10 : this.state.prices10.slice(),
+        });
     }
 
     render() {
         var outputData = new Array(10);
 
         outputData[0] = this.state.prices1.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices1} />)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices1[index]} />)
 
         outputData[1] = this.state.prices2.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices2}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices2[index]}/>)
 
         outputData[2] = this.state.prices3.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices3}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices3[index]}/>)
 
         outputData[3] = this.state.prices4.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices4}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices4[index]}/>)
         
         outputData[4] = this.state.prices5.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices5}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices5[index]}/>)
 
         outputData[5] = this.state.prices6.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices6}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices6[index]}/>)
 
         outputData[6] = this.state.prices7.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices7}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices7[index]}/>)
 
         outputData[7] = this.state.prices8.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices8}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices8[index]}/>)
 
         outputData[8] = this.state.prices9.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices9}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices9[index]}/>)
         
         outputData[9] = this.state.prices10.map(
-            (currentprice) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices10}/>)
+            (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices10[index]}/>)
         
 
         for(var i = 0; i < 10; i++)
