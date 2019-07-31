@@ -15,9 +15,9 @@ const Price = props => (
             if(typeof props.prevPrice !== "undefined")
             {
                 if (parseCurrency(props.price.coinPrice) > parseCurrency(props.prevPrice.coinPrice))
-                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice}</td>)}
+                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice} {'⬆'}</td>)}
                 else if (parseCurrency(props.price.coinPrice) < parseCurrency(props.prevPrice.coinPrice))
-                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice}</td>)}
+                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice} {'⬇'} </td>)}
                 else
                     {return(<td style = {{color: 'black'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice} </td>)}
             }
@@ -29,9 +29,9 @@ const Price = props => (
             if(typeof props.prevPrice !== "undefined")
             {
                 if (parseCurrency(props.price.coin24) > parseCurrency(props.price.coin24))
-                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} </td>)}    
+                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} {'⬆'}</td>)}    
                 else if (parseCurrency(props.price.coin24) < parseCurrency(props.prevPrice.coin24))
-                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} </td>)}
+                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} {'⬇'}</td>)}
                 else
                     {return(<td style = {{color: 'black'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} </td>)}
             }
