@@ -2,15 +2,15 @@ div.slide {
     position: absolute;
 
     left: 125px;
-    top: 225px;
+    top: 150px;
 
     padding-right: 100px;
     padding-left: -10px;
 
     border-radius: 25px;
-    box-shadow: 10px 10px 8px #888888;
+    
     background: rgb(9,96,121);
-    background: linear-gradient(180deg, rgba(9,96,121,1) 0%, rgba(78,171,198,1) 51%, rgba(131,226,254,1) 100%);
+    background: linear-gradient(180deg, rgba(9,96,121,1) 0%, rgba(78,171,198,.5) 51%, rgba(131,226,254,0.2) 100%);
 }
 
 table{
@@ -29,6 +29,26 @@ table{
     
 }
 
+.changeGreen{
+-webkit-animation: greenFlash 5s;
+}
+
+@keyframes greenFlash{
+    0% {color: green;}
+    100% {color: white;}
+}
+
+.changeRed{
+-webkit-animation: redFlash 5s;
+}
+
+@keyframes redFlash{
+    0% {color: red;}
+    100% {color: white;}
+}
+
+
+
 thead>tr{
     text-align: right;    
 }
@@ -38,10 +58,18 @@ thead>th{
 }
 
 tbody>tr{
-text-align: right;
+    text-align: right;
 }
 
 tbody>td{
     padding: 5px;
 }
+
+#bgVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
 

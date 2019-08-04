@@ -5,6 +5,7 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import parseCurrency from 'parse-currency';
 import '../css/Crypto_Component.css'
+import background from '../videos/test.mp4';
 
 const Price = props => (
     <tr>
@@ -15,9 +16,9 @@ const Price = props => (
             if(typeof props.prevPrice !== "undefined")
             {
                 if (parseCurrency(props.price.coinPrice) > parseCurrency(props.prevPrice.coinPrice))
-                    {return(<td style = {{color: 'green'}}>{'⬆'}{props.price.coinPrice}</td>)}
+                    {return(<td className = "changeGreen" >{'⬆'}{props.price.coinPrice}</td>)}
                 else if (parseCurrency(props.price.coinPrice) < parseCurrency(props.prevPrice.coinPrice))
-                    {return(<td style = {{color: 'red'}}>{'⬇'}{props.price.coinPrice}</td>)}
+                    {return(<td className = "changeRed" >{'⬇'}{props.price.coinPrice}</td>)}
                 else
                     {return(<td>{props.price.coinPrice}</td>)}
             }
@@ -31,9 +32,9 @@ const Price = props => (
             if(typeof props.prevPrice !== "undefined")
             {
                 if (parseCurrency(props.price.coin24) > parseCurrency(props.prevPrice.coin24))
-                    {return(<td style = {{color: 'green'}}>{'⬆'}{props.price.coin24}</td>)}    
+                    {return(<td className = "changeGreen">{'⬆'}{props.price.coin24}</td>)}    
                 else if (parseCurrency(props.price.coin24) < parseCurrency(props.prevPrice.coin24))
-                    {return(<td style = {{color: 'red'}}>{'⬇'}{props.price.coin24}</td>)}
+                    {return(<td className = "changeRed">{'⬇'}{props.price.coin24}</td>)}
                 else
                     {return(<td>{props.price.coin24}</td>)}
             }
@@ -163,10 +164,10 @@ export default class PricesList extends Component {
             <thead>
             <tr>
                 <th>Coin Name</th>
-                <th>Coin Short Name</th>
-                <th>Coin Price</th>
-                <th>Coin Total</th>
-                <th>Coin Price Last 24</th>
+                <th>Short Name</th>
+                <th>Price</th>
+                <th>Total</th>
+                <th>Price Last 24 Hours</th>
             </tr>
             </thead>    
             <tbody>
@@ -177,6 +178,10 @@ export default class PricesList extends Component {
         }
                     
         return (
+            <React.Fragment>
+            <video muted loop autoPlay id="bgVideo">
+                <source src= {background} type="video/mp4" />
+            </video>
             
             <CarouselProvider
             naturalSlideWidth={100}
@@ -198,6 +203,7 @@ export default class PricesList extends Component {
                             <Slide index={9}>{outputData[9]}</Slide>
                             </Slider>
             </CarouselProvider>
+            </React.Fragment>
                         
         );
             
