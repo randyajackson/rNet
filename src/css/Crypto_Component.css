@@ -1,0 +1,47 @@
+div.slide {
+    position: absolute;
+
+    left: 125px;
+    top: 225px;
+
+    padding-right: 100px;
+    padding-left: -10px;
+
+    border-radius: 25px;
+    box-shadow: 10px 10px 8px #888888;
+    background: rgb(9,96,121);
+    background: linear-gradient(180deg, rgba(9,96,121,1) 0%, rgba(78,171,198,1) 51%, rgba(131,226,254,1) 100%);
+}
+
+table{
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 5px 20px;
+    width: 1500px;
+    text-align: center;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 25px;
+    color: white;
+    text-shadow:
+      1px 1px 1px #000,
+      1px 2px 1px #000,
+      1px 3px 1px #000;
+    
+}
+
+thead>tr{
+    text-align: right;    
+}
+
+thead>th{
+    font-size: 35px;
+}
+
+tbody>tr{
+text-align: right;
+}
+
+tbody>td{
+    padding: 5px;
+}
+
