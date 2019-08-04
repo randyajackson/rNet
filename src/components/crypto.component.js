@@ -5,6 +5,7 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import parseCurrency from 'parse-currency';
 
+//test
 const Price = props => (
     <tr>
         <td>{props.price.id_number}</td>
