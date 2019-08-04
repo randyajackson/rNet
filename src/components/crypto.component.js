@@ -5,7 +5,6 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import parseCurrency from 'parse-currency';
 
-//test
 const Price = props => (
     <tr>
         <td>{props.price.id_number}</td>
@@ -16,12 +15,14 @@ const Price = props => (
             if(typeof props.prevPrice !== "undefined")
             {
                 if (parseCurrency(props.price.coinPrice) > parseCurrency(props.prevPrice.coinPrice))
-                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice} {'⬆'}</td>)}
+                    {return(<td style = {{color: 'green'}}>{props.price.coinPrice}{'⬆'}</td>)}
                 else if (parseCurrency(props.price.coinPrice) < parseCurrency(props.prevPrice.coinPrice))
-                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice} {'⬇'} </td>)}
+                    {return(<td style = {{color: 'red'}}>{props.price.coinPrice}{'⬇'}</td>)}
                 else
-                    {return(<td style = {{color: 'black'}}>{parseCurrency(props.price.coinPrice)} {parseCurrency(props.prevPrice.coinPrice)} {props.price.coinPrice} </td>)}
+                    {return(<td style = {{color: 'black'}}>{props.price.coinPrice}</td>)}
             }
+            else
+                {return(<td style = {{color: 'black'}}>{props.price.coinPrice}</td>)}
         })()}
 
         <td>{props.price.coinTotal}</td>
@@ -30,12 +31,14 @@ const Price = props => (
             if(typeof props.prevPrice !== "undefined")
             {
                 if (parseCurrency(props.price.coin24) > parseCurrency(props.price.coin24))
-                    {return(<td style = {{color: 'green'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} {'⬆'}</td>)}    
+                    {return(<td style = {{color: 'green'}}>{props.price.coin24}{'⬆'}</td>)}    
                 else if (parseCurrency(props.price.coin24) < parseCurrency(props.prevPrice.coin24))
-                    {return(<td style = {{color: 'red'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} {'⬇'}</td>)}
+                    {return(<td style = {{color: 'red'}}>{props.price.coin24}{'⬇'}</td>)}
                 else
-                    {return(<td style = {{color: 'black'}}>{parseCurrency(props.price.coin24)} {parseCurrency(props.prevPrice.coin24)} {props.price.coin24} </td>)}
+                    {return(<td style = {{color: 'black'}}>{props.price.coin24}</td>)}
             }
+            else
+            {return(<td style = {{color: 'black'}}>{props.price.coin24}</td>)}
         })()} 
 
     </tr>
@@ -157,8 +160,8 @@ export default class PricesList extends Component {
         {
             outputData[i] =  <div>
             <h3>Crypto Prices</h3>
-            <table className = "table">
-            <thead className = "thead-light">
+            <table>
+            <thead>
             <tr>
                 <th>ID Number</th>
                 <th>Coin Name</th>
