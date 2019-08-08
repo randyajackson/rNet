@@ -6,7 +6,7 @@ const url = 'https://www.vulture.com/article/new-on-netflix-movies-shows-origina
 axios.get(url)
 .then(response => {
     const $ = cheerio.load(response.data)
-    console.log($('clay-paragraph').contains('clay-paragraph','em').text());
+    console.log(  $('p[class=clay-paragraph]').find($('em')).text()  );
 })
 .catch(error => {
     console.log(error);
