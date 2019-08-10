@@ -1,6 +1,7 @@
 const sort = require('js-flock/sort');
 const axios = require('axios');
 const mongoose = require('mongoose');
+const jq = require('node-jq');
 
 const allURL = "http://api.steampowered.com/ISteamApps/GetAppList/v2/";
 const singleURL = "https://store.steampowered.com/api/appdetails?appids=";
@@ -37,6 +38,7 @@ dataCollect.getAll().then(function(result){
     } 
     console.log(fullList);
 });
+
 
 
 
