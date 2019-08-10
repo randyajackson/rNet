@@ -28,6 +28,7 @@ def collect():
     prices = db.crypto_data_prices
 
     x = 1
+    #print(data)
 
     while x < len(data):   
             prices.update_one(
@@ -39,7 +40,7 @@ def collect():
                             'coinSName' : data[x + 2],
                             'coinPrice' : data[x + 3],
                             'coinTotal' : data[x + 4],
-                            'coin24' : data[x + 5]
+                            'coin24' : data[x + 6]
                         }
                     }
             )
@@ -53,7 +54,7 @@ def collect():
             #         'coin24' : data[x + 5]        
             #     }
             # )
-            x += 6
+            x += 7
 
     driver.refresh()
     time.sleep(5)
