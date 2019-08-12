@@ -6,6 +6,7 @@ const jq = require('node-jq');
 
 const allURL = "http://api.steampowered.com/ISteamApps/GetAppList/v2/";
 const singleURL = "https://store.steampowered.com/api/appdetails?appids=";
+var queryURL;
 
 var fullList = [];
 var detailList = [];
@@ -45,40 +46,44 @@ function getIDArray(result){
 }
 
 function getDetails(idArray){
+
     for(var i = 0; i < idArray.length; i++)
     {
-        detailList = processQuery(idArray[i], detailList);    
+        processQuery(idArray[i], detailList);    
     } 
     
-    console.log(detailList);
-
-    return detailList;
+    return;
 }
 
 function processQuery(id, descriptionArray){
-    axios.get(singleURL + id)
+    queryURL = 'https://store.steampowered.com/api/appdetails?appids=' + id;
+
+    axios.get(queryURL)
         .then(fullDetailQuery => {
 
-            if(fullDetailQuery[id]["success"] == true
-            && fullDetailQuery[id]["data"]["type"] == "game"
-            && fullDetailQuery[id]["data"]["release_date"]["coming_soon"] == false)
+            //if(fullDetailQuery.data[id]["success"] === true)
+            //&& fullDetailQuery.data[id]["data"]["type"] == "game"
+            //&& fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] == false)
+                console.log(fullDetailQuery.data);
 
-                queryResult["id"] = id;
-                queryResult["name"] = fullDetailQuery[id]["data"]["name"];
-                queryResult["release_date"] = fullDetailQuery[id]["data"]["release_date"]["date"];
-                queryResult["short_description"] = fullDetailQuery[id]["data"]["short_description"];
-                queryResult["header_image"] = fullDetailQuery[id]["data"]["header_image"];
-                queryResult["price"] = fullDetailQuery[id]["data"]["price_overview"]["final_formatted"];
-                queryResult["genres"] = fullDetailQuery[id]["data"]["genres"];
+                //queryResult["id"] = id;
+                //queryResult["name"] = fullDetailQuery.data[toString(id)]["data"]["name"];
+                //queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
+                //queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
+                //queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
+                //queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
+                //queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
+                
+                //console.log(queryResult);
 
-                descriptionArray.push(queryResult);
+                //descriptionArray.push(queryResult);
 
-                queryResult = {};
-            
-            return descriptionArray;
+                //queryResult = {};
 
         })
-        .catch(error => { console.log(error) });
+        .catch(error => { console.log(error.response.data) });
+
+    return;
 }
 
 
