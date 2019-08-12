@@ -42,6 +42,7 @@ function getIDArray(result){
         appid = result.data["applist"]["apps"][i]["appid"];
         fullList.push(appid);
     } 
+    console.log(fullList)
     return fullList;
 }
 
@@ -49,19 +50,19 @@ function getDetails(idArray){
 
     for(var i = 0; i < idArray.length; i++)
     {
-        processQuery(idArray[i], detailList);    
+        processQuery(idArray[i], detailList);
     } 
     
     return;
 }
 
-function processQuery(id, descriptionArray){
+async function processQuery(id, descriptionArray){
     queryURL = 'https://store.steampowered.com/api/appdetails?appids=' + id;
 
     axios.get(queryURL)
         .then(fullDetailQuery => {
 
-            //if(fullDetailQuery.data[id]["success"] === true)
+            if(fullDetailQuery.data[id]["success"] === true)
             //&& fullDetailQuery.data[id]["data"]["type"] == "game"
             //&& fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] == false)
                 console.log(fullDetailQuery.data);
@@ -80,10 +81,9 @@ function processQuery(id, descriptionArray){
 
                 //queryResult = {};
 
-        })
-        .catch(error => { console.log(error.response.data) });
+        });
 
-    return;
+    return descriptionArray;
 }
 
 
