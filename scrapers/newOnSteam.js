@@ -32,7 +32,7 @@ dataCollect();
 function dataCollect(){
     axios.get(allURL)
     .then(result => getIDArray(result))
-    .then(idArray => getDetails(idArray))
+    //.then(idArray => getDetails(idArray))
     .catch(error => { console.log(error)});
 }
 
@@ -42,49 +42,49 @@ function getIDArray(result){
         appid = result.data["applist"]["apps"][i]["appid"];
         fullList.push(appid);
     } 
-    console.log(fullList)
+    console.log(fullList);
     return fullList;
 }
 
-function getDetails(idArray){
+// async function getDetails(idArray){
 
-    for(var i = 0; i < idArray.length; i++)
-    {
-        processQuery(idArray[i], detailList);
-    } 
+//     for(var i = 0; i < idArray.length; i++)
+//     {
+//         await processQuery(idArray[i], detailList);
+//     } 
     
-    return;
-}
+//     return;
+// }
 
-async function processQuery(id, descriptionArray){
-    queryURL = 'https://store.steampowered.com/api/appdetails?appids=' + id;
+//  function processQuery(id, descriptionArray){
+//     queryURL = 'https://store.steampowered.com/api/appdetails?appids=' + id;
 
-    axios.get(queryURL)
-        .then(fullDetailQuery => {
+//     axios.get(queryURL)
+//         .then(fullDetailQuery => {
 
-            if(fullDetailQuery.data[id]["success"] === true)
-            //&& fullDetailQuery.data[id]["data"]["type"] == "game"
-            //&& fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] == false)
-                console.log(fullDetailQuery.data);
+//             if(fullDetailQuery.data[id]["success"] === true)
+//             //&& fullDetailQuery.data[id]["data"]["type"] == "game"
+//             //&& fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] == false)
+//                 console.log(fullDetailQuery.data);
 
-                //queryResult["id"] = id;
-                //queryResult["name"] = fullDetailQuery.data[toString(id)]["data"]["name"];
-                //queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
-                //queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
-                //queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
-                //queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
-                //queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
+//                 //queryResult["id"] = id;
+//                 //queryResult["name"] = fullDetailQuery.data[toString(id)]["data"]["name"];
+//                 //queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
+//                 //queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
+//                 //queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
+//                 //queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
+//                 //queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
                 
-                //console.log(queryResult);
+//                 //console.log(queryResult);
 
-                //descriptionArray.push(queryResult);
+//                 //descriptionArray.push(queryResult);
 
-                //queryResult = {};
+//                 //queryResult = {};
 
-        });
+//         });
 
-    return descriptionArray;
-}
+//     return descriptionArray;
+// }
 
 
 
