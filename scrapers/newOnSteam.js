@@ -30,10 +30,15 @@ var genres;
 dataCollect();
 
 function dataCollect(){
+
     axios.get(allURL)
     .then(result => getIDArray(result))
-    //.then(idArray => getDetails(idArray))
-    .catch(error => { console.log(error)});
+    .then(arrayResult => { console.log(arrayResult) })
+    .then(idArray => getDetails(idArray))
+    .catch(error => { console.log(error) });
+
+    
+    //.catch(error => { console.log(error)});
 }
 
 function getIDArray(result){
@@ -43,48 +48,58 @@ function getIDArray(result){
         fullList.push(appid);
     } 
     console.log(fullList);
+
     return fullList;
 }
 
-// async function getDetails(idArray){
+async function getDetails(idArray){
 
-//     for(var i = 0; i < idArray.length; i++)
-//     {
-//         await processQuery(idArray[i], detailList);
-//     } 
+    idArray = Promise.resolve(idArray);
     
-//     return;
-// }
+    let fullDescPromises = [];
 
-//  function processQuery(id, descriptionArray){
-//     queryURL = 'https://store.steampowered.com/api/appdetails?appids=' + id;
+    for(var i = 0; i < idArray.length; i++)
+    {
+        fullDescPromises.push( processQuery(idArray[i], detailList ) );
+    } 
 
-//     axios.get(queryURL)
-//         .then(fullDetailQuery => {
+    Promise.all(fullDescPromises)
+    .then(results => { console.log(fullDescPromises) })
+    .catch(error => { console.log(error) });
+    
+    return fullDescPromises;
+}
 
-//             if(fullDetailQuery.data[id]["success"] === true)
-//             //&& fullDetailQuery.data[id]["data"]["type"] == "game"
-//             //&& fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] == false)
-//                 console.log(fullDetailQuery.data);
+ function processQuery(id, descriptionArray){
+    queryURL = 'https://store.steampowered.com/api/appdetails?appids=' + id;
 
-//                 //queryResult["id"] = id;
-//                 //queryResult["name"] = fullDetailQuery.data[toString(id)]["data"]["name"];
-//                 //queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
-//                 //queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
-//                 //queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
-//                 //queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
-//                 //queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
+    axios.get(queryURL)
+        .then(fullDetailQuery => {
+
+            if(fullDetailQuery.data[id]["success"] === true
+            && fullDetailQuery.data[id]["data"]["type"] === "game"
+            && fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] === false)
+                //console.log(fullDetailQuery.data);
+
+                queryResult["id"] = id;
+                queryResult["name"] = fullDetailQuery.data[toString(id)]["data"]["name"];
+                queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
+                queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
+                queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
+                queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
+                queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
                 
-//                 //console.log(queryResult);
+                //console.log(queryResult);
 
-//                 //descriptionArray.push(queryResult);
+                descriptionArray.push(queryResult);
 
-//                 //queryResult = {};
+                queryResult = {};
 
-//         });
+        })
+        .catch( error => { console.log(error) });
 
-//     return descriptionArray;
-// }
+    return descriptionArray;
+}
 
 
 
