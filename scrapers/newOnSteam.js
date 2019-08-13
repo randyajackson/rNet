@@ -33,8 +33,7 @@ function dataCollect(){
 
     axios.get(allURL)
     .then(result => getIDArray(result))
-    .then(arrayResult => { console.log(arrayResult) })
-    .then(idArray => getDetails(idArray))
+    .then(idArray => { getDetails(idArray) })
     .catch(error => { console.log(error) });
 
     
@@ -54,9 +53,9 @@ function getIDArray(result){
 
 async function getDetails(idArray){
 
-    idArray = Promise.resolve(idArray);
-    
     let fullDescPromises = [];
+
+    console.log(idArray.length);
 
     for(var i = 0; i < idArray.length; i++)
     {
@@ -64,7 +63,7 @@ async function getDetails(idArray){
     } 
 
     Promise.all(fullDescPromises)
-    .then(results => { console.log(fullDescPromises) })
+    .then(results => { console.log( Promise.resolve(fullDescPromises) ) })
     .catch(error => { console.log(error) });
     
     return fullDescPromises;
@@ -75,14 +74,13 @@ async function getDetails(idArray){
 
     axios.get(queryURL)
         .then(fullDetailQuery => {
-
-            if(fullDetailQuery.data[id]["success"] === true
+            
+            if(fullDetailQuery.data[id]["success"] == true
             && fullDetailQuery.data[id]["data"]["type"] === "game"
-            && fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] === false)
-                //console.log(fullDetailQuery.data);
+            && fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] === "false")
 
                 queryResult["id"] = id;
-                queryResult["name"] = fullDetailQuery.data[toString(id)]["data"]["name"];
+                queryResult["name"] = fullDetailQuery.data[id]["data"]["name"];
                 queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
                 queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
                 queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
