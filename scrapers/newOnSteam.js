@@ -6,7 +6,6 @@ const jq = require('node-jq');
 
 const allURL = "http://api.steampowered.com/ISteamApps/GetAppList/v2/";
 const singleURL = "https://store.steampowered.com/api/appdetails?appids=";
-var queryURL;
 
 var fullList = [];
 var detailList = [];
@@ -27,6 +26,8 @@ var header_image;
 var price;
 var genres;
 //--
+var promise;
+
 dataCollect();
 
 function dataCollect(){
@@ -34,6 +35,7 @@ function dataCollect(){
     axios.get(allURL)
     .then( result => getIDArray(result) )
     .then( result => { getDetails(result) })
+    .then( result => console.log(result) )
     .catch( error => { console.log(error) });
 
 }
@@ -58,19 +60,18 @@ function getIDArray(result){
 
     for(var i = 0; i < idArray.length; i++)
     {
-        fullDescPromises.push( processQuery(idArray[i], detailList ) );
+        promise = processQuery(idArray[i]); 
+        fullDescPromises.push( promise );
     } 
 
-    Promise.all(fullDescPromises)
-    .then(results => { console.log( results ) })
-    .catch(error => { console.log(error) });
+    return Promise.all(fullDescPromises);
     
-    return fullDescPromises;
 }
 
- function processQuery(id, descriptionArray){
+ function processQuery(id){
 
     queryURL = singleURL + id;
+
 
     axios.get(queryURL)
         .then(fullDetailQuery => {
@@ -86,8 +87,8 @@ function getIDArray(result){
             //     queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
             //     queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
             //     queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
-                
-                descriptionArray.push(fullDetailQuery.data);
+            return fullDetailQuery;
+                //descriptionArray.push(fullDetailQuery.data);
 
                 //descriptionArray.push(queryResult);
 
@@ -95,8 +96,9 @@ function getIDArray(result){
 
         })
         .catch( error => { console.log(error) });
+        
 
-    return descriptionArray;
+    
 }
 
 
