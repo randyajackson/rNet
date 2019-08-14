@@ -36,7 +36,7 @@ dataCollect();
 //===
 
 async function dataCollect() {
-    
+
     let allResponse = await axios.get(allURL);
     let allIDs = await getIDArray(allResponse); 
 
@@ -52,6 +52,7 @@ async function dataCollect() {
     } )
     .catch( error => { console.log(error) });
 
+    
 }
 
 function getIDArray(result){
