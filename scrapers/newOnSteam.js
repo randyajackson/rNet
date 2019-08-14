@@ -11,7 +11,6 @@ var queryURL;
 var fullList = [];
 var detailList = [];
 var queryResult = {};
-let fullDescPromises = [];
 
 //--
 var appid;
@@ -33,8 +32,8 @@ dataCollect();
 function dataCollect(){
 
     axios.get(allURL)
-    .then( result => { getIDArray(result) } )
-    .then( result => { getDetails(id) } )
+    .then( result => getIDArray(result) )
+    .then( result => { getDetails(result) })
     .catch( error => { console.log(error) });
 
 }
@@ -52,15 +51,15 @@ function getIDArray(result){
     return fullList;
 }
 
-function getDetails(idArray){
+ function getDetails(idArray){
+    console.log(idArray.length);
+    
+    let fullDescPromises = [];
 
-    queryURL = singleURL + idArray[i];
-
-    axios.get(queryURL)
-    .then(fullDetailQuery => {
-        
-
-    fullDescPromises.push( processQuery(idArray[i], detailList ) );
+    for(var i = 0; i < idArray.length; i++)
+    {
+        fullDescPromises.push( processQuery(idArray[i], detailList ) );
+    } 
 
     Promise.all(fullDescPromises)
     .then(results => { console.log( results ) })
