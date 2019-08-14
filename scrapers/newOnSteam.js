@@ -45,6 +45,7 @@ async function dataCollect() {
     Promise.all(detailQuery)
     .then(x => console.log(x[9].data))
     .catch( error => { console.log(error) });
+    //test
 
 }
 
