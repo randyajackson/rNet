@@ -2,7 +2,9 @@ const sort = require('js-flock/sort');
 const axios = require('axios');
 const mongoose = require('mongoose');
 const jq = require('node-jq');
+var throttledQueue = require('throttled-queue');
 
+var throttle = throttledQueue(5, 1000); // at most 5 requests per second.
 
 const allURL = "http://api.steampowered.com/ISteamApps/GetAppList/v2/";
 const singleURL = "https://store.steampowered.com/api/appdetails?appids=";
@@ -36,7 +38,13 @@ async function dataCollect() {
     let allResponse = await axios.get(allURL);
     let allIDs = await getIDArray(allResponse); 
 
-    let detailQuery = await allIDs.map(x => processQuery(x));
+    allIDs = allIDs.slice(0,10);
+    
+    let detailQuery = await allIDs.map(x => processQuery(x))
+    
+    Promise.all(detailQuery)
+    .then(x => console.log(x))
+    .catch( error => { console.log(error) });
 
 }
 

@@ -21,7 +21,8 @@
     "react-responsive-carousel": "^3.1.49",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
-    "react-video-cover": "^1.2.2"
+    "react-video-cover": "^1.2.2",
+    "throttled-queue": "^1.0.6"
   },
   "scripts": {
     "start": "react-scripts start",
