@@ -11,6 +11,7 @@ var queryURL;
 var fullList = [];
 var detailList = [];
 var queryResult = {};
+let fullDescPromises = [];
 
 //--
 var appid;
@@ -32,66 +33,66 @@ dataCollect();
 function dataCollect(){
 
     axios.get(allURL)
-    .then(result => getIDArray(result))
-    .then(idArray => { getDetails(idArray) })
-    .catch(error => { console.log(error) });
+    .then( result => { getIDArray(result) } )
+    .then( result => { getDetails(id) } )
+    .catch( error => { console.log(error) });
 
-    
-    //.catch(error => { console.log(error)});
 }
 
 function getIDArray(result){
+
     for(var i = 0; i < result.data["applist"]["apps"].length; i++)
     {
         appid = result.data["applist"]["apps"][i]["appid"];
         fullList.push(appid);
     } 
+
     console.log(fullList);
 
     return fullList;
 }
 
-async function getDetails(idArray){
+function getDetails(idArray){
 
-    let fullDescPromises = [];
+    queryURL = singleURL + idArray[i];
 
-    console.log(idArray.length);
+    axios.get(queryURL)
+    .then(fullDetailQuery => {
+        
 
-    for(var i = 0; i < idArray.length; i++)
-    {
-        fullDescPromises.push( processQuery(idArray[i], detailList ) );
-    } 
+    fullDescPromises.push( processQuery(idArray[i], detailList ) );
 
     Promise.all(fullDescPromises)
-    .then(results => { console.log( Promise.resolve(fullDescPromises) ) })
+    .then(results => { console.log( results ) })
     .catch(error => { console.log(error) });
     
     return fullDescPromises;
 }
 
  function processQuery(id, descriptionArray){
-    queryURL = 'https://store.steampowered.com/api/appdetails?appids=' + id;
+
+    queryURL = singleURL + id;
 
     axios.get(queryURL)
         .then(fullDetailQuery => {
-            
-            if(fullDetailQuery.data[id]["success"] == true
-            && fullDetailQuery.data[id]["data"]["type"] === "game"
-            && fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] === "false")
 
-                queryResult["id"] = id;
-                queryResult["name"] = fullDetailQuery.data[id]["data"]["name"];
-                queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
-                queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
-                queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
-                queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
-                queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
+            // if(fullDetailQuery.data[id]["success"] === true
+            // && fullDetailQuery.data[id]["data"]["type"] === "game"
+            // && fullDetailQuery.data[id]["data"]["release_date"]["coming_soon"] === false )
+
+            //     queryResult["id"] = id;
+            //     queryResult["name"] = fullDetailQuery.data[id]["data"]["name"];
+            //     queryResult["release_date"] = fullDetailQuery.data[id]["data"]["release_date"]["date"];
+            //     queryResult["short_description"] = fullDetailQuery.data[id]["data"]["short_description"];
+            //     queryResult["header_image"] = fullDetailQuery.data[id]["data"]["header_image"];
+            //     queryResult["price"] = fullDetailQuery.data[id]["data"]["price_overview"]["final_formatted"];
+            //     queryResult["genres"] = fullDetailQuery.data[id]["data"]["genres"];
                 
-                //console.log(queryResult);
+                descriptionArray.push(fullDetailQuery.data);
 
-                descriptionArray.push(queryResult);
+                //descriptionArray.push(queryResult);
 
-                queryResult = {};
+               //queryResult = {};
 
         })
         .catch( error => { console.log(error) });
