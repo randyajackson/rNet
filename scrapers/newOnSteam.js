@@ -39,11 +39,11 @@ async function dataCollect() {
     let allIDs = await getIDArray(allResponse); 
 
     allIDs = allIDs.slice(0,10);
-    
+
     let detailQuery = await allIDs.map(x => processQuery(x))
     
     Promise.all(detailQuery)
-    .then(x => console.log(x))
+    .then(x => console.log(x[9].data))
     .catch( error => { console.log(error) });
 
 }
