@@ -19,34 +19,38 @@ var queryURL;
 //used for set building / checking
 var isSetBuilt = false;
 var appListSet;
+var displayDesc = [];
 
-var test;
-
-
-test = setTimeout( function (){
-    console.log("in setTimeout");
-    dataCollect();
-}, 5* 60 * 1000);
-
+dataCollect();
 
 //---
+
 
 async function dataCollect() {
 
     let allResponse = await axios.get(allURL);
-    let allIDs = await getIDArray(allResponse); 
-    console.log(appListSet.values())
+    let allIDs = await getIDArray(allResponse, isSetBuilt); 
+
+    console.log("isSetBuilt " + isSetBuilt);
+
+    console.log(appListSet.values());
+
     let detailQuery = await allIDs.map(x => processQuery(x))
     
     Promise.all(detailQuery)
     .then( x => {
-        var displayDesc = narrowArray(x, allIDs);
+        displayDesc = narrowArray(x, allIDs);
         console.log(displayDesc);
     } )
     .catch( error => { console.log(error) });
 
-    
+    setTimeout( function (){
+        dataCollect(); console.log("in setTimeout");
+    //}, 5* 60 * 1000);
+    }, 45000);
 }
+
+
 
 function getIDArray(result){
     
