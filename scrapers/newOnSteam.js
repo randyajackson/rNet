@@ -1,23 +1,33 @@
-const sort = require('js-flock/sort');
 const axios = require('axios');
 const mongoose = require('mongoose');
-const jq = require('node-jq');
-var throttledQueue = require('throttled-queue');
-
-var throttle = throttledQueue(5, 1000); // at most 5 requests per second.
 
 const allURL = "http://api.steampowered.com/ISteamApps/GetAppList/v2/";
 const singleURL = "https://store.steampowered.com/api/appdetails?appids=";
 
-var fullList = [];
+//used in getIDArray
+var fullList = []; 
+var idsToQuery = [];
+var appid;
+
+//used in narrowArray
 var descriptionArray = [];
 var queryResult = {};
 
-//--
-var appid;
+//used in processQuery
 var queryURL;
 
-dataCollect();
+//used for set building / checking
+var isSetBuilt = false;
+var appListSet;
+
+var test;
+
+
+test = setTimeout( function (){
+    console.log("in setTimeout");
+    dataCollect();
+}, 5* 60 * 1000);
+
 
 //---
 
@@ -25,9 +35,7 @@ async function dataCollect() {
 
     let allResponse = await axios.get(allURL);
     let allIDs = await getIDArray(allResponse); 
-
-    allIDs = allIDs.slice(0,10);
-
+    console.log(appListSet.values())
     let detailQuery = await allIDs.map(x => processQuery(x))
     
     Promise.all(detailQuery)
@@ -41,14 +49,38 @@ async function dataCollect() {
 }
 
 function getIDArray(result){
+    
+    idsToQuery = [];
 
-    for(var i = 0; i < result.data["applist"]["apps"].length; i++)
+    if( isSetBuilt === false)
     {
-        appid = result.data["applist"]["apps"][i]["appid"];
-        fullList.push(appid);
-    } 
+        for(var i = 0; i < result.data["applist"]["apps"].length; i++)
+        {
+            appid = result.data["applist"]["apps"][i]["appid"];
+            fullList.push(appid);
+        } 
 
-    return fullList;
+        appListSet = new Set(fullList);
+
+        isSetBuilt = true;
+    }
+    else
+    {
+        for(var i = 0; i < result.data["applist"]["apps"].length; i++)
+        {
+            appid = result.data["applist"]["apps"][i]["appid"];
+
+            if( !appListSet.has(appid) )
+            {
+                idsToQuery.push(appid);
+                appListSet.add(appid)    
+            }
+        }         
+    }
+
+    console.log(appListSet.values())
+
+    return idsToQuery;
 }
 
 async function processQuery(id){
