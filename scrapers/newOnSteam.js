@@ -1,3 +1,4 @@
+//@ts-check
 const axios = require('axios');
 const mongoose = require('mongoose');
 
@@ -29,7 +30,9 @@ dataCollect();
 async function dataCollect() {
 
     let allResponse = await axios.get(allURL);
-    let allIDs = await getIDArray(allResponse, isSetBuilt); 
+
+    idsToQuery = [];
+    let allIDs = await getIDArray(allResponse); 
 
     console.log("isSetBuilt " + isSetBuilt);
 
@@ -41,20 +44,20 @@ async function dataCollect() {
     .then( x => {
         displayDesc = narrowArray(x, allIDs);
         console.log(displayDesc);
+        console.log( Promise.resolve(displayDesc) );
+        
     } )
     .catch( error => { console.log(error) });
 
     setTimeout( function (){
         dataCollect(); console.log("in setTimeout");
     //}, 5* 60 * 1000);
-    }, 45000);
+    }, 60000);
 }
 
 
 
 function getIDArray(result){
-    
-    idsToQuery = [];
 
     if( isSetBuilt === false)
     {
@@ -83,7 +86,7 @@ function getIDArray(result){
     }
 
     console.log(appListSet.values())
-
+    console.log(idsToQuery);
     return idsToQuery;
 }
 
@@ -99,32 +102,45 @@ async function processQuery(id){
 async function narrowArray(records, ids){
 
     for(var i = 0; i < records.length; i++)
-    {
-        if(records[i].data[ ids[i] ]["success"] === true)
-        {
-            if(records[i].data[ ids[i] ]["data"]["type"] === "game"
-            && records[i].data[ ids[i] ]["data"]["release_date"]["coming_soon"] === false)
-            {
-                queryResult["id"] =  ids[i] ;
-                queryResult["name"] = records[i].data[ ids[i] ]["data"]["name"];
-                queryResult["release_date"] = records[i].data[ ids[i] ]["data"]["release_date"]["date"];
-                queryResult["short_description"] = records[i].data[ ids[i] ]["data"]["short_description"];
-                queryResult["header_image"] = records[i].data[ ids[i] ]["data"]["header_image"];
+    {   
+        queryResult["type"] = records[i].data[ ids[i] ]["data"]["type"];
+        queryResult["success"] = records[i].data[ ids[i] ]["success"];
+
+        descriptionArray.push(queryResult);
+        queryResult = {};
+        // if(records[i].data[ ids[i] ]["success"] === true)
+        // {
+        //     //if(records[i].data[ ids[i] ]["data"]["type"] === "game") // &&
+        //        //records[i].data[ ids[i] ]["data"]["release_date"]["coming_soon"] === false)
+        //     //{
+        //         queryResult["id"] =  ids[i] ;
+        //         queryResult["name"] = records[i].data[ ids[i] ]["data"]["name"];
+
+        //         if( records[i].data[ ids[i] ]["data"]["release_date"]["coming_soon"] === false )
+
+        //             queryResult["release_date"] = records[i].data[ ids[i] ]["data"]["release_date"]["date"];
+
+        //         else
+
+        //             queryResult["release_date"] = "not released";
+
+        //         queryResult["short_description"] = records[i].data[ ids[i] ]["data"]["short_description"];
+        //         queryResult["header_image"] = records[i].data[ ids[i] ]["data"]["header_image"];
 
                 
-                if(records[i].data[ ids[i] ]["data"]["is_free"] === true)
-                    queryResult["price"] = "Free";
-                else
-                    queryResult["price"] = records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"];
+        //         if(records[i].data[ ids[i] ]["data"]["is_free"] === true)
+        //             queryResult["price"] = "Free";
+        //         else
+        //             queryResult["price"] = records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"];
 
 
-                queryResult["genres"] = records[i].data[ ids[i] ]["data"]["genres"];
+        //         queryResult["genres"] = records[i].data[ ids[i] ]["data"]["genres"];
 
-                descriptionArray.push(queryResult);
+        //         descriptionArray.push(queryResult);
 
-                queryResult = {};
-            }
-        }
+        //         queryResult = {};
+        //     //}
+        // }
     }
 
     return descriptionArray;
