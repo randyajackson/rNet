@@ -47,10 +47,10 @@ async function dataCollect() {
     let detailQuery = await allIDs.map(x => processQuery(x))
     
     Promise.all(detailQuery)
-    .then( x => {
-        displayDesc = narrowArray(x, allIDs);
+    .then( async(x)  => {
+        
+        displayDesc = await narrowArray(x, allIDs);
         console.log(displayDesc);
-        console.log( Promise.resolve(displayDesc) );
 
         if(displayDesc.length > 0)
         {
@@ -79,7 +79,7 @@ async function dataCollect() {
                 if(count > 20)
                 {
                     count = count - 20;
-
+                    
                     deletingEntries = upcomingModel.find()
                                                    .sort({_id: 1})
                                                    .limit(count)
