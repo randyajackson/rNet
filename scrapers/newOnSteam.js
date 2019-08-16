@@ -25,6 +25,8 @@ var db;
 var upcomingSchema;
 var upcomingModel;
 var upcomingSteam;
+var count;
+var deletingEntries = [];
 
 dataCollect();
 
@@ -72,6 +74,21 @@ async function dataCollect() {
 
                 upcomingModel = mongoose.model('upcoming_steam', upcomingSchema);
                 
+                count = upcomingModel.count({});
+
+                if(count > 20)
+                {
+                    count = count - 20;
+
+                    deletingEntries = upcomingModel.find()
+                                                   .sort({_id: 1})
+                                                   .limit(count)
+                                                   .toArray()
+                                                   .map(function(doc) { return doc._id; }); 
+
+                    upcomingModel.remove({_id: {$in: deletingEntries}})
+                }
+
                 for(var i = 0; i < displayDesc.length; i++ )
                 {
 
