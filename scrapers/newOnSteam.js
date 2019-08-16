@@ -1,9 +1,7 @@
-//@ts-check
 const axios = require('axios');
 const mongoose = require('mongoose');
 
-const allURL = "http://api.steampowered.com/ISteamApps/GetAppList/v2/";
-const singleURL = "https://store.steampowered.com/api/appdetails?appids=";
+
 
 //used in getIDArray
 var fullList = []; 
@@ -21,6 +19,12 @@ var queryURL;
 var isSetBuilt = false;
 var appListSet;
 var displayDesc = [];
+
+//variables for mongodb
+var db;
+var upcomingSchema;
+var upcomingModel;
+var upcomingSteam;
 
 dataCollect();
 
@@ -45,7 +49,57 @@ async function dataCollect() {
         displayDesc = narrowArray(x, allIDs);
         console.log(displayDesc);
         console.log( Promise.resolve(displayDesc) );
-        
+
+        if(displayDesc.length > 0)
+        {
+            console.log("opening db");
+            mongoose.connect('mongodb://localhost/new_on_steam', {useNewUrlParser: true});
+
+            db = mongoose.connection;
+            db.on('error', console.error.bind(console, 'connection error: '));
+
+            db.once('open', function() {
+
+                upcomingSchema = mongoose.Schema({
+                    id: String,
+                    name: String,
+                    releaseDate: String,
+                    short_description: String,
+                    header_image: String,
+                    price: String,
+                    genres: Array
+                });
+
+                upcomingModel = mongoose.model('upcoming_steam', upcomingSchema);
+                
+                for(var i = 0; i < displayDesc.length; i++ )
+                {
+
+                    upcomingSteam = new upcomingModel({
+                        id: displayDesc[i]["id"],
+                        name: displayDesc[i]["name"],
+                        releaseDate: displayDesc[i]["release_date"],
+                        short_description: displayDesc[i]["short_description"],
+                        header_image: displayDesc[i]["header_image"],
+                        price: displayDesc[i]["price"],
+                        genres: displayDesc[i]["genres"] 
+                    });
+
+                }
+    
+                upcomingSteam.save(function (err, upcoming) {
+                    if(err) return console.error(err);
+                    console.log("saved:" + upcoming.title)
+                });
+
+            });
+        }
+        else
+        {
+            console.log("not opening db");
+        }
+
+
     } )
     .catch( error => { console.log(error) });
 
@@ -109,7 +163,6 @@ async function narrowArray(records, ids){
     {   
         if(records[i].data[ ids[i] ]["success"] === true)
         {
-            //records[i].data[ ids[i] ]["data"]["release_date"]["coming_soon"] === false)
             if(records[i].data[ ids[i] ]["data"]["type"] === "game" ||
                records[i].data[ ids[i] ]["data"]["type"] === "dlc")
             {
@@ -119,7 +172,6 @@ async function narrowArray(records, ids){
                 queryResult["short_description"] = records[i].data[ ids[i] ]["data"]["short_description"];
                 queryResult["header_image"] = records[i].data[ ids[i] ]["data"]["header_image"];
 
-                
                 if(records[i].data[ ids[i] ]["data"]["is_free"] === true)
                     queryResult["price"] = "Free";
                 else
