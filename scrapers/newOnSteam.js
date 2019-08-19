@@ -1,8 +1,6 @@
 const axios = require('axios');
 const mongoose = require('mongoose');
 
-
-
 //used in getIDArray
 var fullList = []; 
 var idsToQuery = [];
