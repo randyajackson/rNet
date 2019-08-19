@@ -9,5 +9,12 @@ test("Should be null", () => {
 });
 
 test("Should be falsy", () => {
-    expect( functions.checkValue(0) ).toBeFalsy();
+    expect( functions.checkValue(undefined) ).toBeFalsy();
+});
+
+test("User should be Randy Jackson object", () => {
+    expect( functions.createUser() ).toEqual({
+        firstName: "Randy",
+        lastName: "Jackson"
+    });
 });

@@ -27,11 +27,18 @@ var upcomingModel;
 var upcomingSteam;
 var count;
 var deletingEntries = [];
+var testArray = [];
 
+console.log("opening db");
+mongoose.connect('mongodb://localhost/new_on_steam', {useNewUrlParser: true});
+db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+
+db.once('open', function() {
 dataCollect();
+});
 
 //---
-
 
 async function dataCollect() {
 
@@ -47,69 +54,66 @@ async function dataCollect() {
     let detailQuery = await allIDs.map(x => processQuery(x))
     
     Promise.all(detailQuery)
+
     .then( async(x)  => {
-        
         displayDesc = await narrowArray(x, allIDs);
-        console.log(displayDesc);
+
+        if(displayDesc.length > 0)
+            testArray.push(displayDesc);
+
+        console.log(testArray);
 
         if(displayDesc.length > 0)
         {
-            console.log("opening db");
-            mongoose.connect('mongodb://localhost/new_on_steam', {useNewUrlParser: true});
-
-            db = mongoose.connection;
-            db.on('error', console.error.bind(console, 'connection error: '));
-
-            db.once('open', function() {
-
-                upcomingSchema = mongoose.Schema({
-                    id: String,
-                    name: String,
-                    releaseDate: String,
-                    short_description: String,
-                    header_image: String,
-                    price: String,
-                    genres: Array
-                });
-
-                upcomingModel = mongoose.model('upcoming_steam', upcomingSchema);
-                
-                count = upcomingModel.count({});
-
-                if(count > 20)
-                {
-                    count = count - 20;
-                    
-                    deletingEntries = upcomingModel.find()
-                                                   .sort({_id: 1})
-                                                   .limit(count)
-                                                   .toArray()
-                                                   .map(function(doc) { return doc._id; }); 
-
-                    upcomingModel.remove({_id: {$in: deletingEntries}})
-                }
-
-                for(var i = 0; i < displayDesc.length; i++ )
-                {
-
-                    upcomingSteam = new upcomingModel({
-                        id: displayDesc[i]["id"],
-                        name: displayDesc[i]["name"],
-                        releaseDate: displayDesc[i]["release_date"],
-                        short_description: displayDesc[i]["short_description"],
-                        header_image: displayDesc[i]["header_image"],
-                        price: displayDesc[i]["price"],
-                        genres: displayDesc[i]["genres"] 
-                    });
-
-                }
-    
-                upcomingSteam.save(function (err, upcoming) {
-                    if(err) return console.error(err);
-                    console.log("saved:" + upcoming.title)
-                });
-
+            upcomingSchema = mongoose.Schema({
+                id: String,
+                name: String,
+                releaseDate: String,
+                short_description: String,
+                header_image: String,
+                price: String,
+                genres: Array
             });
+
+            upcomingModel = mongoose.model('upcoming_steam', upcomingSchema);
+            
+            // count = upcomingModel.count({});
+
+            // if(count > 20)
+            // {
+            //     count = count - 20;
+                
+            //     deletingEntries = upcomingModel.find()
+            //                                     .sort({_id: 1})
+            //                                     .limit(count)
+            //                                     .toArray()
+            //                                     .map(function(doc) { return doc._id; }); 
+
+            //     upcomingModel.remove({_id: {$in: deletingEntries}})
+            // }
+
+            for(var i = 0; i < displayDesc.length; i++ )
+            {
+
+                upcomingSteam = new upcomingModel({
+                    id: displayDesc[i]["id"],
+                    name: displayDesc[i]["name"],
+                    releaseDate: displayDesc[i]["release_date"],
+                    short_description: displayDesc[i]["short_description"],
+                    header_image: displayDesc[i]["header_image"],
+                    price: displayDesc[i]["price"],
+                    genres: displayDesc[i]["genres"] 
+                });
+
+            }
+    
+            upcomingSteam.save(function (err, upcoming) {
+                if(err) return console.error(err);
+                console.log("saved:" + upcoming.title)
+            });
+            
+
+            displayDesc = [];
         }
         else
         {
