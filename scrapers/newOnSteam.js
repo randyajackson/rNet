@@ -29,6 +29,8 @@ var count;
 var deletingEntries = [];
 var testArray = [];
 
+var i = 0;
+
 console.log("opening db");
 mongoose.connect('mongodb://localhost/new_on_steam', {useNewUrlParser: true});
 db = mongoose.connection;
@@ -71,8 +73,8 @@ async function dataCollect() {
                 releaseDate: String,
                 short_description: String,
                 header_image: String,
-                price: String,
-                genres: Array
+                price: String
+                //genres: Array
             });
 
             upcomingModel = mongoose.model('upcoming_steam', upcomingSchema);
@@ -92,7 +94,7 @@ async function dataCollect() {
             //     upcomingModel.remove({_id: {$in: deletingEntries}})
             // }
 
-            for(var i = 0; i < displayDesc.length; i++ )
+            for(i = 0; i < displayDesc.length; i++ )
             {
 
                 upcomingSteam = new upcomingModel({
@@ -140,7 +142,7 @@ function getIDArray(result){
 
     if( isSetBuilt === false)
     {
-        for(var i = 0; i < result.data["applist"]["apps"].length; i++)
+        for(i = 0; i < result.data["applist"]["apps"].length; i++)
         {
             appid = result.data["applist"]["apps"][i]["appid"];
             fullList.push(appid);
@@ -152,7 +154,7 @@ function getIDArray(result){
     }
     else
     {
-        for(var i = 0; i < result.data["applist"]["apps"].length; i++)
+        for(i = 0; i < result.data["applist"]["apps"].length; i++)
         {
             appid = result.data["applist"]["apps"][i]["appid"];
 
@@ -180,7 +182,7 @@ async function processQuery(id){
 
 async function narrowArray(records, ids){
 
-    for(var i = 0; i < records.length; i++)
+    for(i = 0; i < records.length; i++)
     {   
         if(records[i].data[ ids[i] ]["success"] === true)
         {
@@ -196,7 +198,12 @@ async function narrowArray(records, ids){
                 if(records[i].data[ ids[i] ]["data"]["is_free"] === true)
                     queryResult["price"] = "Free";
                 else
-                    queryResult["price"] = records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"];
+                {
+                    if(records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"])
+                        queryResult["price"] = records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"];
+                    else
+                        queryResult["price"] = "Price not set";
+                }
 
 
                 queryResult["genres"] = records[i].data[ ids[i] ]["data"]["genres"];
