@@ -1,6 +1,8 @@
 const axios = require('axios');
 const mongoose = require('mongoose');
 
+
+
 //used in getIDArray
 var fullList = []; 
 var idsToQuery = [];
@@ -20,12 +22,26 @@ var displayDesc = [];
 
 //variables for mongodb
 var db;
-var upcomingSchema;
+
+var upcomingSchema = mongoose.Schema({
+    id: String,
+    name: String,
+    releaseDate: String,
+    short_description: String,
+    header_image: String,
+    price: String,
+    genres: Array
+});
+
 var upcomingModel;
 var upcomingSteam;
 var count;
 var deletingEntries = [];
 var testArray = [];
+
+var insertDictionary = {};
+var insertArray = [];
+
 
 var i = 0;
 
@@ -65,16 +81,6 @@ async function dataCollect() {
 
         if(displayDesc.length > 0)
         {
-            upcomingSchema = mongoose.Schema({
-                id: String,
-                name: String,
-                releaseDate: String,
-                short_description: String,
-                header_image: String,
-                price: String
-                //genres: Array
-            });
-
             upcomingModel = mongoose.model('upcoming_steam', upcomingSchema);
             
             // count = upcomingModel.count({});
@@ -94,26 +100,25 @@ async function dataCollect() {
 
             for(i = 0; i < displayDesc.length; i++ )
             {
-
-                upcomingSteam = new upcomingModel({
-                    id: displayDesc[i]["id"],
-                    name: displayDesc[i]["name"],
-                    releaseDate: displayDesc[i]["release_date"],
-                    short_description: displayDesc[i]["short_description"],
-                    header_image: displayDesc[i]["header_image"],
-                    price: displayDesc[i]["price"],
-                    genres: displayDesc[i]["genres"] 
-                });
-
+                insertDictionary = {};
+                insertDictionary["id"] = displayDesc[i]["id"];
+                insertDictionary["name"] = displayDesc[i]["name"];
+                insertDictionary["releaseDate"] = displayDesc[i]["release_date"];
+                insertDictionary["short_description"] = displayDesc[i]["short_description"];
+                insertDictionary["header_image"] = displayDesc[i]["header_image"];
+                insertDictionary["price"] = displayDesc[i]["price"];
+                insertDictionary["genres"] = displayDesc[i]["genres"];
+                
+                insertArray.push(insertDictionary);
             }
-    
-            upcomingSteam.save(function (err, upcoming) {
+            
+            upcomingModel.collection.insertMany(insertArray, function (err, upcoming) {
                 if(err) return console.error(err);
-                console.log("saved:" + upcoming.title)
+                console.log("saved multiple");
             });
             
-
             displayDesc = [];
+            insertArray = [];
         }
         else
         {
