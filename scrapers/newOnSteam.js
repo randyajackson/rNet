@@ -202,11 +202,12 @@ async function narrowArray(records, ids){
                     queryResult["price"] = "Free";
                 else
                 {
-                    if(records[i].data[ ids[i] ]["data"]["price_overview"] !== "undefined")
-                    {
-                        if(records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"] !== "undefined")
+                    //if(typeof records[i].data[ ids[i] ]["data"]["price_overview"] != "undefined")
+                    //{
+                        if(typeof records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"] != "undefined")
+
                             queryResult["price"] = records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"];
-                    }
+                    //}
                     else
                         queryResult["price"] = "Price not set";
                 }
