@@ -61,6 +61,7 @@ async function dataCollect() {
     let allResponse = await axios.get(allURL);
 
     idsToQuery = [];
+
     let allIDs = await getIDArray(allResponse); 
 
     console.log("isSetBuilt " + isSetBuilt);
@@ -77,7 +78,7 @@ async function dataCollect() {
         if(displayDesc.length > 0)
             testArray.push(displayDesc);
 
-        console.log(testArray);
+        console.log("test array: " + testArray);
 
         if(displayDesc.length > 0)
         {
@@ -132,7 +133,6 @@ async function dataCollect() {
     setTimeout( function (){
         dataCollect(); console.log("in setTimeout");
     }, getRandomInt(1,10) * 60 * 1000);
-    //}, 60000);
 }
 
 function getRandomInt(min, max) {
@@ -169,8 +169,8 @@ function getIDArray(result){
         }         
     }
 
-    console.log(appListSet.values())
-    console.log(idsToQuery);
+    console.log("appListSet : " + appListSet.values())
+    console.log("ids to query: " + idsToQuery);
     return idsToQuery;
 }
 
@@ -202,12 +202,11 @@ async function narrowArray(records, ids){
                     queryResult["price"] = "Free";
                 else
                 {
-                    //if(typeof records[i].data[ ids[i] ]["data"]["price_overview"] != "undefined")
-                    //{
-                        if(typeof records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"] != "undefined")
+                    if( typeof records[i].data[ ids[i] ]["data"]["price_overview"] !== "undefined"
+                        &&
+                        typeof records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"] !== "undefined")
 
-                            queryResult["price"] = records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"];
-                    //}
+                        queryResult["price"] = records[i].data[ ids[i] ]["data"]["price_overview"]["final_formatted"];
                     else
                         queryResult["price"] = "Price not set";
                 }
