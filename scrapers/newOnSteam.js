@@ -58,7 +58,7 @@ dataCollect();
 
 async function dataCollect() {
 
-    let allResponse = await axios.get(allURL);
+    let allResponse = await axios.get(allURL).catch(err => console.log(err));
 
     idsToQuery = [];
 
