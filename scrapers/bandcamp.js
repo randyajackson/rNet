@@ -26,3 +26,11 @@ module.exports = fetchSales;
 
 //tracking the sales numbers
 
+//the key is the url
+//using $inc in mongodb to increase counter
+
+//if not found
+//mongodb.get
+//mongodb.put('//beattheredlight.bandcamp.com/album/beat-the-red-light', 
+//             {count: count, artist_name: artist_name, art_url: art_url,
+//              album name: item_description});
