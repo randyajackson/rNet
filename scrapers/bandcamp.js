@@ -30,8 +30,9 @@ const mongoose = require('mongoose');
 
 //variables for mongodb
 var db;
+var albumModel;
 
-var albumRecord = mongoose.Schema({
+var albumSchema = mongoose.Schema({
     _id: String, // url
     art_url: String,
     album_title: String,
@@ -40,14 +41,21 @@ var albumRecord = mongoose.Schema({
     count: Number
 });
 
-beginCollection();
+console.log("opening db");
+
+mongoose.connect('mongodb://localhost/bandcamp_collection', {useNewUrlParser: true});
+db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '));
+
+db.once('open', function() {
+    beginCollection();
+});
 
 async function beginCollection()
 {
     var time = await getInitial(); 
 
-    console.log(time["serverTime"]);
-    console.log(time["endDate"]);
+    console.log(time);
 
     //time = await getNext(time["endDate"], time["serverTime"]);
 }
@@ -57,8 +65,24 @@ async function getInitial()
     try{
         const response = await axios.get('https://bandcamp.com/api/salesfeed/1/get_initial');
 
-        return {serverTime : response.data["feed_data"]["server_time"], 
-                endDate : response.data["feed_data"]["end_date"]};
+        albumModel = mongoose.model('bandcamp', albumSchema);
+
+        for(let i = 0; i < response.data["feed_data"]["events"].length; i++)
+        {
+            for(let j = 0; j < response.data["feed_data"]["events"][i]["items"].length; j++) 
+            {
+                console.log(response.data["feed_data"]["events"][i]["items"][j]["album_title"]);
+                console.log(response.data["feed_data"]["events"][i]["items"][j]["item_description"]);
+                console.log(response.data["feed_data"]["events"][i]["items"][j]["url"]);
+                console.log(response.data["feed_data"]["events"][i]["items"][j]["art_url"]);
+                console.log(response.data["feed_data"]["events"][i]["items"][j]["artist_name"]);
+            }
+        }
+
+        return {
+            serverTime : response.data["feed_data"]["server_time"], 
+            endDate : response.data["feed_data"]["end_date"]
+        };
     }
     catch(error){
         console.log("error", error);
