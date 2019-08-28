@@ -33,7 +33,7 @@ var db;
 var albumModel;
 
 var albumSchema = mongoose.Schema({
-    _id: String, // url
+    url: String,
     art_url: String,
     album_title: String,
     artist_name: String,
@@ -43,7 +43,7 @@ var albumSchema = mongoose.Schema({
 
 console.log("opening db");
 
-mongoose.connect('mongodb://localhost/bandcamp_collection', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost/bc', {useNewUrlParser: true});
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error: '));
 
@@ -64,18 +64,41 @@ async function getInitial()
 {
     try{
         const response = await axios.get('https://bandcamp.com/api/salesfeed/1/get_initial');
-
+        
+        let findCount;
         albumModel = mongoose.model('bandcamp', albumSchema);
 
         for(let i = 0; i < response.data["feed_data"]["events"].length; i++)
         {
             for(let j = 0; j < response.data["feed_data"]["events"][i]["items"].length; j++) 
             {
-                console.log(response.data["feed_data"]["events"][i]["items"][j]["album_title"]);
-                console.log(response.data["feed_data"]["events"][i]["items"][j]["item_description"]);
-                console.log(response.data["feed_data"]["events"][i]["items"][j]["url"]);
-                console.log(response.data["feed_data"]["events"][i]["items"][j]["art_url"]);
-                console.log(response.data["feed_data"]["events"][i]["items"][j]["artist_name"]);
+                findCount = await albumModel.collection.countDocuments({
+                     url : response.data["feed_data"]["events"][i]["items"][j]["url"] });
+                
+                if (findCount === 0)
+                {
+                    albumModel.create({
+                        url: response.data["feed_data"]["events"][i]["items"][j]["url"],
+                        album_title: response.data["feed_data"]["events"][i]["items"][j]["album_title"],
+                        item_description: response.data["feed_data"]["events"][i]["items"][j]["item_description"],
+                        art_url: response.data["feed_data"]["events"][i]["items"][j]["art_url"],
+                        artist_name: response.data["feed_data"]["events"][i]["items"][j]["artist_name"]
+                    }, 
+                    function (err, upcoming) {
+                    if(err) return console.error(err);
+                    });
+                }
+                else
+                {
+
+                }
+
+                // console.log(findCount);    
+                // console.log(response.data["feed_data"]["events"][i]["items"][j]["album_title"]);
+                // console.log(response.data["feed_data"]["events"][i]["items"][j]["item_description"]);
+                // console.log(response.data["feed_data"]["events"][i]["items"][j]["url"]);
+                // console.log(response.data["feed_data"]["events"][i]["items"][j]["art_url"]);
+                // console.log(response.data["feed_data"]["events"][i]["items"][j]["artist_name"]);
             }
         }
 
