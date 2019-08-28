@@ -28,6 +28,17 @@ const mongoose = require('mongoose');
 //global variables used for accessing and verifying
 //= {serverTime: 0, endDate: 0}; //serverTime verifying, endDate accessing
 
+//variables for mongodb
+var db;
+
+var albumRecord = mongoose.Schema({
+    _id: String, // url
+    art_url: String,
+    album_title: String,
+    artist_name: String,
+    item_description: String,
+    count: Number
+});
 
 beginCollection();
 
