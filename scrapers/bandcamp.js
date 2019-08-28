@@ -82,7 +82,8 @@ async function getInitial()
                         album_title: response.data["feed_data"]["events"][i]["items"][j]["album_title"],
                         item_description: response.data["feed_data"]["events"][i]["items"][j]["item_description"],
                         art_url: response.data["feed_data"]["events"][i]["items"][j]["art_url"],
-                        artist_name: response.data["feed_data"]["events"][i]["items"][j]["artist_name"]
+                        artist_name: response.data["feed_data"]["events"][i]["items"][j]["artist_name"],
+                        count: 1
                     }, 
                     function (err, upcoming) {
                     if(err) return console.error(err);
@@ -90,7 +91,12 @@ async function getInitial()
                 }
                 else
                 {
-
+                    albumModel.updateOne(
+                        { url : response.data["feed_data"]["events"][i]["items"][j]["url"] },
+                        { $inc: {count : 1 } }, 
+                    function (err, upcoming) {
+                    if(err) return console.error(err);
+                    });
                 }
 
                 // console.log(findCount);    
