@@ -1,8 +1,7 @@
 const axios = require('axios');
 const mongoose = require('mongoose');
 
-const allURL = process.env.getMasterList;
-const singleURL = process.env.getSingleList;
+
 
 //used in getIDArray
 var fullList = []; 
