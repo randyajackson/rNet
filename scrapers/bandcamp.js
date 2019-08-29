@@ -55,9 +55,11 @@ async function beginCollection()
 {
     var time = await getInitial(); 
 
-    console.log(time);
+    setTimeout( async function (){
+        time = await getNext(time["endDate"], time["serverTime"]);    
+    }, 60000);
 
-    //time = await getNext(time["endDate"], time["serverTime"]);
+    
 }
 
 async function getInitial() 
@@ -99,15 +101,11 @@ async function getInitial()
                     });
                 }
 
-                // console.log(findCount);    
-                // console.log(response.data["feed_data"]["events"][i]["items"][j]["album_title"]);
-                // console.log(response.data["feed_data"]["events"][i]["items"][j]["item_description"]);
-                // console.log(response.data["feed_data"]["events"][i]["items"][j]["url"]);
-                // console.log(response.data["feed_data"]["events"][i]["items"][j]["art_url"]);
-                // console.log(response.data["feed_data"]["events"][i]["items"][j]["artist_name"]);
             }
         }
 
+        console.log("*****first batch read*****");
+        
         return {
             serverTime : response.data["feed_data"]["server_time"], 
             endDate : response.data["feed_data"]["end_date"]
@@ -118,18 +116,72 @@ async function getInitial()
     }
 }
 
-// async function getNext(endDate, serverTime)
-// {
-//     try{
-//         const response = await axios.get('https://bandcamp.com/api/salesfeed/1/get?start_date=' + endDate);
+async function getNext(endDate, serverTime)
+{
+    try{
+        const response = await axios.get('https://bandcamp.com/api/salesfeed/1/get?start_date=' + endDate);
 
-//         return {serverTime : response.data["feed_data"]["server_time"], 
-//                 endDate : response.data["feed_data"]["end_date"]};
-//     }
-//     catch(error){
-//         console.log("error", error);
-//     }    
-// }
+        if( endDate !== response.data["end_date"] )
+        {
+            let findCount;
+
+            albumModel = mongoose.model('bandcamp', albumSchema);
+
+            for(let i = 0; i < response.data["events"].length; i++)
+            {
+                for(let j = 0; j < response.data["events"][i]["items"].length; j++) 
+                {
+                    findCount = await albumModel.collection.countDocuments({
+                        url : response.data["events"][i]["items"][j]["url"] });
+                    
+                    if (findCount === 0)
+                    {
+                        albumModel.create({
+                            url: response.data["events"][i]["items"][j]["url"],
+                            album_title: response.data["events"][i]["items"][j]["album_title"],
+                            item_description: response.data["events"][i]["items"][j]["item_description"],
+                            art_url: response.data["events"][i]["items"][j]["art_url"],
+                            artist_name: response.data["events"][i]["items"][j]["artist_name"],
+                            count: 1
+                        }, 
+                        function (err) {
+                        if(err) return console.error(err);
+                        });
+                    }
+                    else
+                    {
+                        albumModel.updateOne(
+                            { url : response.data["events"][i]["items"][j]["url"] },
+                            { $inc: {count : 1 } }, 
+                        function (err) {
+                        if(err) return console.error(err);
+                        });
+                    }
+                    // console.log(response.data["events"][i]["items"][j]["url"]);
+                    // console.log(response.data["events"][i]["items"][j]["album_title"]);
+                    // console.log(response.data["events"][i]["items"][j]["item_description"]);
+                    // console.log(response.data["events"][i]["items"][j]["art_url"]);
+                    // console.log(response.data["events"][i]["items"][j]["artist_name"]);
+                }
+            }
+            console.log("*****next batch read*****");
+
+            return {serverTime : response.data["server_time"], 
+                    endDate : response.data["end_date"]};
+        }
+        else
+        {
+            console.log("*****duplicate end_date*****");
+
+            return {serverTime : serverTime, 
+                    endDate : endDate};    
+        }
+        
+    }
+    catch(error){
+        console.log("error", error);
+    }    
+}
 
 
 module.exports = getInitial;
