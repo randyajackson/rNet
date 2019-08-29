@@ -130,7 +130,7 @@ async function dataCollect() {
 
     } )
     .catch( error => { console.log(error) });
-
+    //maybe try setInterval here
     setTimeout( function (){
         dataCollect(); console.log("in setTimeout");
     }, getRandomInt(1,10) * 60 * 1000);

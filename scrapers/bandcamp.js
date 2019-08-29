@@ -55,10 +55,10 @@ async function beginCollection()
 {
     var time = await getInitial(); 
 
-    setTimeout( async function (){
+    setInterval( async function (){
+        console.log(time);
         time = await getNext(time["endDate"], time["serverTime"]);    
     }, 60000);
-
     
 }
 
@@ -120,6 +120,8 @@ async function getNext(endDate, serverTime)
 {
     try{
         const response = await axios.get('https://bandcamp.com/api/salesfeed/1/get?start_date=' + endDate);
+
+        console.log(endDate + "!==" + response.data["end_date"] );
 
         if( endDate !== response.data["end_date"] )
         {
