@@ -93,7 +93,38 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
         }
     });
 
+    // model and type for newOnSteam data
     //----------------------------------------------------------------
+    
+    const newOnSteamModel = newOnSteam.model("upcoming_steam",
+    {
+        id: String,
+        name: String,
+        releaseDate: String,
+        short_description: String,
+        header_image: String,
+        price: String,
+        genres: Array
+    });
+
+    const newOnSteamType = new GraphQLObjectType({
+        name: "newOnSteamRecords",
+        fields: {
+
+            id: { type: GraphQLString },
+            name: { type: GraphQLString },
+            releaseDate: { type: GraphQLString },
+            short_description: { type: GraphQLString },
+            header_image: { type: GraphQLString },
+            price: { type: GraphQLString },
+            genres: { type: new GraphQLList(GraphQLString) }
+        }
+    });
+
+    
+
+    //----------------------------------------------------------------
+
     //defining GraphQL queries below
 
     const schema = new GraphQLSchema({
@@ -120,12 +151,20 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
                     resolve: (root, args, context, info) => {
                         return newMoviesModel.find().exec();
                     }
+                },
+
+                new_on_steam: {
+                    type: GraphQLList(newOnSteamType),
+                    resolve: (root, args, context, info) => {
+                        return newOnSteamModel.find().sort({_id : -1}).exec();
+                    }
                 }
+
+
 
             }
         })   
     });
-
 
     //-------------------------------------------------------------------------------------------
     app.use("/graphql", ExpressGraphQL({
