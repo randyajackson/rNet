@@ -121,7 +121,21 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
         }
     });
 
-    
+    // model and type for bandcamp data
+    //----------------------------------------------------------------
+    const topSearchesModel = topSearches.model("top_searches",
+    {
+        rank: Number,
+        topic: String
+    });
+
+    const topSearchesType = new GraphQLObjectType({
+        name: "topSearchesRecords",
+        fields: {
+            rank: { type: GraphQLInt },
+            topic: { type: GraphQLString }
+        }
+    });
 
     //----------------------------------------------------------------
 
@@ -158,9 +172,14 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
                     resolve: (root, args, context, info) => {
                         return newOnSteamModel.find().sort({_id : -1}).exec();
                     }
+                },
+
+                top_searches: {
+                    type: GraphQLList(topSearchesType),
+                    resolve: (root, args, context, info) => {
+                        return topSearchesModel.find().sort({ rank : 1}).exec();
+                    }
                 }
-
-
 
             }
         })   
@@ -177,17 +196,3 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
     });
 
 });
-
-
-// var mongoose = require('mongoose')
-// var conn = mongoose.createConnection('mongodb://localhost/db1');
-// var conn2 = mongoose.createConnection('mongodb://localhost/db2');
-// var Schema = new mongoose.Schema({})
-// var model1 = conn.model('User', Schema);
-// var model2 = conn2.model('Item', Schema);
-// model1.find({}, function() {
-//    console.log("this will print out last");
-// });
-// model2.find({}, function() {
-//    console.log("this will print out first");
-// });
