@@ -9,6 +9,7 @@ const {
     GraphQLNonNull,
     GraphQLObjectType,
     GraphQLInt,
+    GraphQLFloat,
     GraphQLSchema
 } = require("graphql");
 
@@ -48,40 +49,79 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
 
     // model and type for crypto data
     //----------------------------------------------------------------
-
-    const cryptoModel = crypto.model("bandcamp",
+    
+    const cryptoModel = crypto.model("crypto_data_prices",
     {
-        url: String,
-        art_url: String,
-        album_title: String,
-        artist_name: String,
-        item_description: String,
-        count: Number
+        coinName : String,
+        coinSName : String,
+        coinPrice : String,
+        coinTotal : String,
+        coin24 : String
     });
 
     const cryptoType = new GraphQLObjectType({
-        name: "bandcampRecords",
+        name: "cryptoRecords",
         fields: {
-            url: { type: GraphQLString },
-            art_url: { type: GraphQLString },
-            album_title: { type: GraphQLString },
-            artist_name: { type: GraphQLString },
-            item_description: { type: GraphQLString },
-            count: { type: GraphQLInt }
+            coinName : { type: GraphQLString },
+            coinSName : { type: GraphQLString },
+            coinPrice : { type: GraphQLString },
+            coinTotal : { type: GraphQLString },
+            coin24 : { type: GraphQLString }
         }
     });
 
+    // model and type for newMovies data
+    //----------------------------------------------------------------
+    
+    const newMoviesModel = newMovies.model("upcoming_movie",
+    {
+        title: String,
+        releaseDate: String,
+        rating: String,
+        synopsis: String,
+        poster: String
+    });
+
+    const newMoviesType = new GraphQLObjectType({
+        name: "newMoviesRecords",
+        fields: {
+            title: { type: GraphQLString },
+            releaseDate: { type: GraphQLString },
+            rating: { type: GraphQLString },
+            synopsis: { type: GraphQLString },
+            poster: { type: GraphQLString }
+        }
+    });
+
+    //----------------------------------------------------------------
+    //defining GraphQL queries below
 
     const schema = new GraphQLSchema({
         query: new GraphQLObjectType({
             name: "Query", 
             fields: {
+
                 bandcamp: {
                     type: GraphQLList(bandcampType),
                     resolve: (root, args, context, info) => {
                         return bandcampModel.find().sort({count: -1}).limit(10).exec();
                     }
+                },
+
+                crypto: {
+                    type: GraphQLList(cryptoType),
+                    resolve: (root, args, context, info) => {
+                        return cryptoModel.find().sort({'id#': 1}).exec();
+                    }
+                },
+
+                new_movie: {
+                    type: GraphQLList(newMoviesType),
+                    resolve: (root, args, context, info) => {
+                        return newMoviesModel.find().exec();
+                    }
                 }
+
             }
         })   
     });
