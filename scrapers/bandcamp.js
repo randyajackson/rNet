@@ -56,8 +56,16 @@ async function beginCollection()
     var time = await getInitial(); 
 
     setInterval( async function (){
+        
         console.log(time);
-        time = await getNext(time["endDate"], time["serverTime"]);    
+
+        try{
+        time = await getNext(time["endDate"], time["serverTime"]); 
+        }
+        catch(error){
+            console.log("error", error);
+        }
+
     }, 60000);
     
 }
