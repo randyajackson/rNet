@@ -1,3 +1,4 @@
+require('dotenv').config();
 const axios = require('axios');
 const mongoose = require('mongoose');
 
@@ -60,8 +61,6 @@ dataCollect();
 async function dataCollect() {
 
     let allResponse = await axios.get(allURL).catch(err => console.log(err));
-
-    idsToQuery = [];
 
     let allIDs = await getIDArray(allResponse); 
 
@@ -144,6 +143,8 @@ function getRandomInt(min, max) {
 
 function getIDArray(result){
 
+    idsToQuery = [];
+
     if( isSetBuilt === false)
     {
         for(i = 0; i < result.data["applist"]["apps"].length; i++)
@@ -181,7 +182,7 @@ async function processQuery(id){
 
     let promise = axios.get(queryURL);
 
-    return await promise;
+    return promise;
 }
 
 async function narrowArray(records, ids){
