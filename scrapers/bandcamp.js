@@ -21,6 +21,7 @@
 //             {count: count, artist_name: artist_name, art_url: art_url,
 //              album name: item_description});
 
+var interval; //used to give setInterval a name to use clearInterval(interval) if data breaks
 
 const axios = require('axios')
 const mongoose = require('mongoose');
@@ -55,7 +56,7 @@ async function beginCollection()
 {
     var time = await getInitial(); 
 
-    setInterval( async function (){
+    interval = setInterval( async function (){
         
         console.log(time);
 
@@ -64,6 +65,8 @@ async function beginCollection()
         }
         catch(error){
             console.log("error", error);
+            clearInterval(interval);
+            setTimeout(function(){ beginCollection(); }, 600000);
         }
 
     }, 60000);

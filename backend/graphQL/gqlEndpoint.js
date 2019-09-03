@@ -1,7 +1,6 @@
 const Express = require("express");
 const ExpressGraphQL = require("express-graphql");
 const mongoose = require("mongoose");
-
 const {
     GraphQLID,
     GraphQLString,
@@ -121,7 +120,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
         }
     });
 
-    // model and type for bandcamp data
+    // model and type for top searches data
     //----------------------------------------------------------------
     const topSearchesModel = topSearches.model("top_searches",
     {
