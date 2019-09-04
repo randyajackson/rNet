@@ -1,13 +1,27 @@
 import React, { Component } from 'react';
-import axios from 'axios';
+const requester = require('graphql-request');
+
+
+const new_moviesQuery = 
+"{" +
+    "new_movie" +
+    "{" +
+      "title," +
+      "releaseDate," +
+      "rating," +
+      "synopsis," +
+      "poster" +
+    "}" +
+"}";
+
 
 const Movies= props => (
     <tr>
-        <td>{props.results.new_movie.title}</td>
-        <td>{props.results.new_movie.releaseDate}</td>
-        <td>{props.results.new_movie.rating}</td>
-        <td>{props.results.new_movie.synopsis}</td>
-        <td>{props.results.new_movie.poster}</td>
+        <td>{props.results.title}</td>
+        <td>{props.results.releaseDate}</td>
+        <td>{props.results.rating}</td>
+        <td>{props.results.synopsis}</td>
+        <td>{props.results.poster}</td>
     </tr>    
 )
 export default class newMovieList extends Component {
@@ -24,29 +38,29 @@ export default class newMovieList extends Component {
     componentDidMount()
     {
         setInterval( () => {
-            axios.get('http://localhost:5000/new_movies')
-            
+            requester.request('http://localhost:8000/graphql', new_moviesQuery)
             .then(response => {
                 this.setState({
-                    movies: response.data
+                    movies: response.new_movie
                 })
             })
             .catch((error) => {
                 console.log(error);
             })
-        }, 60000)
+        }, 3000)
         
     }
 
     render() {
-        var outputData = new Array(1);
 
-        outputData[0] = this.state.movies.map(
+        var outputData = [];
+
+        outputData = this.state.movies.map(
             (currentMovies, index) =>  <Movies results = {currentMovies} />);
 
         return (
             <React.Fragment>
-                {outputData[0]}
+                {outputData}
             </React.Fragment>
             
         );

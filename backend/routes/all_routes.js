@@ -26,27 +26,4 @@ router.route('/crypto').get((req, res) => {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
-//routing for new_movies data
-
-const new_moviesQuery = 
-"query {" +
-    "new_movie" +
-    "{" +
-      "title," +
-      "releaseDate," +
-      "rating," +
-      "synopsis," +
-      "poster" +
-    "}" +
-"}";
-
-router.route('/new_movies').get((req, res) => {
-    
-    request(graphql_url, new_moviesQuery)
-    .then(new_releases => res.json(new_releases)) 
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
-
-
 module.exports = router;

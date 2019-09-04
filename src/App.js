@@ -7,8 +7,8 @@ import newMovieList from "./components/newMovies.component";
 function App() {
   return (
     <Router>
-        <Route path="/crypto" exact component={PricesList} />
-        <Route path="/new_movies" exact component={newMovieList} />
+        <Route path="/crypto" component={PricesList} />
+        <Route path="/new_movies" component={newMovieList} />
     </Router>
   );
 }

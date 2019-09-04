@@ -1,7 +1,10 @@
 const Express = require("express");
 const ExpressGraphQL = require("express-graphql");
 const mongoose = require("mongoose");
+const cors = require('cors');
+
 const {
+    graphql,
     GraphQLID,
     GraphQLString,
     GraphQLList,
@@ -12,7 +15,7 @@ const {
     GraphQLSchema
 } = require("graphql");
 
-var app = Express();
+const app = Express();
 
 const bandcamp = mongoose.createConnection('mongodb://localhost/bc', {useNewUrlParser: true});
 const crypto = mongoose.createConnection('mongodb://localhost/crypto', {useNewUrlParser: true});
@@ -185,6 +188,9 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
     });
 
     //-------------------------------------------------------------------------------------------
+
+    app.use(cors());
+
     app.use("/graphql", ExpressGraphQL({
         schema: schema,
         graphiql: true
