@@ -23,7 +23,7 @@ connection.once('open', () => {
     console.log("MongoDB database connection established successfully");
 })
 
-const cryptoRouter = require('./routes/crypto_route');
+const cryptoRouter = require('./routes/all_routes');
 
 
 app.use('/crypto', cryptoRouter);

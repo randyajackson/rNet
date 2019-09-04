@@ -19,6 +19,15 @@ const graphql_url = "http://localhost:8000/graphql";
 }
  */
 
+//routing for crypto data
+router.route('/crypto').get((req, res) => {
+    Crypto.find() 
+    .then(prices => res.json(prices)) 
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+//routing for new_movies data
+
 const new_moviesQuery = 
 "query {" +
     "new_movie" +
@@ -31,14 +40,6 @@ const new_moviesQuery =
     "}" +
 "}";
 
-//routing for crypto data
-router.route('/crypto').get((req, res) => {
-    Crypto.find() 
-    .then(prices => res.json(prices)) 
-    .catch(err => res.status(400).json('Error: ' + err));
-});
-
-//routing for new_movies data
 router.route('/new_movies').get((req, res) => {
     
     request(graphql_url, new_moviesQuery)
