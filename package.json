@@ -12,6 +12,7 @@
     "express-graphql": "^0.9.0",
     "fast-sort": "^1.5.6",
     "graphql": "^14.5.4",
+    "graphql-request": "^1.8.2",
     "js-flock": "^3.10.0",
     "node-jq": "^1.10.3",
     "node-sass": "^4.12.0",

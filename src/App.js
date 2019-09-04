@@ -6,7 +6,7 @@ import PricesList from "./components/crypto.component";
 function App() {
   return (
     <Router>
-        <Route path="/" exact component={PricesList} />
+        <Route path="/crypto" exact component={PricesList} />
     </Router>
   );
 }
