@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import '../css/Movie_Component.css';
+
 const requester = require('graphql-request');
 
 
@@ -16,13 +18,13 @@ const new_moviesQuery =
 
 
 const Movies= props => (
-    <tr>
-        <td>{props.results.title}</td>
-        <td>{props.results.releaseDate}</td>
-        <td>{props.results.rating}</td>
-        <td>{props.results.synopsis}</td>
-        <td><img src = {props.results.poster} alt = {props.results.title}></img></td>
-    </tr>    
+    <div class="single_movie">
+        <div class="movie_poster"><img src = {props.results.poster} alt = {props.results.title}></img></div>
+        <div class="movie_title">{props.results.title}</div>
+        <div class="movie_date">Releases: {props.results.releaseDate}</div>
+        <div class="movie_rating">Rating: {props.results.rating}</div>
+    </div>
+        
 )
 export default class newMovieList extends Component {
 
@@ -60,7 +62,12 @@ export default class newMovieList extends Component {
 
         return (
             <React.Fragment>
-                {outputData}
+            <div className = "slide">
+                <div class="all-movies">
+                    {outputData}
+                </div>
+            </div>
+                
             </React.Fragment>
             
         );
