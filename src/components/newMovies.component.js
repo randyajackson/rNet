@@ -21,7 +21,7 @@ const Movies= props => (
         <td>{props.results.releaseDate}</td>
         <td>{props.results.rating}</td>
         <td>{props.results.synopsis}</td>
-        <td>{props.results.poster}</td>
+        <td><img src= {props.results.poster}></img></td>
     </tr>    
 )
 export default class newMovieList extends Component {
