@@ -3,10 +3,10 @@ div.slide {
 
     left: 125px;
     right: 125px;
-    top: 50px;
+    top: 65px;
 
-    padding-right: 10px;
-    padding-left: 10px;
+    padding-right: 50px;
+    padding-left: 50px;
 
     border-radius: 25px;
     
@@ -28,7 +28,8 @@ div.single_movie{
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .movie_poster{
@@ -59,18 +60,22 @@ div.movie_title{
     padding: 1px;
     font-weight: bold;
     text-align: center;
+    font-size: .8vw;
+    width: 200px;
+    word-wrap: break-word;
+    
 }
 
 div.movie_date{
     font-family: 'Noto Serif JP', serif;
-
+    color: white;
     padding: 1px;
     text-align: center;
 }
 
 div.movie_rating{
     font-family: 'Noto Serif JP', serif;
-
+    color: white;
     padding: 1px;
     text-align: center;
 }

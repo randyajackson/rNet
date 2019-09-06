@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Movie_Component.css';
+import background from '../videos/test.mp4';
 
 const requester = require('graphql-request');
 
@@ -62,6 +63,11 @@ export default class newMovieList extends Component {
 
         return (
             <React.Fragment>
+
+            <video muted loop autoPlay id="bgVideo">
+                <source src= {background} type="video/mp4" />
+            </video>
+
             <div className = "slide">
                 <div class="all-movies">
                     {outputData}
