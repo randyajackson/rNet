@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
 import '../css/Movie_Component.css';
 import background from '../videos/test.mp4';
 
 const requester = require('graphql-request');
+
+var i; //global counter used in componentDidMount and return
 
 const new_moviesQuery = 
 "{" +
@@ -50,7 +54,7 @@ export default class newMovieList extends Component {
             requester.request('http://localhost:8000/graphql', new_moviesQuery)
             .then(response => {
                 
-                for(let i = 0; i < response.new_movie.length; i++)
+                for(i = 0; i < response.new_movie.length; i++)
                 {
                     response.new_movie[i].title = truncate(response.new_movie[i].title);
                 }
@@ -68,24 +72,66 @@ export default class newMovieList extends Component {
 
     render() {
 
-        var outputData = [];
+        var allProps = [];
 
-        outputData = this.state.movies.map(
+        var numberOfSlides;
+        
+
+        allProps = this.state.movies.map(
             (currentMovies, index) =>  <Movies results = {currentMovies} />);
+        
+        if(allProps.length % 14 !== 0)
+            numberOfSlides = parseInt( (allProps.length / 14) + 1);
+        else
+            numberOfSlides = parseInt( (allProps.length / 14) );
+        
+        var outputProps = [numberOfSlides];
+        
+        var x,y,z;
+        for(x = 0, y = 0, z = 14; x < numberOfSlides; x++, y+=14, z+=14)
+        {
+            if (x !== numberOfSlides - 1)
+            {
+                outputProps[x] = allProps.slice(y,z);
+            }
+            else
+            {
+                outputProps[x] = allProps.slice(y);    
+            }
+        }
+
+        var output = [];
+        for(i = 0; i < numberOfSlides; i++)
+        {
+            output.push(
+            <Slide index={i}>
+                <div className = "slide">
+                    <div class="all-movies">
+                        {outputProps[i].slice(0)}                 
+                    </div>
+                </div>
+            </Slide>)    
+        }
+            
 
         return (
             <React.Fragment>
 
-            {/* <video muted loop autoPlay id="bgVideo">
-                <source src= {background} type="video/mp4" />
-            </video> */}
+                {/* <video muted loop autoPlay id="bgVideo">
+                    <source src= {background} type="video/mp4" />
+                </video> */}
 
-            <div className = "slide">
-                <div class="all-movies">
-                    {outputData}
-                </div>
-            </div>
-                
+                <CarouselProvider
+                naturalSlideWidth={100}
+                naturalSlideHeight={125}
+                isPlaying = {true}
+                totalSlides={numberOfSlides}
+                interval={10000}
+                >
+                    <Slider>
+                        {output}
+                    </Slider>
+                </CarouselProvider>
             </React.Fragment>
             
         );
