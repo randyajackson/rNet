@@ -4,7 +4,6 @@ import background from '../videos/test.mp4';
 
 const requester = require('graphql-request');
 
-
 const new_moviesQuery = 
 "{" +
     "new_movie" +
@@ -18,8 +17,8 @@ const new_moviesQuery =
 "}";
 
 
-const Movies= props => (
-    <div class="single_movie">
+const Movies = props => (
+    <div class = "single_movie">
         <div class="movie_poster"><img src = {props.results.poster} alt = {props.results.title}></img></div>
         <div class="movie_title">{props.results.title}</div>
         <div class="movie_date">Releases: {props.results.releaseDate}</div>
@@ -27,6 +26,13 @@ const Movies= props => (
     </div>
         
 )
+
+function truncate(input) {
+    if (input.length > 25)
+       return input.substring(0,20) + '...';
+    else
+       return input;
+ };
 export default class newMovieList extends Component {
 
     constructor(props)
@@ -43,6 +49,12 @@ export default class newMovieList extends Component {
         setInterval( () => {
             requester.request('http://localhost:8000/graphql', new_moviesQuery)
             .then(response => {
+                
+                for(let i = 0; i < response.new_movie.length; i++)
+                {
+                    response.new_movie[i].title = truncate(response.new_movie[i].title);
+                }
+
                 this.setState({
                     movies: response.new_movie
                 })
@@ -64,9 +76,9 @@ export default class newMovieList extends Component {
         return (
             <React.Fragment>
 
-            <video muted loop autoPlay id="bgVideo">
+            {/* <video muted loop autoPlay id="bgVideo">
                 <source src= {background} type="video/mp4" />
-            </video>
+            </video> */}
 
             <div className = "slide">
                 <div class="all-movies">
