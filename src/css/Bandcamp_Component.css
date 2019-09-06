@@ -1,0 +1,96 @@
+div.all_results{
+    position: absolute;
+
+    grid-auto-flow: row;
+
+    left: 250px;
+    right: 125px;
+    top: 100px;
+
+    padding-right: 50px;
+    padding-left: 50px;
+
+    text-align: center;
+
+    display: grid;
+    grid-template-columns:700px 700px;
+    grid-template-rows:150px 150px 150px 150px 150px;
+    grid-auto-flow: column;
+
+}
+
+div.single_result{
+    display: grid;
+    grid-template-columns: 85px 85px 300px 200px;
+    grid-template-rows: 20px 20px 20px 20px 20px 20px;
+
+}
+
+.album_art{
+    width: 170px;
+    height: 130px;
+
+    grid-column-start: 1;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 6;
+}
+
+.album_art img{
+    width: 100%;
+    height: 100%;
+}
+
+.artist_name{
+    text-align: center;
+
+    font-family: 'Noto Serif JP', serif;
+    color: white;
+    text-shadow:
+      1px 1px 1px #000,
+      1px 2px 1px #000,
+      1px 3px 1px #000;
+    
+    font-size: 20px;
+
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.album_title{
+    text-align: left;
+
+    grid-column-start: 3;
+    grid-column-end: 4;
+    grid-row-start: 3;
+    grid-row-end: 4;       
+}
+
+.item_description{
+    text-align: left;
+
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 4;
+    grid-row-end: 5;      
+}
+
+.url{
+    text-align: left;
+
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 5;
+    grid-row-end: 6;  
+}
+
+.count{
+    text-align: center;
+
+    grid-column-start: 4;
+    grid-column-end: 5;
+    grid-row-start: 1;
+    grid-row-end: 3;  
+}
