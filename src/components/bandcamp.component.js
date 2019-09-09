@@ -18,19 +18,67 @@ const bandcampQuery =
 "}";
 
 const BC_Results = props => (
-    <div>
-        <div class = "single_result">
-            <div class = "album_art">
-                <img src = {props.results.art_url} alt = {props.results.art_url}></img>
-            </div>
-            <div class = "artist_name">{props.results.artist_name}</div>
-            <div class = "album_title">{props.results.album_title}</div>
-            <div class = "item_description">{props.results.item_description}</div>
-            <div class = "url">http:{props.results.url}</div>
-            <div class = "count"><h1>{props.results.count} sold</h1></div>
+        <div>
+
+        {(() => {
+            if(typeof props.prevResults !== "undefined" && typeof props.prevResults !== "undefined")
+            {
+                if(props.prevResults.url === props.results.url && props.prevResults.count === props.results.count)
+                {    
+                    return(
+                    <div class = "single_result">
+
+                        <div class = "album_art">
+                            <img src = {props.results.art_url} alt = {props.results.art_url}></img>
+                        </div>
+
+                        <div class = "artist_name">{props.results.artist_name}</div>
+                        <div class = "album_title">{props.results.album_title}</div>
+                        <div class = "item_description">{props.results.item_description}</div>
+                        <div class = "url">http:{props.results.url}</div>
+                        <div class = "count"><h1>{props.results.count} sold</h1></div>
+                    </div>);
+                }
+                else if(props.prevResults.url === props.results.url && props.prevResults.count !== props.results.count)
+                {
+                    return(
+                    <div class = "single_result">
+
+                        <div class = "album_art">
+                            <img src = {props.results.art_url} alt = {props.results.art_url}></img>
+                        </div>
+
+                        <div class = "artist_name">{props.results.artist_name}</div>
+                        <div class = "album_title">{props.results.album_title}</div>
+                        <div class = "item_description">{props.results.item_description}</div>
+                        <div class = "url">http:{props.results.url}</div>
+                        <div class = "count" id="changeGreen" ><h1>{props.results.count} sold</h1></div>
+                    </div>);    
+                }
+                else
+                {
+                    return(
+                    <div class = "single_result" id = "changeRank">
+
+                        <div class = "album_art">
+                            <img src = {props.results.art_url} alt = {props.results.art_url}></img>
+                        </div>
+
+                        <div class = "artist_name">{props.results.artist_name}</div>
+                        <div class = "album_title">{props.results.album_title}</div>
+                        <div class = "item_description">{props.results.item_description}</div>
+                        <div class = "url">http:{props.results.url}</div>
+                        <div class = "count"><h1>{props.results.count} sold</h1></div>
+                    </div>);  
+                }
+            }
+            
+        })()}    
 
         </div>
-    </div>
+   
+    
+    
 )
 
 export default class BandcampResults extends Component {
