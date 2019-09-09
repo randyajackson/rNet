@@ -1,6 +1,25 @@
+div.all_results{
+    position: absolute;
+
+    left: 250px;
+    right: 125px;
+    top: 100px;
+
+    padding-right: 50px;
+    padding-left: 50px;
+
+    text-align: center;
+
+    display: grid;
+    grid-template-columns:300px 300px 300px;
+    grid-template-rows:200px 200px 200px 200px;
+    grid-auto-flow: column;
+
+}
+
 div.single_result{
     display: grid;
-    grid-template-rows: 200px 20px 20px;
+    grid-template-rows: 210px 30px 30px;
 }
 
 .thumbnail{
