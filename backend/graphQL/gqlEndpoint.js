@@ -22,8 +22,9 @@ const crypto = mongoose.createConnection('mongodb://localhost/crypto', {useNewUr
 const newMovies = mongoose.createConnection('mongodb://localhost/upcoming_movies', {useNewUrlParser: true});
 const newOnSteam = mongoose.createConnection('mongodb://localhost/new_on_steam', {useNewUrlParser: true});
 const topSearches = mongoose.createConnection('mongodb://localhost/googleSearches', {useNewUrlParser: true});
+const upcomingSneakers = mongoose.createConnection('mongodb://localhost/upcoming_sneakers', {useNewUrlParser: true});
 
-Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
+Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneakers]).then(() => {
 
     // model and type for bandcamp data
     //----------------------------------------------------------------
@@ -141,6 +142,30 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
 
     //----------------------------------------------------------------
 
+    // model and type for upcoming sneakers data
+    //----------------------------------------------------------------
+    const upcomingSneakersModel = upcomingSneakers.model("newSneakers",
+    {
+        title: String,
+        style: String,
+        thumbnail: String,
+        day: String,
+        month: String
+    });
+
+    const upcomingSneakersType = new GraphQLObjectType({
+        name: "sneakerRecords",
+        fields: {
+            title: { type: GraphQLString },
+            style: { type: GraphQLString },
+            thumbnail: { type: GraphQLString },
+            day: { type: GraphQLString },
+            month: { type: GraphQLString }
+        }
+    });
+
+    //----------------------------------------------------------------
+
     //defining GraphQL queries below
 
     const schema = new GraphQLSchema({
@@ -180,6 +205,13 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches]).then(() => {
                     type: GraphQLList(topSearchesType),
                     resolve: (root, args, context, info) => {
                         return topSearchesModel.find().sort({ rank : 1}).exec();
+                    }
+                },
+
+                upcoming_sneakers: {
+                    type: GraphQLList(upcomingSneakersType),
+                    resolve: (root, args, context, info) => {
+                        return upcomingSneakersModel.find().sort({_id : 1}).exec();
                     }
                 }
 

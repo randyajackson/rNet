@@ -26,7 +26,7 @@ db.once('open', function() {
         month: String
     });
 
-    var upcomingModel = mongoose.model('upcoming_sneaker', upcomingSchema);
+    var upcomingModel = mongoose.model('newSneakers', upcomingSchema);
 
 
     const url = 'https://www.kixify.com/release-dates/upcoming?page=1';
