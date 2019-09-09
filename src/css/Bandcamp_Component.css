@@ -115,7 +115,7 @@ div.single_result{
 }
 
     @keyframes blurTransition{
-        0% {filter: blur(0);}
-        10% {filter: blur(.25rem);}
-        100% {filter: blur(0);}
+        0% {filter: blur(0); color:black;}
+        10% {filter: blur(.25rem); color:white;}
+        100% {filter: blur(0); color: black;}
     }
