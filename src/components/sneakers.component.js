@@ -26,7 +26,7 @@ const Sneaker_Results = props =>
             <img src = {props.results.thumbnail} alt = {props.results.thumbnail}></img>
         </div>
 
-        <div class = "date">{props.results.month}{props.results.day}</div>
+        <div class = "date"><span id="Month">  {props.results.month} </span> {props.results.day}  </div>
         <div class = "title">{props.results.title}</div>
 
 
