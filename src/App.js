@@ -5,6 +5,7 @@ import PricesList from "./components/crypto.component";
 import newMovieList from "./components/newMovies.component";
 import BandcampResults from "./components/bandcamp.component";
 import SneakerResults from "./components/sneakers.component";
+import TopSearchesResults from "./components/topSearches.component";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/new_movies" component={newMovieList} />
         <Route path="/bc" component={BandcampResults} />
         <Route path="/new_sneakers" component={SneakerResults} />
+        <Route path="/top_searches" component={TopSearchesResults} />
     </Router>
   );
 }

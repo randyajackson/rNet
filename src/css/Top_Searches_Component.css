@@ -1,0 +1,46 @@
+div.all_results_top_searches{
+    position: absolute;
+
+    left: 80px;
+    right: 125px;
+    top: 100px;
+
+    padding-right: 50px;
+    padding-left: 50px;
+
+    text-align: center;
+
+    display: grid;
+    grid-template-columns:450px 450px 450px 450px;
+    grid-template-rows:150px 150px 150px 150px 150px;
+    grid-auto-flow: row;
+
+}
+
+div.single_result_top_searches{
+    text-align: left;
+
+}
+
+#topic{
+    font-size: 30px;
+    background-color: gray;
+    color: white; 
+
+    text-align: middle;
+
+    padding-left: 10px;   
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 22px;
+}
+
+#rank{
+    font-size: 50px;
+
+    padding-left: 10px;   
+    padding-right: 10px;
+
+    background-color: brown;
+    color: white;    
+}
