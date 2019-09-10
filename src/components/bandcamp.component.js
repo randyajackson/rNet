@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Bandcamp_Component.css';
-import background from '../videos/test.mp4';
+
 
 const requester = require('graphql-request');
 
@@ -86,6 +86,8 @@ export default class BandcampResults extends Component {
     constructor(props){
         super(props);
 
+        this.myRef = React.createRef();
+
         this.state = { 
                         bandcamp_results: [],
                         previous_bandcamp_results: []
@@ -94,6 +96,17 @@ export default class BandcampResults extends Component {
 
     componentDidMount()
     {
+        this.effect = window.VANTA.FOG({
+            el: this.myRef.current,
+            highlightColor: 0xfff3f3,
+            midtoneColor: 0x8fbdff,
+            lowlightColor: 0xc088bd,
+            baseColor: 0xffffff,
+            blurFactor: 0.47,
+            speed: 0.10,
+            zoom: 1.10
+            });
+
         setInterval( () => {
 
             requester.request('http://localhost:8000/graphql', bandcampQuery)
@@ -126,11 +139,10 @@ export default class BandcampResults extends Component {
         
         return (
             <React.Fragment>
-                {/* <video muted loop autoPlay id="bgVideo">
-                    <source src= {background} type="video/mp4" />
-                </video> */}
-                <div class = "all_results_bc">
-                    {allProps}
+                <div ref={this.myRef}>
+                    <div class = "all_results_bc">
+                        {allProps}
+                    </div>
                 </div>
             </React.Fragment>
                         

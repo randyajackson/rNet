@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Top_Searches_Component.css';
 
-
-
 const requester = require('graphql-request');
 
 const topSearchQuery = 
@@ -27,7 +25,7 @@ export default class TopSearchesResults extends Component {
     constructor(props){
         super(props);
         
-        this.myRef = React.createRef();
+        // this.myRef = React.createRef();
 
         this.state = { 
                         search_results: []
@@ -36,16 +34,16 @@ export default class TopSearchesResults extends Component {
 
     componentDidMount()
     {   
-        this.effect = window.VANTA.FOG({
-            el: this.myRef.current,
-            highlightColor: 0xfff3f3,
-            midtoneColor: 0x8fbdff,
-            lowlightColor: 0xc088bd,
-            baseColor: 0xffffff,
-            blurFactor: 0.47,
-            speed: 0.10,
-            zoom: 1.10
-            });
+        // this.effect = window.VANTA.FOG({
+        //     el: this.myRef.current,
+        //     highlightColor: 0xfff3f3,
+        //     midtoneColor: 0x8fbdff,
+        //     lowlightColor: 0xc088bd,
+        //     baseColor: 0xffffff,
+        //     blurFactor: 0.47,
+        //     speed: 0.10,
+        //     zoom: 1.10
+        //     });
 
         setInterval( () => {
 
@@ -73,11 +71,11 @@ export default class TopSearchesResults extends Component {
         
         return (
             <React.Fragment>
-            <div ref={this.myRef}>
+            {/* <div ref={this.myRef}> */}
                 <div class = "all_results_top_searches">
                     {allProps}
                 </div>
-            </div>
+            {/* </div> */}
             </React.Fragment>
                         
         );

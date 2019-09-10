@@ -43,6 +43,8 @@ export default class newMovieList extends Component {
     {
         super(props);
 
+        // this.myRef = React.createRef();
+
         this.state = { 
                         movies: []  
                      };
@@ -50,6 +52,18 @@ export default class newMovieList extends Component {
 
     componentDidMount()
     {
+
+        // this.effect = window.VANTA.FOG({
+        //     el: this.myRef.current,
+        //     highlightColor: 0xfff3f3,
+        //     midtoneColor: 0x8fbdff,
+        //     lowlightColor: 0xc088bd,
+        //     baseColor: 0xffffff,
+        //     blurFactor: 0.47,
+        //     speed: 0.10,
+        //     zoom: 1.10
+        //     });
+
         setInterval( () => {
             requester.request('http://localhost:8000/graphql', new_moviesQuery)
             .then(response => {
@@ -116,22 +130,19 @@ export default class newMovieList extends Component {
 
         return (
             <React.Fragment>
-
-                {/* <video muted loop autoPlay id="bgVideo">
-                    <source src= {background} type="video/mp4" />
-                </video> */}
-
-                <CarouselProvider
-                naturalSlideWidth={100}
-                naturalSlideHeight={125}
-                isPlaying = {true}
-                totalSlides={numberOfSlides}
-                interval={10000}
-                >
-                    <Slider>
-                        {output}
-                    </Slider>
-                </CarouselProvider>
+                {/* <div ref={this.myRef}> */}
+                    <CarouselProvider
+                    naturalSlideWidth={100}
+                    naturalSlideHeight={125}
+                    isPlaying = {true}
+                    totalSlides={numberOfSlides}
+                    interval={10000}
+                    >
+                        <Slider>
+                            {output}
+                        </Slider>
+                    </CarouselProvider>
+                {/* </div> */}
             </React.Fragment>
             
         );

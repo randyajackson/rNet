@@ -5,7 +5,7 @@ import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-re
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import parseCurrency from 'parse-currency';
 import '../css/Crypto_Component.css'
-import background from '../videos/test.mp4';
+
 
 const Price = props => (
     <tr>
@@ -50,6 +50,8 @@ export default class PricesList extends Component {
     constructor(props){
         super(props);
 
+        // this.myRef = React.createRef();
+
         this.state = { 
                         prices: [],
                         prices1: [],
@@ -78,6 +80,18 @@ export default class PricesList extends Component {
 
     componentDidMount()
     {
+
+        // this.effect = window.VANTA.FOG({
+        //     el: this.myRef.current,
+        //     highlightColor: 0xfff3f3,
+        //     midtoneColor: 0x8fbdff,
+        //     lowlightColor: 0xc088bd,
+        //     baseColor: 0xffffff,
+        //     blurFactor: 0.47,
+        //     speed: 0.10,
+        //     zoom: 1.10
+        //     });
+
         setInterval( () => {
             axios.get('http://localhost:5000/crypto')
             
@@ -179,30 +193,28 @@ export default class PricesList extends Component {
                     
         return (
             <React.Fragment>
-            <video muted loop autoPlay id="bgVideo">
-                <source src= {background} type="video/mp4" />
-            </video>
-            
-            <CarouselProvider
-            naturalSlideWidth={100}
-            naturalSlideHeight={125}
-            isPlaying = {true}
-            totalSlides={10}
-            interval={20000}
-          >
-                            <Slider>
-                            <Slide index={0}>{outputData[0]}</Slide>
-                            <Slide index={1}>{outputData[1]}</Slide>
-                            <Slide index={2}>{outputData[2]}</Slide>
-                            <Slide index={3}>{outputData[3]}</Slide>
-                            <Slide index={4}>{outputData[4]}</Slide>
-                            <Slide index={5}>{outputData[5]}</Slide>
-                            <Slide index={6}>{outputData[6]}</Slide>
-                            <Slide index={7}>{outputData[7]}</Slide>
-                            <Slide index={8}>{outputData[8]}</Slide>
-                            <Slide index={9}>{outputData[9]}</Slide>
-                            </Slider>
-            </CarouselProvider>
+            {/* <div ref={this.myRef}> */}
+                <CarouselProvider
+                naturalSlideWidth={100}
+                naturalSlideHeight={125}
+                isPlaying = {true}
+                totalSlides={10}
+                interval={20000}
+            >
+                                <Slider>
+                                <Slide index={0}>{outputData[0]}</Slide>
+                                <Slide index={1}>{outputData[1]}</Slide>
+                                <Slide index={2}>{outputData[2]}</Slide>
+                                <Slide index={3}>{outputData[3]}</Slide>
+                                <Slide index={4}>{outputData[4]}</Slide>
+                                <Slide index={5}>{outputData[5]}</Slide>
+                                <Slide index={6}>{outputData[6]}</Slide>
+                                <Slide index={7}>{outputData[7]}</Slide>
+                                <Slide index={8}>{outputData[8]}</Slide>
+                                <Slide index={9}>{outputData[9]}</Slide>
+                                </Slider>
+                </CarouselProvider>
+            {/* </div> */}
             </React.Fragment>
                         
         );
