@@ -1,4 +1,4 @@
-div.all_results{
+div.all_results_sneakers{
     position: absolute;
 
     left: 250px;
@@ -17,14 +17,19 @@ div.all_results{
 
 }
 
-div.single_result{
+div.single_result_sneakers{
     display: grid;
-    grid-template-rows: 210px 30px 30px;
+    grid-template-rows: 100px 40px 20px;
+    grid-template-columns: 400px;
+    
 }
 
 .thumbnail{
     width: 200px;
     height: 100px;
+
+    margin-left: auto;
+    margin-right: auto;
 
     grid-row-start: 1;
     grid-row-end: 2;
@@ -37,9 +42,12 @@ div.single_result{
 
 .title{
     text-align: center;
+    width: 200px;
 
-    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
 
+    grid-column: auto;
     grid-row-start: 2;
     grid-row-end: 3;       
 }
@@ -47,8 +55,10 @@ div.single_result{
 .date{
     text-align: center;
 
-    padding: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 
+    grid-column: auto;
     grid-row-start: 3;
     grid-row-end: 4;       
 }

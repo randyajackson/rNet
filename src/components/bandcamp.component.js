@@ -26,7 +26,7 @@ const BC_Results = props => (
                 if(props.prevResults.url === props.results.url && props.prevResults.count === props.results.count)
                 {    
                     return(
-                    <div class = "single_result">
+                    <div class = "single_result_bc">
 
                         <div class = "album_art">
                             <img src = {props.results.art_url} alt = {props.results.art_url}></img>
@@ -42,7 +42,7 @@ const BC_Results = props => (
                 else if(props.prevResults.url === props.results.url && props.prevResults.count !== props.results.count)
                 {
                     return(
-                    <div class = "single_result">
+                    <div class = "single_result_bc">
 
                         <div class = "album_art">
                             <img src = {props.results.art_url} alt = {props.results.art_url}></img>
@@ -58,7 +58,7 @@ const BC_Results = props => (
                 else
                 {
                     return(
-                    <div class = "single_result" id = "changeRank">
+                    <div class = "single_result_bc" id = "changeRank">
 
                         <div class = "album_art">
                             <img src = {props.results.art_url} alt = {props.results.art_url}></img>
@@ -129,7 +129,7 @@ export default class BandcampResults extends Component {
                 {/* <video muted loop autoPlay id="bgVideo">
                     <source src= {background} type="video/mp4" />
                 </video> */}
-                <div class = "all_results">
+                <div class = "all_results_bc">
                     {allProps}
                 </div>
             </React.Fragment>

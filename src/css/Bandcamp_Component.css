@@ -1,4 +1,4 @@
-div.all_results{
+div.all_results_bc{
     position: absolute;
 
     grid-auto-flow: row;
@@ -19,7 +19,7 @@ div.all_results{
 
 }
 
-div.single_result{
+div.single_result_bc{
     display: grid;
     grid-template-columns: 85px 85px 300px 200px;
     grid-template-rows: 20px 20px 20px 20px 20px 20px;
@@ -85,7 +85,7 @@ div.single_result{
     text-align: left;
 
     padding: 5px;
-
+    
     grid-column-start: 3;
     grid-column-end: 5;
     grid-row-start: 5;
