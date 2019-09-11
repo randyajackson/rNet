@@ -1,11 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 import parseCurrency from 'parse-currency';
 import '../css/Crypto_Component.css'
 
+const requester = require('graphql-request');
+
+const cryptoQuery = 
+"{" +
+    "crypto" +
+    "{" +
+      "coinName," +
+      "coinSName," +
+      "coinPrice," +
+      "coinTotal," +
+      "coin24" +
+    "}" +
+"}";
 
 const Price = props => (
     <tr>
@@ -93,24 +105,23 @@ export default class PricesList extends Component {
         //     });
 
         setInterval( () => {
-            axios.get('http://localhost:5000/crypto')
-            
+            requester.request('http://localhost:8000/graphql', cryptoQuery)
             .then(response => {
                 this.getPrevPrice();
                 this.setState({
 
-                    prices: response.data,
+                    prices: response.crypto,
 
-                    prices1: response.data.slice(0,9),
-                    prices2: response.data.slice(10,19),
-                    prices3: response.data.slice(20,29),
-                    prices4: response.data.slice(30,39),
-                    prices5: response.data.slice(40,49),
-                    prices6: response.data.slice(50,59),
-                    prices7: response.data.slice(60,69),
-                    prices8: response.data.slice(70,79),
-                    prices9: response.data.slice(80,89),
-                    prices10: response.data.slice(90,99)
+                    prices1: response.crypto.slice(0,9),
+                    prices2: response.crypto.slice(10,19),
+                    prices3: response.crypto.slice(20,29),
+                    prices4: response.crypto.slice(30,39),
+                    prices5: response.crypto.slice(40,49),
+                    prices6: response.crypto.slice(50,59),
+                    prices7: response.crypto.slice(60,69),
+                    prices8: response.crypto.slice(70,79),
+                    prices9: response.crypto.slice(80,89),
+                    prices10: response.crypto.slice(90,99)
                 })
                 
             })
