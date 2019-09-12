@@ -25,7 +25,7 @@ div.all_results_bc{
 div.single_result_bc{
     display: grid;
     grid-template-columns: 85px 85px 300px 200px;
-    grid-template-rows: 20px 20px 20px 20px 20px 20px;
+    grid-template-rows: 20px 20px 20px 40px 20px 20px;
 
 }
 
@@ -91,6 +91,8 @@ div.single_result_bc{
 
     padding-left: 5px;
     padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
     
     grid-column-start: 3;
     grid-column-end: 5;

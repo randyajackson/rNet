@@ -1,0 +1,36 @@
+div.upcoming_list{
+    position: absolute;
+
+    right: 80px;
+    top: 700px;
+
+    text-align: left;
+
+    display: grid;
+    grid-template-columns:150px;
+    grid-template-rows:35px 35px 35px 35px;
+    grid-auto-flow: row;
+}
+
+div.list_entry_1{
+    background-color: antiquewhite;
+    padding: 5px;
+}
+
+div.list_entry_2{
+    background-color: antiquewhite;
+    padding: 5px;
+    opacity: .75;
+}
+
+div.list_entry_3{
+    background-color: antiquewhite;
+    padding: 5px;
+    opacity: .5;
+}
+
+div.list_entry_4{
+    background-color: antiquewhite;
+    padding: 5px;
+    opacity: .25;
+}
