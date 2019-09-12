@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+
+import '../css/Crypto_Component.css';
+import './../css/progress_bar.css';
+
+import { CarouselProvider, Slider, Slide} from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+
 import parseCurrency from 'parse-currency';
-import '../css/Crypto_Component.css'
+import { RadialProgress } from 'react-radial-progress-indicator';
+
+
 
 const requester = require('graphql-request');
 
@@ -57,6 +63,12 @@ const Price = props => (
     </tr>
 )
 
+function changePage() {
+    setTimeout( () => {
+        document.location.href = "http://localhost:3000/new_movies";
+    }, 60*1000*3)     
+ };
+
 export default class PricesList extends Component {
 
     constructor(props){
@@ -92,6 +104,7 @@ export default class PricesList extends Component {
 
     componentDidMount()
     {
+        changePage();
 
         // this.effect = window.VANTA.FOG({
         //     el: this.myRef.current,
@@ -205,6 +218,33 @@ export default class PricesList extends Component {
         return (
             <React.Fragment>
             {/* <div ref={this.myRef}> */}
+
+            <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999' }}>
+                <RadialProgress
+                        ringBgColour= "#ffffff00"
+                        ringFgColour="#8fbdff"
+                        ringIntermediateColour="#8fbdff"
+                        backgroundTransparent
+                        duration={ 60*1000*3 }
+                        ringThickness={1}
+                        segmented={false}
+                        showIntermediateProgress
+                        startStep={0}
+                        step={20}
+                        steps={20}
+                        width={150}
+                        height={150}
+                        text={function text(steps,percentage){return('')}}
+                        />
+            </div>
+
+            <div className= "upcoming_list">
+                <div className= "list_entry one">Upcoming Movies</div>
+                <div className= "list_entry two">Bandcamp Trends</div>
+                <div className= "list_entry three">Search Trends</div>
+                <div className= "list_entry four">Upcoming Shoes</div>
+            </div>
+            
                 <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={125}

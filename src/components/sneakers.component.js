@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import {Redirect} from 'react-router-dom';
 
 import '../css/Sneakers_Component.css';
-import background from '../videos/test.mp4';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import './../css/progress_bar.css';
+
+import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
 
 import { RadialProgress } from 'react-radial-progress-indicator';
-import './../css/progress_bar.css'
+
 
 
 const requester = require('graphql-request');
@@ -49,7 +49,7 @@ function truncate(input) {
  function changePage() {
     setTimeout( () => {
         document.location.href = "http://localhost:3000/crypto";
-    }, 60*1000*.20)     
+    }, 60*1000*3)     
  };
 
 export default class SneakerResults extends Component {
@@ -67,6 +67,7 @@ export default class SneakerResults extends Component {
     componentDidMount()
     {
         changePage();
+        
         // this.effect = window.VANTA.FOG({
         //     el: this.myRef.current,
         //     highlightColor: 0xfff3f3,
@@ -153,7 +154,7 @@ export default class SneakerResults extends Component {
                             ringFgColour="#8fbdff"
                             ringIntermediateColour="#8fbdff"
                             backgroundTransparent
-                            duration={ 60*1000*.20 }
+                            duration={ 60*1000*3 }
                             ringThickness={1}
                             segmented={false}
                             showIntermediateProgress

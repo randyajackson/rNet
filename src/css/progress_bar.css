@@ -7,7 +7,7 @@ div.upcoming_list{
     text-align: left;
 
     display: grid;
-    grid-template-columns:150px;
+    grid-template-columns:160px;
     grid-template-rows:35px 35px 35px 35px;
     grid-row-gap: 5px; 
     grid-auto-flow: row;
