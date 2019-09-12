@@ -9,28 +9,29 @@ div.upcoming_list{
     display: grid;
     grid-template-columns:150px;
     grid-template-rows:35px 35px 35px 35px;
+    grid-row-gap: 5px; 
     grid-auto-flow: row;
 }
 
-div.list_entry_1{
-    background-color: antiquewhite;
+.list_entry{
+    background-color: #8fbdff;
     padding: 5px;
+    border-style: solid;
 }
 
-div.list_entry_2{
-    background-color: antiquewhite;
-    padding: 5px;
+.list_entry.one{
+    opacity: 1;
+    font-weight: bold;
+}
+
+.list_entry.two{
     opacity: .75;
 }
 
-div.list_entry_3{
-    background-color: antiquewhite;
-    padding: 5px;
+.list_entry.three{
     opacity: .5;
 }
 
-div.list_entry_4{
-    background-color: antiquewhite;
-    padding: 5px;
+.list_entry.four{
     opacity: .25;
 }

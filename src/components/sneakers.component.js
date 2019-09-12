@@ -50,7 +50,7 @@ export default class SneakerResults extends Component {
     constructor(props){
         super(props);
         
-        this.myRef = React.createRef();
+        // this.myRef = React.createRef();
 
         this.state = { 
                         sneaker_results: []
@@ -60,19 +60,19 @@ export default class SneakerResults extends Component {
     componentDidMount()
     {
 
-        this.effect = window.VANTA.FOG({
-            el: this.myRef.current,
-            highlightColor: 0xfff3f3,
-            midtoneColor: 0x8fbdff,
-            lowlightColor: 0xc088bd,
-            baseColor: 0xffffff,
-            blurFactor: 0.47,
-            speed: 2,
-            zoom: 5
-            // blurFactor: 0.47,
-            // speed: 0.10,
-            // zoom: 1.10
-            });
+        // this.effect = window.VANTA.FOG({
+        //     el: this.myRef.current,
+        //     highlightColor: 0xfff3f3,
+        //     midtoneColor: 0x8fbdff,
+        //     lowlightColor: 0xc088bd,
+        //     baseColor: 0xffffff,
+        //     blurFactor: 0.47,
+        //     speed: 2,
+        //     zoom: 5
+        //     // blurFactor: 0.47,
+        //     // speed: 0.10,
+        //     // zoom: 1.10
+        //     });
 
         setInterval( () => {
 
@@ -138,32 +138,32 @@ export default class SneakerResults extends Component {
 
         return (
             <React.Fragment>
-                <div ref={this.myRef}>
+                {/* <div ref={this.myRef}> */}
 
-                    <div style = {{ position: 'absolute', top: 735, right: 250, zIndex: '999' }}>
+                    <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999' }}>
                         <RadialProgress
                             ringBgColour= "#ffffff00"
-                            ringFgColour="#DC143C"
-                            ringIntermediateColour="#DC143C"
+                            ringFgColour="#8fbdff"
+                            ringIntermediateColour="#8fbdff"
                             backgroundTransparent
-                            duration={60*1000*5}
+                            duration={60*1000*.20}
                             ringThickness={1}
                             segmented={false}
                             showIntermediateProgress
                             startStep={0}
                             step={20}
                             steps={20}
-                            width={100}
-                            height={100}
+                            width={150}
+                            height={150}
                             text={function text(steps,percentage){return('')}}
                             />
                     </div>
 
                     <div class= "upcoming_list">
-                        <div class= "list_entry_1">Cryptocurrency</div>
-                        <div class= "list_entry_2">Upcoming Movies</div>
-                        <div class= "list_entry_3">Bandcamp Trends</div>
-                        <div class= "list_entry_4">Search Trends</div>
+                        <div class= "list_entry one">Cryptocurrency</div>
+                        <div class= "list_entry two">Upcoming Movies</div>
+                        <div class= "list_entry three">Bandcamp Trends</div>
+                        <div class= "list_entry four">Search Trends</div>
                     </div>
 
                     <CarouselProvider
@@ -179,7 +179,7 @@ export default class SneakerResults extends Component {
                     </CarouselProvider>
             
                     
-                </div>
+                {/* </div> */}
             </React.Fragment>
                         
         );
