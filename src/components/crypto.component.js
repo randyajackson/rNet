@@ -1,3 +1,5 @@
+/*WARNING: first react component that I have made */
+
 import React, { Component } from 'react';
 
 import '../css/Crypto_Component.css';
