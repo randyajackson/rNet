@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Redirect} from 'react-router-dom';
+
 import '../css/Sneakers_Component.css';
 import background from '../videos/test.mp4';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
@@ -24,14 +26,14 @@ const sneakerQuery =
 
 const Sneaker_Results = props => 
 (
-    <div class = "single_result_sneakers">
+    <div className = "single_result_sneakers">
 
-        <div class = "thumbnail">
+        <div className = "thumbnail">
             <img src = {props.results.thumbnail} alt = {props.results.thumbnail}></img>
         </div>
 
-        <div class = "date"><span id="Month">  {props.results.month} </span> {props.results.day}  </div>
-        <div class = "title">{props.results.title}</div>
+        <div className = "date"><span id="Month">  {props.results.month} </span> {props.results.day}  </div>
+        <div className = "title">{props.results.title}</div>
 
 
     </div>
@@ -44,6 +46,11 @@ function truncate(input) {
        return input;
  };
 
+ function changePage() {
+    setTimeout( () => {
+        document.location.href = "http://localhost:3000/crypto";
+    }, 60*1000*.20)     
+ };
 
 export default class SneakerResults extends Component {
 
@@ -59,7 +66,7 @@ export default class SneakerResults extends Component {
 
     componentDidMount()
     {
-
+        changePage();
         // this.effect = window.VANTA.FOG({
         //     el: this.myRef.current,
         //     highlightColor: 0xfff3f3,
@@ -146,7 +153,7 @@ export default class SneakerResults extends Component {
                             ringFgColour="#8fbdff"
                             ringIntermediateColour="#8fbdff"
                             backgroundTransparent
-                            duration={60*1000*.20}
+                            duration={ 60*1000*.20 }
                             ringThickness={1}
                             segmented={false}
                             showIntermediateProgress
@@ -159,11 +166,11 @@ export default class SneakerResults extends Component {
                             />
                     </div>
 
-                    <div class= "upcoming_list">
-                        <div class= "list_entry one">Cryptocurrency</div>
-                        <div class= "list_entry two">Upcoming Movies</div>
-                        <div class= "list_entry three">Bandcamp Trends</div>
-                        <div class= "list_entry four">Search Trends</div>
+                    <div className= "upcoming_list">
+                        <div className= "list_entry one">Cryptocurrency</div>
+                        <div className= "list_entry two">Upcoming Movies</div>
+                        <div className= "list_entry three">Bandcamp Trends</div>
+                        <div className= "list_entry four">Search Trends</div>
                     </div>
 
                     <CarouselProvider
