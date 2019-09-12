@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
+
 import '../css/Movie_Component.css';
-import background from '../videos/test.mp4';
+import './../css/progress_bar.css';
+
+import { CarouselProvider, Slider, Slide} from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
+
+import { RadialProgress } from 'react-radial-progress-indicator';
+
 
 const requester = require('graphql-request');
 
@@ -31,6 +36,12 @@ const Movies = props => (
         
 )
 
+function changePage() {
+    setTimeout( () => {
+        document.location.href = "http://localhost:3000/bc";
+    }, 60*1000*3)     
+ };
+
 function truncate(input) {
     if (input.length > 25)
        return input.substring(0,20) + '...';
@@ -52,6 +63,7 @@ export default class newMovieList extends Component {
 
     componentDidMount()
     {
+        changePage();
 
         // this.effect = window.VANTA.FOG({
         //     el: this.myRef.current,
@@ -131,6 +143,33 @@ export default class newMovieList extends Component {
         return (
             <React.Fragment>
                 {/* <div ref={this.myRef}> */}
+
+            <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6 }}>
+                <RadialProgress
+                        ringBgColour= "#ffffff00"
+                        ringFgColour="#8fbdff"
+                        ringIntermediateColour="#8fbdff"
+                        backgroundTransparent
+                        duration={ 60*1000*3 }
+                        ringThickness={1}
+                        segmented={false}
+                        showIntermediateProgress
+                        startStep={0}
+                        step={20}
+                        steps={20}
+                        width={150}
+                        height={150}
+                        text={function text(steps,percentage){return('')}}
+                        />
+            </div>
+
+            <div className= "upcoming_list">
+                <div className= "list_entry one">Bandcamp Trends</div>
+                <div className= "list_entry two">Search Trends</div>
+                <div className= "list_entry three">Upcoming Shoes</div>
+                <div className= "list_entry four">Cryptocurrency</div>
+            </div>
+
                     <CarouselProvider
                     naturalSlideWidth={100}
                     naturalSlideHeight={125}
@@ -142,6 +181,7 @@ export default class newMovieList extends Component {
                             {output}
                         </Slider>
                     </CarouselProvider>
+
                 {/* </div> */}
             </React.Fragment>
             

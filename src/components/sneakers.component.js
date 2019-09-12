@@ -148,7 +148,7 @@ export default class SneakerResults extends Component {
             <React.Fragment>
                 {/* <div ref={this.myRef}> */}
 
-                    <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999' }}>
+                    <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6}}>
                         <RadialProgress
                             ringBgColour= "#ffffff00"
                             ringFgColour="#8fbdff"
