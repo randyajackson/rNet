@@ -39,7 +39,8 @@ const Movies = props => (
 function changePage() {
     setTimeout( () => {
         document.location.href = "http://localhost:3000/bc";
-    }, 60*1000*3)     
+    }, 60*1000*3);
+    return false;   
  };
 
 function truncate(input) {

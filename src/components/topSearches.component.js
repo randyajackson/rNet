@@ -27,7 +27,8 @@ const TrendingSearches = props => (
 function changePage() {
     setTimeout( () => {
         document.location.href = "http://localhost:3000/new_sneakers";
-    }, 60*1000*3)     
+    }, 60*1000*3);
+    return false;     
  };
 
 export default class TopSearchesResults extends Component {

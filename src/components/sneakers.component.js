@@ -49,7 +49,8 @@ function truncate(input) {
  function changePage() {
     setTimeout( () => {
         document.location.href = "http://localhost:3000/crypto";
-    }, 60*1000*3)     
+    }, 60*1000*3)
+    return false;     
  };
 
 export default class SneakerResults extends Component {

@@ -87,7 +87,8 @@ const BC_Results = props => (
 function changePage() {
     setTimeout( () => {
         document.location.href = "http://localhost:3000/top_searches";
-    }, 60*1000*3)     
+    }, 60*1000*3);
+    return false;    
  };
 
 export default class BandcampResults extends Component {
