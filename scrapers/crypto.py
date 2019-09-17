@@ -29,8 +29,8 @@ def collect():
 
     x = 1
     #print(data)
-
-    while x < len(data):   
+    if "crypto_data_prices" in db.list_collection_names():
+        while x < len(data):   
             prices.update_one(
                 {"coinName" : data[x + 1] },
                     {"$set" :
@@ -44,16 +44,19 @@ def collect():
                         }
                     }
             )
-            # prices.insert_one(
-            #     {
-            #         'id#' : data[x],
-            #         'coinName' : data[x + 1],
-            #         'coinSName' : data[x + 2],
-            #         'coinPrice' : data[x + 3],
-            #         'coinTotal' : data[x + 4],
-            #         'coin24' : data[x + 5]        
-            #     }
-            # )
+            x += 7
+    else:
+        while x < len(data):
+            prices.insert_one(
+                {
+                    'id#' : data[x],
+                    'coinName' : data[x + 1],
+                    'coinSName' : data[x + 2],
+                    'coinPrice' : data[x + 3],
+                    'coinTotal' : data[x + 4],
+                    'coin24' : data[x + 5]        
+                }
+            )
             x += 7
 
     driver.refresh()
