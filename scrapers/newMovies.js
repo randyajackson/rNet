@@ -63,6 +63,10 @@ db.once('open', function() {
     .catch(error => {
         console.log(error);
     })
+
+    setTimeout(function () {
+        process.exit();
+    }, 20 * 1000);
 });
 
 
