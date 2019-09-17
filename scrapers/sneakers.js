@@ -73,18 +73,22 @@ db.once('open', function() {
 
             upcoming_sneaker.save(function (err, upcoming) {
                 if(err) return console.error(err);
-                console.log("saved:" + upcoming.title + " " + i + " " + dates.length)
+                console.log("saved:" + upcoming.title );
             });
         }
+
+        setTimeout(function () {
+            process.exit();
+        }, 20 * 1000);
                 
     })
     .catch(error => {
         console.log(error);
     })
+    
+});
 
     
-
-});
 
     function processText(inputText) {
         var output = [];
