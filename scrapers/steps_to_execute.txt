@@ -1,0 +1,20 @@
+//starts graphQL server
+cd backend
+cd graphQL
+node gqlEndpoint
+
+//starts react server
+npm start
+
+//starts scheduler for single-run scripts that drop their own db
+node onceAnHourScheduler
+
+//starts scheduler for dropping database at certain times
+node dbDropScheduler
+
+//starts crypto scraper
+python crypto.py
+
+//starts bandcamp scraper 
+node bandcamp
+

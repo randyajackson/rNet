@@ -1,5 +1,7 @@
 const { exec } = require('child_process');
 
+//the scripts in this scheduler drop their database on a single run
+
 setInterval(function () {
 
     //runs 'node sneakers'
@@ -35,4 +37,4 @@ setInterval(function () {
 
 
 
- }, 1 * 60 * 60 * 1000)
+ }, 1 * 60 * 60 * 1000);

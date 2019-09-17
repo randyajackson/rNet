@@ -23,7 +23,7 @@
 
 var interval; //used to give setInterval a name to use clearInterval(interval) if data breaks
 
-const axios = require('axios')
+const axios = require('axios');
 const mongoose = require('mongoose');
 
 //global variables used for accessing and verifying
@@ -87,7 +87,7 @@ async function getInitial()
             {
                 findCount = await albumModel.collection.countDocuments({
                      url : response.data["feed_data"]["events"][i]["items"][j]["url"] });
-                
+                //works as if a hash set using countDocuments - if not found add, else add to count
                 if (findCount === 0)
                 {
                     albumModel.create({
@@ -170,11 +170,6 @@ async function getNext(endDate, serverTime)
                         if(err) return console.error(err);
                         });
                     }
-                    // console.log(response.data["events"][i]["items"][j]["url"]);
-                    // console.log(response.data["events"][i]["items"][j]["album_title"]);
-                    // console.log(response.data["events"][i]["items"][j]["item_description"]);
-                    // console.log(response.data["events"][i]["items"][j]["art_url"]);
-                    // console.log(response.data["events"][i]["items"][j]["artist_name"]);
                 }
             }
             console.log("*****next batch read*****");
@@ -198,7 +193,6 @@ async function getNext(endDate, serverTime)
 
 
 module.exports = getInitial;
-//console.log(res.data["events"][0]["items"][0]["url"])
 
 
 
