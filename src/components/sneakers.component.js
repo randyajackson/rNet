@@ -83,6 +83,23 @@ export default class SneakerResults extends Component {
         //     // zoom: 1.10
         //     });
 
+        //used to read before setInterval delay
+        requester.request('http://localhost:8000/graphql', sneakerQuery)
+            .then(response => {
+
+                for(var i = 0; i < response.upcoming_sneakers.length; i++)
+                {
+                    response.upcoming_sneakers[i].title = truncate(response.upcoming_sneakers[i].title);
+                }
+
+                this.setState({
+                    sneaker_results: response.upcoming_sneakers
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
         setInterval( () => {
 
             requester.request('http://localhost:8000/graphql', sneakerQuery)
@@ -99,7 +116,8 @@ export default class SneakerResults extends Component {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
+
         }, 5000)
         
     }

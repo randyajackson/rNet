@@ -120,7 +120,33 @@ export default class PricesList extends Component {
         //     zoom: 1.10
         //     });
 
+        //used to read before setInterval delay
+        requester.request('http://localhost:8000/graphql', cryptoQuery)
+            .then(response => {
+                this.getPrevPrice();
+                this.setState({
+
+                    prices: response.crypto,
+
+                    prices1: response.crypto.slice(0,9),
+                    prices2: response.crypto.slice(10,19),
+                    prices3: response.crypto.slice(20,29),
+                    prices4: response.crypto.slice(30,39),
+                    prices5: response.crypto.slice(40,49),
+                    prices6: response.crypto.slice(50,59),
+                    prices7: response.crypto.slice(60,69),
+                    prices8: response.crypto.slice(70,79),
+                    prices9: response.crypto.slice(80,89),
+                    prices10: response.crypto.slice(90,99)
+                })
+                
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
         setInterval( () => {
+
             requester.request('http://localhost:8000/graphql', cryptoQuery)
             .then(response => {
                 this.getPrevPrice();
@@ -143,7 +169,8 @@ export default class PricesList extends Component {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
+
         }, 3000)
         
     }

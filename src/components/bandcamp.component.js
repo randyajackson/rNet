@@ -118,6 +118,18 @@ export default class BandcampResults extends Component {
             speed: 0.10,
             zoom: 1.10
             });
+        
+        //used to read before setInterval delay
+        requester.request('http://localhost:8000/graphql', bandcampQuery)
+        .then(response => {
+                this.getPrevResult();
+                this.setState({
+                    bandcamp_results: response.bandcamp
+                })
+            })
+        .catch((error) => {
+                console.log(error);
+            });
 
         setInterval( () => {
 
@@ -130,7 +142,8 @@ export default class BandcampResults extends Component {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
+
         }, 5000)
         
     }

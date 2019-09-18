@@ -31,6 +31,10 @@ function changePage() {
     return false;     
  };
 
+ function getPageData() {
+     
+ }
+
 export default class TopSearchesResults extends Component {
 
     constructor(props){
@@ -58,6 +62,17 @@ export default class TopSearchesResults extends Component {
         //     zoom: 1.10
         //     });
 
+        //used to read before setInterval delay
+        requester.request('http://localhost:8000/graphql', topSearchQuery)
+            .then(response => {
+                this.setState({
+                    search_results: response.top_searches
+                })
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        
         setInterval( () => {
 
             requester.request('http://localhost:8000/graphql', topSearchQuery)
@@ -68,7 +83,8 @@ export default class TopSearchesResults extends Component {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
+
         }, 5000)
         
     }
