@@ -21,7 +21,12 @@ def collect():
     threading.Timer(5.0, collect).start()
     table = driver.find_elements_by_class_name("table-coins")
 
-    data = table[0].text.splitlines()
+    if table[0]:
+        data = table[0].text.splitlines()
+    else:
+        time.sleep(60*10)
+        collect()
+
 
     client = MongoClient()
     db = client['crypto']
