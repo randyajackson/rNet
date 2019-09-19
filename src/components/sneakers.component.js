@@ -84,7 +84,8 @@ export default class SneakerResults extends Component {
         //     });
 
         //used to read before setInterval delay
-        let getPageData = () => {
+        let getPageData = function() {
+            let componentDidMountThis = this;
             requester.request('http://localhost:8000/graphql', sneakerQuery)
             .then(response => {
 
@@ -93,7 +94,7 @@ export default class SneakerResults extends Component {
                     response.upcoming_sneakers[i].title = truncate(response.upcoming_sneakers[i].title);
                 }
 
-                this.setState({
+                componentDidMountThis.setState({
                     sneaker_results: response.upcoming_sneakers
                 })
             })
@@ -103,11 +104,11 @@ export default class SneakerResults extends Component {
         };
 
         //used to read before setInterval delay
-        getPageData();
+        getPageData.call(this);
 
         setInterval( () => {
             
-            getPageData();
+            getPageData.call(this);
 
         }, 5000)
         

@@ -78,8 +78,8 @@ export default class newMovieList extends Component {
         //     });
 
         
-        let getPageData = () => {
-
+        let getPageData = function() {
+            let componentDidMountThis = this;
             requester.request('http://localhost:8000/graphql', new_moviesQuery)
             .then(response => {
                 
@@ -88,7 +88,7 @@ export default class newMovieList extends Component {
                     response.new_movie[i].title = truncate(response.new_movie[i].title);
                 }
 
-                this.setState({
+                componentDidMountThis.setState({
                     movies: response.new_movie
                 })
             })
@@ -99,11 +99,11 @@ export default class newMovieList extends Component {
         };
 
         //used to read before setInterval delay
-        getPageData();
+        getPageData.call(this);
 
         setInterval( () => {
 
-                getPageData();
+                getPageData.call(this);
         
         }, 3000);
         

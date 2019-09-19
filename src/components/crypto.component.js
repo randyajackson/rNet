@@ -121,11 +121,12 @@ export default class PricesList extends Component {
         //     });
 
         //used to read before setInterval delay
-        let getPageData = () => {
+        let getPageData = function() {
+            let componentDidMountThis = this;
             requester.request('http://localhost:8000/graphql', cryptoQuery)
             .then(response => {
-                this.getPrevPrice();
-                this.setState({
+                componentDidMountThis.getPrevPrice();
+                componentDidMountThis.setState({
 
                     prices: response.crypto,
 
@@ -146,13 +147,13 @@ export default class PricesList extends Component {
                 console.log(error);
             });
         };
-        
+
         //used to read before setInterval delay
-        getPageData();
+        getPageData.call(this);
 
         setInterval( () => {
             
-            getPageData();
+            getPageData.call(this);
 
         }, 3000)
         

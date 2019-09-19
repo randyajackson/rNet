@@ -58,11 +58,11 @@ export default class TopSearchesResults extends Component {
         //     zoom: 1.10
         //     });
 
-        let getPageData = () => { // arrow function preserves this from parent function
-
+        let getPageData = function() { // arrow function preserves this from parent function
+            let componentDidMountThis = this;
             requester.request('http://localhost:8000/graphql', topSearchQuery)
             .then(response => {
-                this.setState({
+                componentDidMountThis.setState({
                     search_results: response.top_searches
                 }).bind(this)
             })
@@ -73,11 +73,11 @@ export default class TopSearchesResults extends Component {
         };
         
         //used to read before setInterval delay
-        getPageData();
+        getPageData.call(this);
         
         setInterval( () => {
 
-            getPageData();
+            getPageData.call(this);
 
         }, 5000)
         
