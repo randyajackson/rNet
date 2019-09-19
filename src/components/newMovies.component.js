@@ -77,24 +77,8 @@ export default class newMovieList extends Component {
         //     zoom: 1.10
         //     });
 
-        //used to read before setInterval delay
-        requester.request('http://localhost:8000/graphql', new_moviesQuery)
-            .then(response => {
-                
-                for(i = 0; i < response.new_movie.length; i++)
-                {
-                    response.new_movie[i].title = truncate(response.new_movie[i].title);
-                }
-
-                this.setState({
-                    movies: response.new_movie
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-        setInterval( () => {
+        
+        let getPageData = () => {
 
             requester.request('http://localhost:8000/graphql', new_moviesQuery)
             .then(response => {
@@ -110,7 +94,17 @@ export default class newMovieList extends Component {
             })
             .catch((error) => {
                 console.log(error);
-            })
+            });
+
+        };
+
+        //used to read before setInterval delay
+        getPageData();
+
+        setInterval( () => {
+
+                getPageData();
+        
         }, 3000);
         
     }

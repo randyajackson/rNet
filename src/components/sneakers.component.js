@@ -24,7 +24,7 @@ const sneakerQuery =
     "}" +
 "}";
 
-const Sneaker_Results = props => 
+const SneakerResultsProp = props => 
 (
     <div className = "single_result_sneakers">
 
@@ -84,24 +84,7 @@ export default class SneakerResults extends Component {
         //     });
 
         //used to read before setInterval delay
-        requester.request('http://localhost:8000/graphql', sneakerQuery)
-            .then(response => {
-
-                for(var i = 0; i < response.upcoming_sneakers.length; i++)
-                {
-                    response.upcoming_sneakers[i].title = truncate(response.upcoming_sneakers[i].title);
-                }
-
-                this.setState({
-                    sneaker_results: response.upcoming_sneakers
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-        setInterval( () => {
-
+        let getPageData = () => {
             requester.request('http://localhost:8000/graphql', sneakerQuery)
             .then(response => {
 
@@ -117,6 +100,14 @@ export default class SneakerResults extends Component {
             .catch((error) => {
                 console.log(error);
             });
+        };
+
+        //used to read before setInterval delay
+        getPageData();
+
+        setInterval( () => {
+            
+            getPageData();
 
         }, 5000)
         
@@ -129,7 +120,7 @@ export default class SneakerResults extends Component {
             var numberOfSlides;
             
             allProps = this.state.sneaker_results.map(
-                (currentResult, index) =>  <Sneaker_Results results = {currentResult} index = {index} />);
+                (currentResult, index) =>  <SneakerResultsProp results = {currentResult} index = {index} />);
             
             if(allProps.length % 16 !== 0)
                 numberOfSlides = parseInt( (allProps.length / 16) + 1);

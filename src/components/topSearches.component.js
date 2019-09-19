@@ -31,10 +31,6 @@ function changePage() {
     return false;     
  };
 
- function getPageData() {
-     
- }
-
 export default class TopSearchesResults extends Component {
 
     constructor(props){
@@ -62,28 +58,26 @@ export default class TopSearchesResults extends Component {
         //     zoom: 1.10
         //     });
 
-        //used to read before setInterval delay
-        requester.request('http://localhost:8000/graphql', topSearchQuery)
-            .then(response => {
-                this.setState({
-                    search_results: response.top_searches
-                })
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-        
-        setInterval( () => {
+        let getPageData = () => { // arrow function preserves this from parent function
 
             requester.request('http://localhost:8000/graphql', topSearchQuery)
             .then(response => {
                 this.setState({
                     search_results: response.top_searches
-                })
+                }).bind(this)
             })
             .catch((error) => {
                 console.log(error);
-            });
+            })
+
+        };
+        
+        //used to read before setInterval delay
+        getPageData();
+        
+        setInterval( () => {
+
+            getPageData();
 
         }, 5000)
         
