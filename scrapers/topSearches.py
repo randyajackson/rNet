@@ -13,8 +13,11 @@ db = client['googleSearches']
 db.top_searches.drop()
 searches = db.top_searches
 
-for x in returnData[0]:
-    rank = x + 1;
-    topic = returnData[0][x];
+try:
+    for x in returnData[0]:
+        rank = x + 1;
+        topic = returnData[0][x];
 
-    searches.insert_one({'rank' : rank, 'topic' : topic})
+        searches.insert_one({'rank' : rank, 'topic' : topic})
+except:
+    print("error")

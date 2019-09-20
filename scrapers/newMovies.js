@@ -13,6 +13,15 @@ var upcomingMovie;
 
 mongoose.connect('mongodb://localhost/upcoming_movies', {useNewUrlParser: true});
 
+var db2 =  mongoose.createConnection('mongodb://localhost/newMoviesDebug', {useNewUrlParser: true});
+var today = new Date();
+var newMoviesModel;
+var newMoviesSchema = mongoose.Schema({
+    dateOfIssue: String,
+    error: String
+},
+{timestamps: { createdAt: 'created_at'}});
+
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error: '));

@@ -31,8 +31,8 @@ const mongoose = require('mongoose');
 
 //variables for mongodb
 var db;
-var albumModel;
 
+var albumModel;
 var albumSchema = mongoose.Schema({
     url: String,
     art_url: String,
@@ -42,7 +42,17 @@ var albumSchema = mongoose.Schema({
     count: Number
 });
 
+var db2 =  mongoose.createConnection('mongodb://localhost/bandcampDebug', {useNewUrlParser: true});
+var today = new Date();
+var bandcampDebugModel;
+var bandcampDebugSchema = mongoose.Schema({
+    dateOfIssue: String,
+    error: String
+},
+{timestamps: { createdAt: 'created_at'}});
+
 console.log("opening db");
+
 
 mongoose.connect('mongodb://localhost/bc', {useNewUrlParser: true});
 db = mongoose.connection;
@@ -75,12 +85,14 @@ async function beginCollection()
 
 async function getInitial() 
 {
-    try{
+    
         const response = await axios.get('https://bandcamp.com/api/salesfeed/1/get_initial');
-        
+    
+    
         let findCount;
         albumModel = mongoose.model('bandcamp', albumSchema);
 
+    try{
         for(let i = 0; i < response.data["feed_data"]["events"].length; i++)
         {
             for(let j = 0; j < response.data["feed_data"]["events"][i]["items"].length; j++) 
@@ -114,6 +126,23 @@ async function getInitial()
 
             }
         }
+    }
+    catch(err){
+
+        today = String(today.getDate()).padStart(2, '0') + '/' + //dd
+                String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
+                today.getFullYear(); //yyyy
+
+        bandcampDebugModel = db2.model('bandcamp_debug', bandcampDebugSchema);
+
+        bandcampDebugModel.create({
+            dateOfIssue: today,
+            error: err.toString()
+        });
+
+        console.log("error", err);
+        console.log("is caught");
+    }
 
         console.log("*****first batch read*****");
         
@@ -121,16 +150,14 @@ async function getInitial()
             serverTime : response.data["feed_data"]["server_time"], 
             endDate : response.data["feed_data"]["end_date"]
         };
-    }
-    catch(error){
-        console.log("error", error);
-    }
+    
 }
 
 async function getNext(endDate, serverTime)
 {
-    try{
+    
         const response = await axios.get('https://bandcamp.com/api/salesfeed/1/get?start_date=' + endDate);
+      
 
         console.log(endDate + "!==" + response.data["end_date"] );
 
@@ -140,6 +167,7 @@ async function getNext(endDate, serverTime)
 
             albumModel = mongoose.model('bandcamp', albumSchema);
 
+        try{
             for(let i = 0; i < response.data["events"].length; i++)
             {
                 for(let j = 0; j < response.data["events"][i]["items"].length; j++) 
@@ -172,6 +200,21 @@ async function getNext(endDate, serverTime)
                     }
                 }
             }
+        }
+        catch(error){
+            today = String(today.getDate()).padStart(2, '0') + '/' + //dd
+                    String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
+                    today.getFullYear(); //yyyy
+    
+            bandcampDebugModel = db2.model('bandcamp_debug', bandcampDebugSchema);
+    
+            bandcampDebugModel.create({
+                dateOfIssue: today,
+                error: error.toString()
+            });
+    
+            console.log("error", error);
+        } 
             console.log("*****next batch read*****");
 
             return {serverTime : response.data["server_time"], 
@@ -183,12 +226,7 @@ async function getNext(endDate, serverTime)
 
             return {serverTime : serverTime, 
                     endDate : endDate};    
-        }
-        
-    }
-    catch(error){
-        console.log("error", error);
-    }    
+        } 
 }
 
 

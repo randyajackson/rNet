@@ -35,21 +35,25 @@ def collect():
     x = 1
     #print(data)
     if "crypto_data_prices" in db.list_collection_names():
-        while x < len(data):   
-            prices.update_one(
-                {"coinName" : data[x + 1] },
-                    {"$set" :
-                        {
-                            'id#' : data[x],
-                            'coinName' : data[x + 1],
-                            'coinSName' : data[x + 2],
-                            'coinPrice' : data[x + 3],
-                            'coinTotal' : data[x + 4],
-                            'coin24' : data[x + 6]
+        while x < len(data): 
+            try:  
+                prices.update_one(
+                    {"coinName" : data[x + 1] },
+                        {"$set" :
+                            {
+                                'id#' : data[x],
+                                'coinName' : data[x + 1],
+                                'coinSName' : data[x + 2],
+                                'coinPrice' : data[x + 3],
+                                'coinTotal' : data[x + 4],
+                                'coin24' : data[x + 6]
+                            }
                         }
-                    }
-            )
-            x += 7
+                )
+                x += 7
+            except:
+                print("error")
+
     else:
         while x < len(data):
             prices.insert_one(
