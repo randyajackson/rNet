@@ -117,7 +117,7 @@ db.once('open', function() {
         var json = inputText.split(' ');
 
         json.forEach(function (item) {
-            output.push(item.replace(/\'/g, '').split(/(\d+)/).filter(Boolean));
+            output.push(item.replace(/'/g, '').split(/(\d+)/).filter(Boolean));
         });
 
         var monthName;

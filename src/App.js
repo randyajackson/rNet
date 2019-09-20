@@ -6,6 +6,7 @@ import newMovieList from "./components/newMovies.component";
 import BandcampResults from "./components/bandcamp.component";
 import SneakerResults from "./components/sneakers.component";
 import TopSearchesResults from "./components/topSearches.component";
+import DebugDashboard from "./components/debug.component";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/bc" component={BandcampResults} />
         <Route path="/new_sneakers" component={SneakerResults} />
         <Route path="/top_searches" component={TopSearchesResults} />
+        <Route path="/dashboard" component={DebugDashboard} />
     </Router>
   );
 }
