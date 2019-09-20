@@ -1,3 +1,8 @@
+import time
+import sys
+import datetime
+from datetime import datetime
+
 from pymongo import MongoClient
 import pymongo
 
@@ -13,6 +18,9 @@ db = client['googleSearches']
 db.top_searches.drop()
 searches = db.top_searches
 
+db2 = client['googleSearchesDebug']
+debug = db2.googleSearches_debug
+
 try:
     for x in returnData[0]:
         rank = x + 1;
@@ -20,4 +28,12 @@ try:
 
         searches.insert_one({'rank' : rank, 'topic' : topic})
 except:
+    e = sys.exc_info()[0]
+
+    debug.insert_one(
+        {
+            'dateOfIssue' : "{:%B %d, %Y}".format(datetime.now()),
+            'error' : 'Error with updating database: %s' % e
+        }
+    )
     print("error")
