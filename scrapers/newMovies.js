@@ -15,8 +15,8 @@ mongoose.connect('mongodb://localhost/upcoming_movies', {useNewUrlParser: true})
 
 var db2 =  mongoose.createConnection('mongodb://localhost/newMoviesDebug', {useNewUrlParser: true});
 var today = new Date();
-var newMoviesModel;
-var newMoviesSchema = mongoose.Schema({
+var newMoviesDebugModel;
+var newMoviesDebugSchema = mongoose.Schema({
     dateOfIssue: String,
     error: String
 },
@@ -70,7 +70,20 @@ db.once('open', function() {
 
     })
     .catch(error => {
+
         console.log(error);
+
+        today = String(today.getDate()).padStart(2, '0') + '/' + //dd
+                String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
+                today.getFullYear(); //yyyy
+
+        newMoviesDebugModel = db2.model('newMovies_debug', newMoviesDebugSchema);
+
+        newMoviesDebugModel.create({
+            dateOfIssue: today,
+            error: error.toString()
+        });
+
     })
 
     setTimeout(function () {
