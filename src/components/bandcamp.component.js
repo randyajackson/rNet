@@ -145,7 +145,7 @@ export default class BandcampResults extends Component {
             requester.request('http://localhost:8000/graphql', bandcampQuery)
             .then(response => {
                 componentDidMountThis.getPrevResult();
-                innerThis.setState({
+                componentDidMountThis.setState({
                         bandcamp_results: response.bandcamp
                     })
                 })
