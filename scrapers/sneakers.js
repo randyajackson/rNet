@@ -7,13 +7,22 @@ var upcoming_sneaker;
 
 mongoose.connect('mongodb://localhost/upcoming_sneakers', {useNewUrlParser: true});
 
+var db2 =  mongoose.createConnection('mongodb://localhost/upcomingSneakersDebug', {useNewUrlParser: true});
+var today = new Date();
+var sneakersDebugModel;
+var sneakersDebugSchema = mongoose.Schema({
+    dateOfIssue: String,
+    error: String
+},
+{timestamps: { createdAt: 'created_at'}});
+
 var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error: '));
 
 db.once('open', function() {
 
-    db.dropCollection('upcoming_sneakers', function(err, result){
+    db.dropCollection('newsneakers', function(err, result){
         if(err) return console.error(err);
         console.log("dropped collection");    
     });
@@ -84,6 +93,17 @@ db.once('open', function() {
     })
     .catch(error => {
         console.log(error);
+
+        today = String(today.getDate()).padStart(2, '0') + '/' + //dd
+                String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
+                today.getFullYear(); //yyyy
+
+        sneakersDebugModel = db2.model('sneakers_debug', sneakersDebugSchema);
+
+        sneakersDebugModel.create({
+            dateOfIssue: today,
+            error: error.toString()
+        });
     })
     
 });
