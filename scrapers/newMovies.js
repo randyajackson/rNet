@@ -17,6 +17,7 @@ var db2 =  mongoose.createConnection('mongodb://localhost/newMoviesDebug', {useN
 var today = new Date();
 var newMoviesDebugModel;
 var newMoviesDebugSchema = mongoose.Schema({
+    name: String,
     dateOfIssue: String,
     error: String
 },
@@ -80,6 +81,7 @@ db.once('open', function() {
         newMoviesDebugModel = db2.model('newMovies_debug', newMoviesDebugSchema);
 
         newMoviesDebugModel.create({
+            name: 'New Movies',
             dateOfIssue: today,
             error: error.toString()
         });

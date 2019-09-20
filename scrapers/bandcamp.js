@@ -46,6 +46,7 @@ var db2 =  mongoose.createConnection('mongodb://localhost/bandcampDebug', {useNe
 var today = new Date();
 var bandcampDebugModel;
 var bandcampDebugSchema = mongoose.Schema({
+    name: String,
     dateOfIssue: String,
     error: String
 },
@@ -136,6 +137,7 @@ async function getInitial()
         bandcampDebugModel = db2.model('bandcamp_debug', bandcampDebugSchema);
 
         bandcampDebugModel.create({
+            name: 'Bandcamp',
             dateOfIssue: today,
             error: err.toString()
         });
@@ -209,6 +211,7 @@ async function getNext(endDate, serverTime)
             bandcampDebugModel = db2.model('bandcamp_debug', bandcampDebugSchema);
     
             bandcampDebugModel.create({
+                name: 'Bandcamp',
                 dateOfIssue: today,
                 error: error.toString()
             });

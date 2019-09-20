@@ -11,6 +11,7 @@ var db2 =  mongoose.createConnection('mongodb://localhost/upcomingSneakersDebug'
 var today = new Date();
 var sneakersDebugModel;
 var sneakersDebugSchema = mongoose.Schema({
+    name: String,
     dateOfIssue: String,
     error: String
 },
@@ -101,6 +102,7 @@ db.once('open', function() {
         sneakersDebugModel = db2.model('sneakers_debug', sneakersDebugSchema);
 
         sneakersDebugModel.create({
+            name: 'New Sneakers',
             dateOfIssue: today,
             error: error.toString()
         });

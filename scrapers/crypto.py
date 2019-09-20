@@ -76,6 +76,7 @@ def collect():
 
             debug.insert_one(
                 {
+                    'name' : 'Cryptocurrency',
                     'dateOfIssue' : "{:%B %d, %Y}".format(datetime.now()),
                     'error' : 'Error with updating database: %s' % e
                 }
