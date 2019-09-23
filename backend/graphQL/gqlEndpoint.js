@@ -343,7 +343,6 @@ Promise.all([crypto_debug, bandcamp, crypto, newMovies, newOnSteam, topSearches,
                 crypto_debug: {
                     type: GraphQLList(cryptoDebugType),
                     resolve: (root, args, context, info) => {
-                        console.log(cryptoDebugModel.find());
                         return cryptoDebugModel.find().sort({_id : -1}).exec();
                     }
                 },

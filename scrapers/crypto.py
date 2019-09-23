@@ -53,7 +53,7 @@ def collect():
                                     'coinSName' : data[x + 2],
                                     'coinPrice' : data[x + 3],
                                     'coinTotal' : data[x + 4],
-                                    'coin24' : data[x + 999999]
+                                    'coin24' : data[x + 5]
                                 }
                             }
                     )
