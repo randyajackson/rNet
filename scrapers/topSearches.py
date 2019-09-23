@@ -32,9 +32,9 @@ except:
 
     debug.insert_one(
         {
-            'name' : 'Google Searches',
-            'dateOfIssue' : "{:%B %d, %Y}".format(datetime.now()),
-            'error' : 'Error with updating database: %s' % e
+            'name' : str( 'Google Searches' ),
+            'dateOfIssue' : str( "{:%B %d, %Y}".format(datetime.now()) ),
+            'error' : str( 'Error with updating database: %s' % e )
         }
     )
     print("error")

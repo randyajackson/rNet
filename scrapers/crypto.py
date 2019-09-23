@@ -53,7 +53,7 @@ def collect():
                                     'coinSName' : data[x + 2],
                                     'coinPrice' : data[x + 3],
                                     'coinTotal' : data[x + 4],
-                                    'coin24' : data[x + 6]
+                                    'coin24' : data[x + 999999]
                                 }
                             }
                     )
@@ -72,15 +72,20 @@ def collect():
                 )
                 x += 7
     except:
-            e = sys.exc_info()[0]
+            e = str( sys.exc_info()[0] )
+
+            name = str( 'Cryptocurrency' )
+            dateOfIssue = str( "{:%B %d, %Y}".format(datetime.now()) )
+            error = str( 'Error with updating database: %s' % e )
 
             debug.insert_one(
                 {
-                    'name' : 'Cryptocurrency',
-                    'dateOfIssue' : "{:%B %d, %Y}".format(datetime.now()),
-                    'error' : 'Error with updating database: %s' % e
+                    'name' : name,
+                    'dateOfIssue' : dateOfIssue,
+                    'error' : error
                 }
             )
+            
             print("error")
 
     driver.refresh()

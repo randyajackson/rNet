@@ -32,8 +32,8 @@ const newMovies_debug = mongoose.createConnection('mongodb://localhost/upcoming_
 const topSearches_debug = mongoose.createConnection('mongodb://localhost/googleSearchesDebug', {useNewUrlParser: true});
 const upcomingSneakers_debug = mongoose.createConnection('mongodb://localhost/upcoming_sneakers_debug', {useNewUrlParser: true});
 
-Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneakers,
-             bandcamp_debug, crypto_debug, newMovies_debug, topSearches_debug, upcomingSneakers_debug]).then(() => {
+Promise.all([crypto_debug, bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneakers,
+             bandcamp_debug, newMovies_debug, topSearches_debug, upcomingSneakers_debug]).then(() => {
     
     //START data model and type for component data
     /********************************************/
@@ -182,7 +182,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
 
     // model and type for upcoming sneakers debug data
     //----------------------------------------------------------------
-    const bandcampDebugModel = bandcamp_debug.model("bandcamp_debug",
+    const bandcampDebugModel = bandcamp_debug.model("bandcamp_debugs",
     {
         name: String,
         dateOfIssue: String,
@@ -201,7 +201,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     // model and type for crypto debug data
     //----------------------------------------------------------------
 
-    const cryptoDebugModel = crypto.model("crypto_debug",
+    const cryptoDebugModel = crypto_debug.model("crypto_debug",
     {
         name: String,
         dateOfIssue: String,
@@ -211,7 +211,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     const cryptoDebugType = new GraphQLObjectType({
         name: "crypto_debug_records", 
         fields: { 
-            type: { GraphQLString },
+            name: { type: GraphQLString },
             dateOfIssue: { type: GraphQLString },
             error: { type: GraphQLString }
         }
@@ -221,7 +221,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     // model and type for upcoming movies debug data
     //----------------------------------------------------------------
 
-    const newMoviesDebugModel = crypto.model("upcoming_movies_debug",
+    const newMoviesDebugModel = newMovies_debug.model("upcoming_movies_debug",
     {
         name: String,
         dateOfIssue: String,
@@ -231,7 +231,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     const newMoviesDebugType = new GraphQLObjectType({
         name: "upcoming_movies_debug_records", 
         fields: { 
-            type: { GraphQLString },
+            name: { type: GraphQLString },
             dateOfIssue: { type: GraphQLString },
             error: { type: GraphQLString }
         }
@@ -241,7 +241,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     // model and type for top searches debug data
     //----------------------------------------------------------------
 
-    const topSearchesDebugModel = crypto.model("top_searches_debug",
+    const topSearchesDebugModel = topSearches_debug.model("top_searches_debug",
     {
         name: String,
         dateOfIssue: String,
@@ -251,7 +251,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     const topSearchesDebugType = new GraphQLObjectType({
         name: "top_searches_debug_records", 
         fields: { 
-            type: { GraphQLString },
+            name: { type: GraphQLString },
             dateOfIssue: { type: GraphQLString },
             error: { type: GraphQLString }
         }
@@ -261,7 +261,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     // model and type for top searches debug data
     //----------------------------------------------------------------
 
-    const upcomingSneakersDebugModel = crypto.model("top_searches_debug",
+    const upcomingSneakersDebugModel = upcomingSneakers_debug.model("sneakers_debug",
     {
         name: String,
         dateOfIssue: String,
@@ -271,7 +271,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     const upcomingSneakersDebugType = new GraphQLObjectType({
         name: "sneakers_debug", 
         fields: { 
-            type: { GraphQLString },
+            name: { type: GraphQLString },
             dateOfIssue: { type: GraphQLString },
             error: { type: GraphQLString }
         }
@@ -336,23 +336,38 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
                 bandcamp_debug: {
                     type: GraphQLList(bandcampDebugType),
                     resolve: (root, args, context, info) => {
-                        return bandcampDebugModel.find().sort({_id : 1}).exec();
+                        return bandcampDebugModel.find().sort({_id : -1}).exec();
                     }
                 },
 
                 crypto_debug: {
                     type: GraphQLList(cryptoDebugType),
                     resolve: (root, args, context, info) => {
-                        return cryptoDebugModel.find().sort({_id : 1}).exec();
+                        console.log(cryptoDebugModel.find());
+                        return cryptoDebugModel.find().sort({_id : -1}).exec();
                     }
                 },
 
                 new_movie_debug: {
                     type: GraphQLList(newMoviesDebugType),
                     resolve: (root, args, context, info) => {
-                        return newMoviesDebugModel.find().sort({_id : 1}).exec();
+                        return newMoviesDebugModel.find().sort({_id : -1}).exec();
                     }
                 },
+
+                top_searches_debug: {
+                    type: GraphQLList(topSearchesDebugType),
+                    resolve: (root, args, context, info) => {
+                        return topSearchesDebugModel.find().sort({_id : -1}).exec();
+                    }
+                },
+
+                upcoming_sneakers_debug: {
+                    type: GraphQLList(upcomingSneakersDebugType),
+                    resolve: (root, args, context, info) => {
+                        return upcomingSneakersDebugModel.find().sort({_id : -1}).exec();
+                    }
+                }
 
             }
         })   
