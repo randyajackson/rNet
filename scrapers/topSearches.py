@@ -19,7 +19,7 @@ db.top_searches.drop()
 searches = db.top_searches
 
 db2 = client['googleSearchesDebug']
-debug = db2.googleSearches_debug
+debug = db2.top_searches_debug
 
 try:
     for x in returnData[0]:

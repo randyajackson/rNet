@@ -13,7 +13,7 @@ var upcomingMovie;
 
 mongoose.connect('mongodb://localhost/upcoming_movies', {useNewUrlParser: true});
 
-var db2 =  mongoose.createConnection('mongodb://localhost/newMoviesDebug', {useNewUrlParser: true});
+var db2 =  mongoose.createConnection('mongodb://localhost/upcoming_movies_debug', {useNewUrlParser: true});
 var today = new Date();
 var newMoviesDebugModel;
 var newMoviesDebugSchema = mongoose.Schema({
@@ -78,7 +78,7 @@ db.once('open', function() {
                 String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
                 today.getFullYear(); //yyyy
 
-        newMoviesDebugModel = db2.model('newMovies_debug', newMoviesDebugSchema);
+        newMoviesDebugModel = db2.model('upcoming_movies_debug', newMoviesDebugSchema);
 
         newMoviesDebugModel.create({
             name: 'New Movies',

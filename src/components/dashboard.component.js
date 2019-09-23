@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Dashboard_Component.css';
 
-var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://localhost/";
-
 const BandcampDebug = props => (
         <div>
             <span>{props.results.name}</span>
@@ -27,38 +24,11 @@ export default class DebugDashboard extends Component {
                      };
     }
 
-    componentDidMount()
-    {
-
-        let getDebugData = function(db, collection, stateName) {
-            let componentDidMountThis = this;
-            MongoClient.connect(url, function(err, db) {
-                if (err) throw err;
-                var dbo = db.db(db);
-                dbo.collection(collection).find().toArray(function(err, result) {
-                  
-                  if (err) throw err;
-
-                  componentDidMountThis.setState({
-                    [stateName]: result
-                    }).bind(this);
-
-                  db.close();
-                });
-              });
-        }
-
-        getDebugData.call(this, "bandcampDebug",  "bandcamp_debug", "bandcamp_debug");
-        
-        setInterval( () => {
-
-            getDebugData.call(this, "bandcampDebug",  "bandcamp_debug", "bandcamp_debug");
-
-        }, 600000)
+    componentDidMount(){
         
     }
 
-    componentWillUnmount() {
+    componentWillUnmount(){
     }
 
     render() {   

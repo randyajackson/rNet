@@ -7,7 +7,7 @@ var upcoming_sneaker;
 
 mongoose.connect('mongodb://localhost/upcoming_sneakers', {useNewUrlParser: true});
 
-var db2 =  mongoose.createConnection('mongodb://localhost/upcomingSneakersDebug', {useNewUrlParser: true});
+var db2 =  mongoose.createConnection('mongodb://localhost/upcoming_sneakers_debug', {useNewUrlParser: true});
 var today = new Date();
 var sneakersDebugModel;
 var sneakersDebugSchema = mongoose.Schema({
