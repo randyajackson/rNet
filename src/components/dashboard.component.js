@@ -1,19 +1,24 @@
 import React, { Component } from 'react';
 import '../css/Dashboard_Component.css';
+import { responsePathAsArray } from 'graphql';
 
 const requester = require('graphql-request');
 
 function createQuery(dataName){
 
     return( 
-    "{" +
-        dataName +
-        "{" +
-            "name," +
-            "dateOfIssue," +
-            "error" +
-        "}" +
-    "}"
+    {
+    graphqlQuery: "{" +
+                        dataName +
+                        "{" +
+                            "name," +
+                            "dateOfIssue," +
+                            "error" +
+                        "}" +
+                   "}",
+    name: dataName
+    }
+
     );
 
 }
@@ -34,10 +39,10 @@ export default class DebugDashboard extends Component {
 
         this.state = { 
                         bandcamp_debug : [],
-                        newMovies_debug : [],
-                        sneakers_debug : [],
+                        new_movie_debug : [],
+                        upcoming_sneakers_debug : [],
                         crypto_debug : [],
-                        topSearches_debug : []
+                        top_searches_debug : []
                      };
     }
 
@@ -52,8 +57,25 @@ export default class DebugDashboard extends Component {
         let upcomingSneakers = createQuery("upcoming_sneakers_debug"); 
         
         let queryStringArray = [crypto, bandcamp, newMovie, topSearches, upcomingSneakers];
-            
-        //getPageData.call(this);
+        
+        let queryPromises = [];
+
+        queryStringArray.forEach(function(element) {
+            queryPromises.push( requester.request('http://localhost:8000/graphql', element.graphqlQuery) );
+        });
+        
+        Promise.all(queryPromises).then( () =>{
+
+            queryPromises.forEach(function (response, element) {
+
+                this.setState({
+                    [element.name] : response.element.name
+                });
+
+            }); 
+
+        });
+
     }, 3000);
        
     }
