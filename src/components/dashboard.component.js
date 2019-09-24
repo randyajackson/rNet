@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
 import '../css/Dashboard_Component.css';
 
+const requester = require('graphql-request');
+
+function createQuery(dataName){
+
+    return( 
+    "{" +
+        dataName +
+        "{" +
+            "name," +
+            "dateOfIssue," +
+            "error" +
+        "}" +
+    "}"
+    );
+
+}
+
 const BandcampDebug = props => (
         <div>
             <span>{props.results.name}</span>
@@ -25,7 +42,20 @@ export default class DebugDashboard extends Component {
     }
 
     componentDidMount(){
+    
+    setInterval( () => {
+        //obtain the graphQL queries 
+        let crypto = createQuery("crypto_debug"); 
+        let bandcamp = createQuery("bandcamp_debug");  
+        let newMovie = createQuery("new_movie_debug");  
+        let topSearches = createQuery("top_searches_debug");  
+        let upcomingSneakers = createQuery("upcoming_sneakers_debug"); 
         
+        let queryStringArray = [crypto, bandcamp, newMovie, topSearches, upcomingSneakers];
+            
+        //getPageData.call(this);
+    }, 3000);
+       
     }
 
     componentWillUnmount(){
