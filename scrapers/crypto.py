@@ -32,12 +32,13 @@ def collect():
 
 
     client = MongoClient()
-
+    
     db = client['crypto']
     prices = db.crypto_data_prices
 
     db2 = client['cryptoDebug']
     debug = db2.crypto_debug
+
 
     x = 1
     #print(data)

@@ -32,8 +32,8 @@ const newMovies_debug = mongoose.createConnection('mongodb://localhost/upcoming_
 const topSearches_debug = mongoose.createConnection('mongodb://localhost/googleSearchesDebug', {useNewUrlParser: true});
 const upcomingSneakers_debug = mongoose.createConnection('mongodb://localhost/upcoming_sneakers_debug', {useNewUrlParser: true});
 
-Promise.all([crypto_debug, bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneakers,
-             bandcamp_debug, newMovies_debug, topSearches_debug, upcomingSneakers_debug]).then(() => {
+Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneakers,
+             bandcamp_debug, crypto_debug, newMovies_debug, topSearches_debug, upcomingSneakers_debug]).then(() => {
     
     //START data model and type for component data
     /********************************************/
@@ -203,10 +203,10 @@ Promise.all([crypto_debug, bandcamp, crypto, newMovies, newOnSteam, topSearches,
 
     const cryptoDebugModel = crypto_debug.model("crypto_debug",
     {
-        name: String,
+        name : String,
         dateOfIssue: String,
         error: String
-    });
+    }, "crypto_debug");
 
     const cryptoDebugType = new GraphQLObjectType({
         name: "crypto_debug_records", 
@@ -246,7 +246,7 @@ Promise.all([crypto_debug, bandcamp, crypto, newMovies, newOnSteam, topSearches,
         name: String,
         dateOfIssue: String,
         error: String
-    });
+    }, "top_searches_debug");
 
     const topSearchesDebugType = new GraphQLObjectType({
         name: "top_searches_debug_records", 
