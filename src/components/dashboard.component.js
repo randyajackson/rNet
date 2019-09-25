@@ -23,7 +23,7 @@ function createQuery(dataName){
 
 }
 
-const BandcampDebug = props => (
+const DebugProp = props => (
         <div>
             <span>{props.results.name}</span>
             <span> {props.results.dateOfIssue}</span>
@@ -49,6 +49,7 @@ export default class DebugDashboard extends Component {
     componentDidMount(){
     
     setInterval( () => {
+
         //obtain the graphQL queries 
         let crypto = createQuery("crypto_debug"); 
         let bandcamp = createQuery("bandcamp_debug");  
@@ -60,10 +61,12 @@ export default class DebugDashboard extends Component {
         
         let queryPromises = [];
 
+        //create promise array from queries
         queryStringArray.forEach(function(element) {
             queryPromises.push( requester.request('http://localhost:8000/graphql', element.graphqlQuery) );
         });
 
+        //set state with promise array
         Promise.all(queryPromises).then( response => {
 
             for(let i = 0; i < response.length ; i++)
@@ -85,23 +88,28 @@ export default class DebugDashboard extends Component {
 
     render() {   
 
-        var bandcamp = this.state.bandcamp_debug.map(
-            (currentResult, index) =>  <BandcampDebug results = {currentResult} index = {index} />);
+        var bandcampDebug = this.state.bandcamp_debug.map(
+            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
         
-        //var newMovies = this.state.search_results.map(
-            //(currentResult, index) =>  <TrendingSearches results = {currentResult} index = {index} />);
+        var newMoviesDebug = this.state.new_movie_debug.map(
+            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
         
-        //var sneakers = this.state.search_results.map(
-            //(currentResult, index) =>  <TrendingSearches results = {currentResult} index = {index} />);
+        var upcomingSneakersDebug = this.state.upcoming_sneakers_debug.map(
+            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
         
-        //var crypto = this.state.search_results.map(
-            //(currentResult, index) =>  <TrendingSearches results = {currentResult} index = {index} />);
+        var cryptoDebug = this.state.crypto_debug.map(
+            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
 
-        //var topSearches = this.state.search_results.map(
-            //(currentResult, index) =>  <TrendingSearches results = {currentResult} index = {index} />);
+        var topSearchesDebug = this.state.top_searches_debug.map(
+            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
+
         return (
             <React.Fragment>
-            {bandcamp}
+            {bandcampDebug}
+            {newMoviesDebug}
+            {upcomingSneakersDebug}
+            {cryptoDebug}
+            {topSearchesDebug}
             </React.Fragment>               
         );
             
