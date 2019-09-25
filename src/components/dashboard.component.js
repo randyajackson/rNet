@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../css/Dashboard_Component.css';
-import { responsePathAsArray } from 'graphql';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 const requester = require('graphql-request');
 
@@ -23,13 +23,16 @@ function createQuery(dataName){
 
 }
 
-const DebugProp = props => (
-        <div>
-            <span>{props.results.name}</span>
-            <span> {props.results.dateOfIssue}</span>
-            <span> {props.results.error}</span>
+const DebugHeaderProp = props => (
+        <div className = "single_debug_console">
+            <div className = "header"> <b>{props.header}</b> </div>
+            <div className = "status"> Status: dot </div>
+            <div className = "dropDB"> X </div>
         </div>
 )
+// {props.results.name}
+//             {props.results.dateOfIssue}
+//             {props.results.error}
 
 
 export default class DebugDashboard extends Component {
@@ -76,7 +79,6 @@ export default class DebugDashboard extends Component {
                     }); 
             }     
                 
-
         });
 
     }, 5000);
@@ -86,30 +88,46 @@ export default class DebugDashboard extends Component {
     componentWillUnmount(){
     }
 
-    render() {   
+    render() {
+        
+        var headerNames = ["Bandcamp", "New Movies", "New Sneakers", "Crypto", "Top Searches"];
 
-        var bandcampDebug = this.state.bandcamp_debug.map(
-            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
-        
-        var newMoviesDebug = this.state.new_movie_debug.map(
-            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
-        
-        var upcomingSneakersDebug = this.state.upcoming_sneakers_debug.map(
-            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
-        
-        var cryptoDebug = this.state.crypto_debug.map(
-            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
+        var bandcampDebugHeader = <DebugHeaderProp header = {headerNames[0]} /> ;
 
-        var topSearchesDebug = this.state.top_searches_debug.map(
-            (currentResult, index) =>  <DebugProp results = {currentResult} index = {index} />);
+        // var bandcampDebug = this.state.bandcamp_debug.map(
+        //     (currentResult, header) =>  <DebugProp results = {currentResult} header = {headerNames[0]} />);
+        
+        var newMoviesDebugHeader = <DebugHeaderProp header = {headerNames[1]} /> ;
+
+        // var newMoviesDebug = this.state.new_movie_debug.map(
+        //     (currentResult, header) =>  <DebugProp results = {currentResult} header = {headerNames[1]} />);
+        
+        var upcomingSneakersDebugHeader = <DebugHeaderProp header = {headerNames[2]} /> ;
+
+        // var upcomingSneakersDebug = this.state.upcoming_sneakers_debug.map(
+        //     (currentResult, header) =>  <DebugProp results = {currentResult} header = {headerNames[2]} />);
+        
+        var cryptoDebugHeader = <DebugHeaderProp header = {headerNames[3]} /> ;
+
+        // var cryptoDebug = this.state.crypto_debug.map(
+        //     (currentResult, header) =>  <DebugProp results = {currentResult} header = {headerNames[3]} />);
+
+        var topSearchesDebugHeader = <DebugHeaderProp header = {headerNames[4]} /> ;
+
+        // var topSearchesDebug = this.state.top_searches_debug.map(
+        //     (currentResult, header) =>  <DebugProp results = {currentResult} header = {headerNames[4]} />);
 
         return (
             <React.Fragment>
-            {bandcampDebug}
-            {newMoviesDebug}
-            {upcomingSneakersDebug}
-            {cryptoDebug}
-            {topSearchesDebug}
+
+            <div className = "all_debug_consoles">
+                {bandcampDebugHeader}
+                {newMoviesDebugHeader}
+                {upcomingSneakersDebugHeader}
+                {cryptoDebugHeader}
+                {topSearchesDebugHeader}
+            </div>
+            
             </React.Fragment>               
         );
             
