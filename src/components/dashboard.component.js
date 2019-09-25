@@ -55,7 +55,7 @@ export default class DebugDashboard extends Component {
         let newMovie = createQuery("new_movie_debug");  
         let topSearches = createQuery("top_searches_debug");  
         let upcomingSneakers = createQuery("upcoming_sneakers_debug"); 
-        
+
         let queryStringArray = [crypto, bandcamp, newMovie, topSearches, upcomingSneakers];
         
         let queryPromises = [];
@@ -63,20 +63,20 @@ export default class DebugDashboard extends Component {
         queryStringArray.forEach(function(element) {
             queryPromises.push( requester.request('http://localhost:8000/graphql', element.graphqlQuery) );
         });
-        
-        Promise.all(queryPromises).then( () =>{
 
-            queryPromises.forEach(function (response, element) {
+        Promise.all(queryPromises).then( response => {
 
-                this.setState({
-                    [element.name] : response.element.name
-                });
-
-            }); 
+            for(let i = 0; i < response.length ; i++)
+            {
+                    this.setState({
+                        [queryStringArray[i]["name"]] : response[i][queryStringArray[i]["name"]]
+                    }); 
+            }     
+                
 
         });
 
-    }, 3000);
+    }, 5000);
        
     }
 
