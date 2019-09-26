@@ -23,14 +23,14 @@ function createQuery(dataName){
 
 }
 
-function createDelete(dataName)
+function createDeleteQuery(dataName)
 {
     return(
     "mutation " + dataName +
     "{" +
     dataName + "{" +
-    "name" +
-    "dateOfIssue" +
+    "name," +
+    "dateOfIssue," +
     "error" +
     "}" +
     "}"
@@ -54,11 +54,11 @@ function getTextAreaText(results){
 
 }
 
-function dropDatabase(dbName, dbCollection){
+function deleteData(queryName){
 
-    console.log(dbName + " " + dbCollection);
+    let deleteQuery = createDeleteQuery(queryName);
 
-    let url = "mongodb://localhost/" + dbName;
+    requester.request('http://localhost:8000/graphql', deleteQuery).then(response => {console.log(queryName + " deleted successfully.")});
 }
 
 const DebugConsoleProp = props => (
@@ -72,7 +72,7 @@ const DebugConsoleProp = props => (
                     return(<div className = "status" id = "red"><span role="img" aria-label="x">Status: ❌</span></div>);
             })()}    
 
-            <div className = "dropDB"><Link to="#" onClick={() => dropDatabase(props.dbName, props.collection)}>Clear</Link></div>
+            <div className = "dropDB"><Link to="#" onClick={() => deleteData(props.delete)}>Clear</Link></div>
 
             <div className = "textArea">
                 <textarea readOnly value = {props.errorText} cols = "70" rows = "5"  />
@@ -144,40 +144,53 @@ export default class DebugDashboard extends Component {
         var collectionNames = ["bandcamp_debugs", "upcoming_movies_debugs", "sneakers_debugs",
                                "crypto_debug", "top_searches_debug"];
 
+        var deleteNames = ["deleteBandcampDebug", "deleteNewMoviesDebug", "deleteUpcomingSneakersDebug",
+                           "deleteCryptoDebug", "deleteTopSearchesDebug"];
+
         var bandcampDebugText = getTextAreaText(this.state.bandcamp_debug); 
         var bandcampDebugHeader = <DebugConsoleProp 
                                     header = {headerNames[0]} 
                                     errorText = {bandcampDebugText} 
                                     dbName = {dbNames[0]} 
-                                    collection = {collectionNames[0]} /> ;
+                                    collection = {collectionNames[0]} 
+                                    delete = {deleteNames[0]}    
+                                    /> ;
         
         var newMoviesDebugText = getTextAreaText(this.state.new_movie_debug);
         var newMoviesDebugHeader = <DebugConsoleProp 
                                     header = {headerNames[1]} 
                                     errorText = {newMoviesDebugText} 
                                     dbName = {dbNames[1]} 
-                                    collection = {collectionNames[1]}/> ;
+                                    collection = {collectionNames[1]}
+                                    delete = {deleteNames[1]} 
+                                    /> ;
         
         var upcomingSneakersDebugText = getTextAreaText(this.state.upcoming_sneakers_debug);
         var upcomingSneakersDebugHeader = <DebugConsoleProp 
                                             header = {headerNames[2]} 
                                             errorText = {upcomingSneakersDebugText} 
                                             dbName = {dbNames[2]} 
-                                            collection = {collectionNames[2]}/> ;
+                                            collection = {collectionNames[2]}
+                                            delete = {deleteNames[2]} 
+                                            /> ;
 
         var cryptoDebugText = getTextAreaText(this.state.crypto_debug);
         var cryptoDebugHeader = <DebugConsoleProp 
                                     header = {headerNames[3]} 
                                     errorText = {cryptoDebugText} 
                                     dbName = {dbNames[3]} 
-                                    collection = {collectionNames[3]}/> ;
+                                    collection = {collectionNames[3]}
+                                    delete = {deleteNames[3]} 
+                                    /> ;
 
         var topSearchesDebugText = getTextAreaText(this.state.top_searches_debug);
         var topSearchesDebugHeader = <DebugConsoleProp 
                                         header = {headerNames[4]} 
                                         errorText = {topSearchesDebugText} 
                                         dbName = {dbNames[4]} 
-                                        collection = {collectionNames[4]}/> ;
+                                        collection = {collectionNames[4]}
+                                        delete = {deleteNames[4]} 
+                                        /> ;
 
 
         return (

@@ -287,12 +287,43 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
         mutation: new GraphQLObjectType({
             name: 'debugDeletes',
             fields: {
+
+                deleteBandcampDebug: {
+                    type: (bandcampDebugType),
+                    resolve: (root, args, context, info) => {
+                        return bandcampDebugModel.deleteMany({}).exec();
+                    }
+                },
+
                 deleteCryptoDebug: {
-                    type: (GraphQLList(cryptoDebugType)),
+                    type: (cryptoDebugType),
                     resolve: (root, args, context, info) => {
                         return cryptoDebugModel.deleteMany({}).exec();
                     }
-                }
+                },
+
+                deleteNewMoviesDebug: {
+                    type: (newMoviesDebugType),
+                    resolve: (root, args, context, info) => {
+                        return newMoviesDebugModel.deleteMany({}).exec();
+                    }
+                },
+
+                deleteTopSearchesDebug: {
+                    type: (topSearchesDebugType),
+                    resolve: (root, args, context, info) => {
+                        return topSearchesDebugModel.deleteMany({}).exec();
+                    }
+                },
+
+                deleteUpcomingSneakersDebug: {
+                    type: (upcomingSneakersDebugType),
+                    resolve: (root, args, context, info) => {
+                        return upcomingSneakersDebugModel.deleteMany({}).exec();
+                    }
+                },
+
+
             }}),
 
         query: new GraphQLObjectType({
