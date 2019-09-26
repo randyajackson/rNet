@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import '../css/Dashboard_Component.css';
 
-const mongoose = require('mongoose');
-
 const requester = require('graphql-request');
 
 function createQuery(dataName){
@@ -23,6 +21,21 @@ function createQuery(dataName){
 
     );
 
+}
+
+function createDelete(dataName)
+{
+    return(
+    "mutation " + dataName +
+    "{" +
+    dataName + "{" +
+    "name" +
+    "dateOfIssue" +
+    "error" +
+    "}" +
+    "}"
+    )
+    
 }
 
 function getTextAreaText(results){
@@ -45,15 +58,7 @@ function dropDatabase(dbName, dbCollection){
 
     console.log(dbName + " " + dbCollection);
 
-    
-    mongoose.connect('mongodb://localhost/upcoming_sneakers', {useNewUrlParser: true});
-    var db = mongoose.connection;
-    db.once('open', function() {
-        db.dropCollection('newsneakers', function(err, result){
-            if(err) return console.error(err);
-            console.log("dropped collection");    
-        });
-    });
+    let url = "mongodb://localhost/" + dbName;
 }
 
 const DebugConsoleProp = props => (

@@ -283,6 +283,18 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
     //defining GraphQL queries below
 
     const schema = new GraphQLSchema({
+
+        mutation: new GraphQLObjectType({
+            name: 'debugDeletes',
+            fields: {
+                deleteCryptoDebug: {
+                    type: (GraphQLList(cryptoDebugType)),
+                    resolve: (root, args, context, info) => {
+                        return cryptoDebugModel.deleteMany({}).exec();
+                    }
+                }
+            }}),
+
         query: new GraphQLObjectType({
             name: "Query", 
             fields: {
