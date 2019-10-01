@@ -58,7 +58,7 @@ export default class SneakerResults extends Component {
     constructor(props){
         super(props);
         
-        // this.myRef = React.createRef();
+        this.myRef = React.createRef();
 
         this.state = { 
                         sneaker_results: []
@@ -69,19 +69,16 @@ export default class SneakerResults extends Component {
     {
         changePage();
         
-        // this.effect = window.VANTA.FOG({
-        //     el: this.myRef.current,
-        //     highlightColor: 0xfff3f3,
-        //     midtoneColor: 0x8fbdff,
-        //     lowlightColor: 0xc088bd,
-        //     baseColor: 0xffffff,
-        //     blurFactor: 0.47,
-        //     speed: 2,
-        //     zoom: 5
-        //     // blurFactor: 0.47,
-        //     // speed: 0.10,
-        //     // zoom: 1.10
-        //     });
+        this.effect = window.VANTA.FOG({
+            el: this.myRef.current,
+            highlightColor: 0xfff3f3,
+            midtoneColor: 0x8fbdff,
+            lowlightColor: 0xc088bd,
+            baseColor: 0xffffff,
+            blurFactor: 0.47,
+            speed: 0.10,
+            zoom: 1.10
+            });
 
         //used to read before setInterval delay
         let getPageData = function() {
@@ -157,7 +154,11 @@ export default class SneakerResults extends Component {
 
         return (
             <React.Fragment>
-                {/* <div ref={this.myRef}> */}
+                <div ref={this.myRef}>
+
+                <div className = "headline">
+                        upcoming<span class="bigger"> footwear</span>
+                </div>
 
                     <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6}}>
                         <RadialProgress
@@ -198,7 +199,7 @@ export default class SneakerResults extends Component {
                     </CarouselProvider>
             
                     
-                {/* </div> */}
+                </div>
             </React.Fragment>
                         
         );

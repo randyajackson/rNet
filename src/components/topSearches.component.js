@@ -36,7 +36,7 @@ export default class TopSearchesResults extends Component {
     constructor(props){
         super(props);
         
-        // this.myRef = React.createRef();
+        this.myRef = React.createRef();
 
         this.state = { 
                         search_results: []
@@ -47,16 +47,16 @@ export default class TopSearchesResults extends Component {
     {   
         changePage();
 
-        // this.effect = window.VANTA.FOG({
-        //     el: this.myRef.current,
-        //     highlightColor: 0xfff3f3,
-        //     midtoneColor: 0x8fbdff,
-        //     lowlightColor: 0xc088bd,
-        //     baseColor: 0xffffff,
-        //     blurFactor: 0.47,
-        //     speed: 0.10,
-        //     zoom: 1.10
-        //     });
+        this.effect = window.VANTA.FOG({
+            el: this.myRef.current,
+            highlightColor: 0xfff3f3,
+            midtoneColor: 0x8fbdff,
+            lowlightColor: 0xc088bd,
+            baseColor: 0xffffff,
+            blurFactor: 0.47,
+            speed: 0.10,
+            zoom: 1.10
+            });
 
         let getPageData = function() { // arrow function preserves this from parent function
             let componentDidMountThis = this;
@@ -94,9 +94,13 @@ export default class TopSearchesResults extends Component {
         
         return (
             <React.Fragment>
-            {/* <div ref={this.myRef}> */}
+            <div ref={this.myRef}>
                 <div class = "all_results_top_searches">
                     {allProps}
+                </div>
+
+                <div className = "headline">
+                        search<span class="bigger"> trends</span>
                 </div>
 
                 <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6 }}>
@@ -124,7 +128,7 @@ export default class TopSearchesResults extends Component {
                         <div className= "list_entry three">Upcoming Movies</div>
                         <div className= "list_entry four">Bandcamp Trends</div>
                     </div>
-            {/* </div> */}
+            </div>
             </React.Fragment>
                         
         );

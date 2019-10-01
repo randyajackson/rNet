@@ -44,7 +44,8 @@ div.upcoming_list{
     letter-spacing: 0.30em;
     font-size: 60px;
 
-    left: 40%;
+    left: 60%;
+    margin-top: 20px;
     width: 1100px;
     margin-left: -425px;   
 }

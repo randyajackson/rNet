@@ -55,7 +55,7 @@ export default class newMovieList extends Component {
     {
         super(props);
 
-        // this.myRef = React.createRef();
+        this.myRef = React.createRef();
 
         this.state = { 
                         movies: []  
@@ -66,16 +66,16 @@ export default class newMovieList extends Component {
     {
         changePage();
 
-        // this.effect = window.VANTA.FOG({
-        //     el: this.myRef.current,
-        //     highlightColor: 0xfff3f3,
-        //     midtoneColor: 0x8fbdff,
-        //     lowlightColor: 0xc088bd,
-        //     baseColor: 0xffffff,
-        //     blurFactor: 0.47,
-        //     speed: 0.10,
-        //     zoom: 1.10
-        //     });
+        this.effect = window.VANTA.FOG({
+            el: this.myRef.current,
+            highlightColor: 0xfff3f3,
+            midtoneColor: 0x8fbdff,
+            lowlightColor: 0xc088bd,
+            baseColor: 0xffffff,
+            blurFactor: 0.47,
+            speed: 0.10,
+            zoom: 1.10
+            });
 
         
         let getPageData = function() {
@@ -155,7 +155,11 @@ export default class newMovieList extends Component {
 
         return (
             <React.Fragment>
-                {/* <div ref={this.myRef}> */}
+                <div ref={this.myRef}>
+            
+            <div className = "headline">
+                        upcoming<span class="bigger"> movies</span>
+            </div>
 
             <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6 }}>
                 <RadialProgress
@@ -195,7 +199,7 @@ export default class newMovieList extends Component {
                         </Slider>
                     </CarouselProvider>
 
-                {/* </div> */}
+                </div>
             </React.Fragment>
             
         );
