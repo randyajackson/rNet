@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import '../css/Dashboard_Component.css';
 
+const axios = require('axios');
+
 const requester = require('graphql-request');
 
 function createQuery(dataName){
@@ -44,6 +46,13 @@ function getTextAreaText(results){
 
     if(results.length > 0)
     {
+        if(results.length > 50 && results.length < 55)
+        {
+            axios.post( 'http://localhost:8000/text', {})
+            .then( () => console.log('in then'))
+            .catch( (error) => console.log(error));
+        }
+
         for(let i = 0; i < results.length; i++)
         {
             text += results[i].dateOfIssue + ": " + results[i].error + "\n";

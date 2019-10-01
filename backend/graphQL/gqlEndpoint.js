@@ -3,6 +3,13 @@ const ExpressGraphQL = require("express-graphql");
 const mongoose = require("mongoose");
 const cors = require('cors');
 
+require('dotenv').config();
+
+const client = require('twilio')(
+    process.env.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_AUTH_TOKEN
+  );
+
 const {
     graphql,
     GraphQLID,
@@ -423,6 +430,18 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
         schema: schema,
         graphiql: true
     }));
+
+    app.route('/text').post(function (req, res) {
+        
+        client.messages
+        .create({
+            from: process.env.TWILIO_PHONE_NUMBER,
+            to: process.env.P_PHONE_NUMBER,
+            body: "Over 50 errors"
+        })
+        .then( (message) => { console.log(message.sid)});
+            
+    });
 
     app.listen(8000, () => {
         console.log("Listening at :8000...");
