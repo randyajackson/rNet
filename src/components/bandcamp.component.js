@@ -178,7 +178,12 @@ export default class BandcampResults extends Component {
         
         return (
             <React.Fragment>
+                    
                 <div ref={this.myRef}>
+
+                    <div className = "headline">
+                        bandcamp<span class="bigger"> trends</span>
+                    </div>
 
                     <div class = "all_results_bc">
                         {allProps}
@@ -202,6 +207,8 @@ export default class BandcampResults extends Component {
                                 text={function text(steps,percentage){return('')}}
                                 />
                     </div>
+
+                    
 
                     <div className= "upcoming_list">
                         <div className= "list_entry one">Search Trends</div>

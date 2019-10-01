@@ -35,3 +35,20 @@ div.upcoming_list{
 .list_entry.four{
     opacity: .25;
 }
+
+.headline{
+    position: absolute;
+
+    color: white;
+    font-family: 'Barlow', sans-serif;
+    letter-spacing: 0.30em;
+    font-size: 60px;
+
+    left: 40%;
+    width: 1100px;
+    margin-left: -425px;   
+}
+
+.bigger{
+    font-size: 80px;
+}

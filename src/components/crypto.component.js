@@ -77,7 +77,7 @@ export default class PricesList extends Component {
     constructor(props){
         super(props);
 
-        // this.myRef = React.createRef();
+        this.myRef = React.createRef();
 
         this.state = { 
                         prices: [],
@@ -109,16 +109,16 @@ export default class PricesList extends Component {
     {
         changePage();
 
-        // this.effect = window.VANTA.FOG({
-        //     el: this.myRef.current,
-        //     highlightColor: 0xfff3f3,
-        //     midtoneColor: 0x8fbdff,
-        //     lowlightColor: 0xc088bd,
-        //     baseColor: 0xffffff,
-        //     blurFactor: 0.47,
-        //     speed: 0.10,
-        //     zoom: 1.10
-        //     });
+        this.effect = window.VANTA.FOG({
+            el: this.myRef.current,
+            highlightColor: 0xfff3f3,
+            midtoneColor: 0x8fbdff,
+            lowlightColor: 0xc088bd,
+            baseColor: 0xffffff,
+            blurFactor: 0.47,
+            speed: 0.10,
+            zoom: 1.10
+            });
 
         //used to read before setInterval delay
         let getPageData = function() {
@@ -231,7 +231,8 @@ export default class PricesList extends Component {
                     
         return (
             <React.Fragment>
-            {/* <div ref={this.myRef}> */}
+
+            <div ref={this.myRef}>
 
             <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999' ,opacity: .6 }}>
                 <RadialProgress
@@ -250,6 +251,10 @@ export default class PricesList extends Component {
                         height={150}
                         text={function text(steps,percentage){return('')}}
                         />
+            </div>
+
+            <div className = "headline">
+                        cryptocurrency<span class="bigger"> market</span>
             </div>
 
             <div className= "upcoming_list">
@@ -279,7 +284,7 @@ export default class PricesList extends Component {
                                 <Slide index={9}>{outputData[9]}</Slide>
                                 </Slider>
                 </CarouselProvider>
-            {/* </div> */}
+            </div>
             </React.Fragment>
                         
         );
