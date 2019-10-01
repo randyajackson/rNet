@@ -192,8 +192,8 @@ export default class BandcampResults extends Component {
                     <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6 }}>
                         <RadialProgress
                                 ringBgColour= "#ffffff00"
-                                ringFgColour="#8fbdff"
-                                ringIntermediateColour="#8fbdff"
+                                ringFgColour= "#ffffff"
+                                ringIntermediateColour= "#ffffff"
                                 backgroundTransparent
                                 duration={ 60*1000*3 }
                                 ringThickness={1}
@@ -211,10 +211,10 @@ export default class BandcampResults extends Component {
                     
 
                     <div className= "upcoming_list">
-                        <div className= "list_entry one">Search Trends</div>
-                        <div className= "list_entry two">Upcoming Shoes</div>
-                        <div className= "list_entry three">Cryptocurrency</div>
-                        <div className= "list_entry four">Upcoming Movies</div>
+                        <div className= "list_entry one">search <span class="bigger_next">trends</span></div>
+                        <div className= "list_entry two">upcoming <span class="bigger_next">shoes</span></div>
+                        <div className= "list_entry three">crypto<span class="bigger_next">currency</span></div>
+                        <div className= "list_entry four">upcoming <span class="bigger_next">movies</span></div>
                     </div>
 
                 </div>

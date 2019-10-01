@@ -1,22 +1,33 @@
 div.upcoming_list{
     position: absolute;
 
-    right: 80px;
+    right: 20px;
     top: 700px;
 
     text-align: left;
 
+    text-shadow: 1px 1px 2px #000000;
+
+    color: #ffffff;
+    font-family: 'Barlow', sans-serif;
+    letter-spacing: 0.25em;
+    font-size: 15px;
+
     display: grid;
-    grid-template-columns:160px;
+    grid-template-columns:220px;
     grid-template-rows:35px 35px 35px 35px;
     grid-row-gap: 5px; 
     grid-auto-flow: row;
+
+    z-index:9999;
+}
+
+.bigger_next{
+    font-size: 25px;
 }
 
 .list_entry{
-    background-color: #8fbdff;
     padding: 5px;
-    border-style: solid;
 }
 
 .list_entry.one{
@@ -25,15 +36,15 @@ div.upcoming_list{
 }
 
 .list_entry.two{
-    opacity: .75;
+    opacity: .85;
 }
 
 .list_entry.three{
-    opacity: .5;
+    opacity: .75;
 }
 
 .list_entry.four{
-    opacity: .25;
+    opacity: .65;
 }
 
 .headline{

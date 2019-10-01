@@ -237,8 +237,8 @@ export default class PricesList extends Component {
             <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999' ,opacity: .6 }}>
                 <RadialProgress
                         ringBgColour= "#ffffff00"
-                        ringFgColour="#8fbdff"
-                        ringIntermediateColour="#8fbdff"
+                        ringFgColour= "#ffffff"
+                        ringIntermediateColour= "#ffffff"
                         backgroundTransparent
                         duration={ 60*1000*3 }
                         ringThickness={1}
@@ -258,10 +258,10 @@ export default class PricesList extends Component {
             </div>
 
             <div className= "upcoming_list">
-                <div className= "list_entry one">Upcoming Movies</div>
-                <div className= "list_entry two">Bandcamp Trends</div>
-                <div className= "list_entry three">Search Trends</div>
-                <div className= "list_entry four">Upcoming Shoes</div>
+                <div className= "list_entry one">upcoming <span class="bigger_next">movies</span></div>
+                <div className= "list_entry two">bandcamp <span class="bigger_next">trends</span></div>
+                <div className= "list_entry three">search <span class="bigger_next">trends</span></div>
+                <div className= "list_entry four">upcoming <span class="bigger_next">shoes</span></div>
             </div>
             
                 <CarouselProvider

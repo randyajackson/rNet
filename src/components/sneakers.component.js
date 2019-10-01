@@ -163,8 +163,8 @@ export default class SneakerResults extends Component {
                     <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6}}>
                         <RadialProgress
                             ringBgColour= "#ffffff00"
-                            ringFgColour="#8fbdff"
-                            ringIntermediateColour="#8fbdff"
+                            ringFgColour= "#ffffff"
+                            ringIntermediateColour= "#ffffff"
                             backgroundTransparent
                             duration={ 60*1000*3 }
                             ringThickness={1}
@@ -180,10 +180,10 @@ export default class SneakerResults extends Component {
                     </div>
 
                     <div className= "upcoming_list">
-                        <div className= "list_entry one">Cryptocurrency</div>
-                        <div className= "list_entry two">Upcoming Movies</div>
-                        <div className= "list_entry three">Bandcamp Trends</div>
-                        <div className= "list_entry four">Search Trends</div>
+                        <div className= "list_entry one">crypto<span class="bigger_next">currency</span></div>
+                        <div className= "list_entry two">upcoming <span class="bigger_next">movies</span></div>
+                        <div className= "list_entry three">bandcamp <span class="bigger_next">trends</span></div>
+                        <div className= "list_entry four">search <span class="bigger_next">trends</span></div>
                     </div>
 
                     <CarouselProvider
