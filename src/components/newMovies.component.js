@@ -167,7 +167,7 @@ export default class newMovieList extends Component {
                 <img src = {logo} alt = {logo}></img>
             </div>
 
-            <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6 }}>
+            <div style = {{ position: 'absolute', top: 700, right: 80, zIndex: '999', opacity: .6 }}>
                 <RadialProgress
                         ringBgColour= "#ffffff00"
                         ringFgColour= "#ffffff"

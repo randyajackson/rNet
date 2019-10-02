@@ -2,7 +2,7 @@ div.upcoming_list{
     position: absolute;
 
     right: 20px;
-    top: 700px;
+    top: 875px;
 
     text-align: left;
 
@@ -69,5 +69,5 @@ div.upcoming_list{
 .logo{
     position: absolute;
     left: 20px;
-    top: 800px;
+    top: 950px;
 }

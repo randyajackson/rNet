@@ -195,7 +195,7 @@ export default class BandcampResults extends Component {
                         {allProps}
                     </div>
 
-                    <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6 }}>
+                    <div style = {{ position: 'absolute', top: 700, right: 80, zIndex: '999', opacity: .6 }}>
                         <RadialProgress
                                 ringBgColour= "#ffffff00"
                                 ringFgColour= "#ffffff"

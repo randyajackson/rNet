@@ -114,12 +114,12 @@ db.once('open', function() {
 
     function processText(inputText) {
         var output = [];
-        var json = inputText.split(' ');
+        var json = inputText.trim().split(' ');
 
         json.forEach(function (item) {
             output.push(item.replace(/'/g, '').split(/(\d+)/).filter(Boolean));
         });
-
+        console.log(output[0][0] + " " + output[0][1]);
         var monthName;
 
         //switch case for month names
