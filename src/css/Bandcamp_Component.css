@@ -47,12 +47,11 @@ div.single_result_bc{
 .artist_name{
     text-align: center;
 
-    font-family: 'Noto Serif JP', serif;
-    color: white;
-    text-shadow:
-      1px 1px 1px #000,
-      1px 2px 1px #000,
-      1px 3px 1px #000;
+    font-family: 'Barlow', sans-serif;
+    letter-spacing: 0.30em;
+    text-transform: lowercase;
+
+    color: black;
     
     font-size: 17px;
 
@@ -64,6 +63,8 @@ div.single_result_bc{
 
 .album_title{
     text-align: left;
+    font-family: 'Barlow', sans-serif;
+    text-transform: lowercase;
 
     padding-left: 5px;
     padding-right: 5px;
@@ -76,6 +77,8 @@ div.single_result_bc{
 
 .item_description{
     text-align: left;
+    font-family: 'Barlow', sans-serif;
+    text-transform: lowercase;
 
     padding-left: 5px;
     padding-right: 5px;
@@ -88,6 +91,8 @@ div.single_result_bc{
 
 .url{
     text-align: left;
+    font-family: 'Barlow', sans-serif;
+    text-transform: lowercase;
 
     padding-left: 5px;
     padding-right: 5px;
@@ -102,6 +107,8 @@ div.single_result_bc{
 
 .count{
     text-align: center;
+    font-family: 'Barlow', sans-serif;
+    text-transform: lowercase;
 
     grid-column-start: 4;
     grid-column-end: 5;

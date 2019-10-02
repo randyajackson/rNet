@@ -55,12 +55,14 @@ div.movie_poster{
 }
 
 div.movie_title{
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Barlow', sans-serif;
     color: white;
+    letter-spacing: 0.10em;
     text-shadow:
       1px 1px 1px #000,
       1px 2px 1px #000,
       1px 3px 1px #000;
+    text-transform: lowercase;
 
     padding: 1px;
     font-weight: bold;
@@ -72,14 +74,14 @@ div.movie_title{
 }
 
 div.movie_date{
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Barlow', sans-serif;
     color: white;
     padding: 1px;
     text-align: center;
 }
 
 div.movie_rating{
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Barlow', sans-serif;
     color: white;
     padding: 1px;
     text-align: center;

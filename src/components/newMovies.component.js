@@ -30,8 +30,8 @@ const Movies = props => (
     <div class = "single_movie">
         <div class="movie_poster"><img src = {props.results.poster} alt = {props.results.title}></img></div>
         <div class="movie_title">{props.results.title}</div>
-        <div class="movie_date">Releases: {props.results.releaseDate}</div>
-        <div class="movie_rating">Rating: {props.results.rating}</div>
+        <div class="movie_date">releases: {props.results.releaseDate}</div>
+        <div class="movie_rating">rating: {props.results.rating}</div>
     </div>
         
 )
@@ -44,7 +44,7 @@ function changePage() {
  };
 
 function truncate(input) {
-    if (input.length > 25)
+    if (input.length > 15)
        return input.substring(0,20) + '...';
     else
        return input;

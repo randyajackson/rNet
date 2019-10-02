@@ -21,6 +21,12 @@ div.single_result_sneakers{
     display: grid;
     grid-template-rows: 100px 40px 20px;
     grid-template-columns: 400px;
+
+    font-family: 'Barlow', sans-serif;
+    letter-spacing: 0.05em;
+    text-transform: lowercase;
+
+    color: black;
     
 }
 

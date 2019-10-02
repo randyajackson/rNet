@@ -19,7 +19,9 @@ table{
     border-spacing: 5px 20px;
     width: 1500px;
     text-align: center;
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Barlow', sans-serif;
+    text-transform: lowercase;
+    letter-spacing: 0.10em;
     font-size: 25px;
     color: white;
     text-shadow:
