@@ -76,6 +76,7 @@ div.movie_title{
 div.movie_date{
     font-family: 'Barlow', sans-serif;
     color: white;
+    text-shadow: 1px 1px 1px #000;
     padding: 1px;
     text-align: center;
 }
@@ -83,6 +84,7 @@ div.movie_date{
 div.movie_rating{
     font-family: 'Barlow', sans-serif;
     color: white;
+    text-shadow: 1px 1px 1px #000;
     padding: 1px;
     text-align: center;
 }

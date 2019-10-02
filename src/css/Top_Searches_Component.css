@@ -12,7 +12,7 @@ div.all_results_top_searches{
 
     display: grid;
     grid-template-columns:400px 400px 400px 400px;
-    grid-template-rows:150px 150px 150px 150px 150px;
+    grid-template-rows:100px 100px 100px 100px 100px;
     grid-auto-flow: row;
 
 }
@@ -24,7 +24,7 @@ div.single_result_top_searches{
 
 #topic{
     font-size: 20px;
-    background-color: rgb(255, 214, 187);
+    background-color: rgb(109, 148, 255);
     color: white; 
     text-shadow: 1px 1px 1px #000000;
 

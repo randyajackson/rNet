@@ -8,6 +8,8 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 
 import { RadialProgress } from 'react-radial-progress-indicator';
 
+import logo from '../img/logo.png';
+
 
 
 const requester = require('graphql-request');
@@ -120,15 +122,15 @@ export default class SneakerResults extends Component {
             allProps = this.state.sneaker_results.map(
                 (currentResult, index) =>  <SneakerResultsProp results = {currentResult} index = {index} />);
             
-            if(allProps.length % 16 !== 0)
-                numberOfSlides = parseInt( (allProps.length / 16) + 1);
+            if(allProps.length % 12 !== 0)
+                numberOfSlides = parseInt( (allProps.length / 12) + 1);
             else
-                numberOfSlides = parseInt( (allProps.length / 16) );
+                numberOfSlides = parseInt( (allProps.length / 12) );
             
             var outputProps = [numberOfSlides];
             
             var x,y,z;
-            for(x = 0, y = 0, z = 16; x < numberOfSlides; x++, y+=16, z+=16)
+            for(x = 0, y = 0, z = 12; x < numberOfSlides; x++, y+=12, z+=12)
             {
                 if (x !== numberOfSlides - 1)
                 {
@@ -158,6 +160,10 @@ export default class SneakerResults extends Component {
 
                 <div className = "headline">
                         upcoming<span class="bigger"> footwear</span>
+                </div>
+
+                <div className = "logo">
+                    <img src = {logo} alt = {logo}></img>
                 </div>
 
                     <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6}}>

@@ -5,6 +5,8 @@ import './../css/progress_bar.css';
 
 import { RadialProgress } from 'react-radial-progress-indicator';
 
+import logo from '../img/logo.png';
+
 const requester = require('graphql-request');
 
 const bandcampQuery = 
@@ -183,6 +185,10 @@ export default class BandcampResults extends Component {
 
                     <div className = "headline">
                         bandcamp<span class="bigger"> trends</span>
+                    </div>
+
+                    <div className = "logo">
+                        <img src = {logo} alt = {logo}></img>
                     </div>
 
                     <div class = "all_results_bc">

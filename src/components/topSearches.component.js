@@ -5,6 +5,8 @@ import './../css/progress_bar.css';
 
 import { RadialProgress } from 'react-radial-progress-indicator';
 
+import logo from '../img/logo.png';
+
 const requester = require('graphql-request');
 
 const topSearchQuery = 
@@ -101,6 +103,10 @@ export default class TopSearchesResults extends Component {
 
                 <div className = "headline">
                         search<span class="bigger"> trends</span>
+                </div>
+
+                <div className = "logo">
+                    <img src = {logo} alt = {logo}></img>
                 </div>
 
                 <div style = {{ position: 'absolute', top: 540, right: 80, zIndex: '999', opacity: .6 }}>

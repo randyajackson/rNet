@@ -11,6 +11,7 @@ import 'pure-react-carousel/dist/react-carousel.es.css';
 import parseCurrency from 'parse-currency';
 import { RadialProgress } from 'react-radial-progress-indicator';
 
+import logo from '../img/logo.png';
 
 
 const requester = require('graphql-request');
@@ -255,6 +256,10 @@ export default class PricesList extends Component {
 
             <div className = "headline">
                         cryptocurrency<span class="bigger"> market</span>
+            </div>
+
+            <div className = "logo">
+                <img src = {logo} alt = {logo}></img>
             </div>
 
             <div className= "upcoming_list">

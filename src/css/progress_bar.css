@@ -65,3 +65,9 @@ div.upcoming_list{
 .bigger{
     font-size: 80px;
 }
+
+.logo{
+    position: absolute;
+    left: 20px;
+    top: 800px;
+}
