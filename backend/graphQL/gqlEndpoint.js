@@ -342,7 +342,7 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
                 bandcamp: {
                     type: GraphQLList(bandcampType),
                     resolve: (root, args, context, info) => {
-                        return bandcampModel.find().sort({count: -1}).limit(10).exec();
+                        return bandcampModel.find().sort({count: -1}).limit(8).exec();
                     }
                 },
 
