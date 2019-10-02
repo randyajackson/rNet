@@ -54,8 +54,8 @@ export default class TopSearchesResults extends Component {
             lowlightColor: 0xc088bd,
             baseColor: 0xffffff,
             blurFactor: 0.47,
-            speed: 0.10,
-            zoom: 1.10
+            speed: 1.5,
+            zoom: 3.5
             });
 
         let getPageData = function() { // arrow function preserves this from parent function
