@@ -10,7 +10,7 @@ div.slide {
     border-radius: 25px;
     
     background: rgb(9,96,121);
-    background: linear-gradient(180deg, rgba(9,96,121,1) 0%, rgba(78,171,198,.5) 51%, rgba(131,226,254,0.2) 100%);
+    background: linear-gradient(180deg, #fd1e72 0%, #8b4560b6 51%,  #1d0b1248 100%);
 }
 
 table{
