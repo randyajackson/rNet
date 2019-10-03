@@ -15,14 +15,15 @@ div.slide {
 
 table{
     table-layout: fixed;
+    margin-left: -70px;
     border-collapse: separate;
-    border-spacing: 5px 20px;
-    width: 1500px;
+    border-spacing: 50px 25px;
+    width: 1750px;
     text-align: center;
     font-family: 'Barlow', sans-serif;
     text-transform: lowercase;
     letter-spacing: 0.10em;
-    font-size: 25px;
+    font-size: 30px;
     color: white;
     text-shadow:
       1px 1px 1px #000,

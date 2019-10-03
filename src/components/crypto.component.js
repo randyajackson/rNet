@@ -220,7 +220,7 @@ export default class PricesList extends Component {
                 <th>Short Name</th>
                 <th>Price</th>
                 <th>Total</th>
-                <th>Price Last 24 Hours</th>
+                <th>Value Last 24 Hrs</th>
             </tr>
             </thead>    
             <tbody>

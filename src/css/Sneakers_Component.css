@@ -1,7 +1,7 @@
 div.all_results_sneakers{
     position: absolute;
 
-    left: 250px;
+    left: 25px;
     right: 125px;
     top: 150px;
 
@@ -11,15 +11,15 @@ div.all_results_sneakers{
     text-align: center;
 
     display: grid;
-    grid-template-columns:300px 300px 300px 300px;
-    grid-template-rows:200px 200px 200px;
+    grid-template-columns:450px 450px 450px 450px;
+    grid-template-rows:250px 250px 250px;
     grid-auto-flow: row;
 
 }
 
 div.single_result_sneakers{
     display: grid;
-    grid-template-rows: 100px 40px 20px;
+    grid-template-rows: 125px 60px 20px;
     grid-template-columns: 400px;
 
     font-family: 'Barlow', sans-serif;
@@ -31,8 +31,8 @@ div.single_result_sneakers{
 }
 
 .thumbnail{
-    width: 200px;
-    height: 100px;
+    width: 250px;
+    height: 125px;
 
     margin-left: auto;
     margin-right: auto;
@@ -48,7 +48,8 @@ div.single_result_sneakers{
 
 .title{
     text-align: center;
-    width: 200px;
+    width: 400px;
+    font-size: 25px;
 
     margin-left: auto;
     margin-right: auto;
@@ -60,8 +61,11 @@ div.single_result_sneakers{
 
 .date{
     text-align: center;
+    font-size: 35px;
+    font-family: 'Barlow', sans-serif;
 
-    color: rgb(187, 108, 108);
+    color: black;
+
     font-weight: bold;
     
     padding-left: 5px;
@@ -73,6 +77,8 @@ div.single_result_sneakers{
 }
 
 .date span{
-    color: rgb(139, 139, 139);
+    color: black;
+    font-family: 'Barlow', sans-serif;
+
     font-weight: bold;
 }
