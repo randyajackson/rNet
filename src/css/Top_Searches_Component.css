@@ -1,7 +1,7 @@
 div.all_results_top_searches{
     position: absolute;
 
-    left: 125px;
+    left: 10px;
     right: 125px;
     top: 150px;
 
@@ -11,8 +11,8 @@ div.all_results_top_searches{
     text-align: center;
 
     display: grid;
-    grid-template-columns:400px 400px 400px 400px;
-    grid-template-rows:100px 100px 100px 100px 100px;
+    grid-template-columns:500px 500px 500px 500px;
+    grid-template-rows:160px 160px 160px 160px 160px;
     grid-auto-flow: row;
 
 }
@@ -23,7 +23,7 @@ div.single_result_top_searches{
 }
 
 #topic{
-    font-size: 20px;
+    font-size: 22px;
     background-color: rgb(109, 148, 255);
     color: white; 
     text-shadow: 1px 1px 1px #000000;
@@ -41,7 +41,7 @@ div.single_result_top_searches{
 }
 
 #rank{
-    font-size: 30px;
+    font-size: 32px;
 
     font-family: 'Barlow', sans-serif;
     letter-spacing: 0.05em;

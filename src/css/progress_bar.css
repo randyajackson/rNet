@@ -11,10 +11,10 @@ div.upcoming_list{
     color: #ffffff;
     font-family: 'Barlow', sans-serif;
     letter-spacing: 0.25em;
-    font-size: 15px;
+    font-size: 25px;
 
     display: grid;
-    grid-template-columns:220px;
+    grid-template-columns:350px;
     grid-template-rows:35px 35px 35px 35px;
     grid-row-gap: 5px; 
     grid-auto-flow: row;
@@ -23,7 +23,7 @@ div.upcoming_list{
 }
 
 .bigger_next{
-    font-size: 25px;
+    font-size: 35px;
 }
 
 .list_entry{

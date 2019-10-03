@@ -235,7 +235,7 @@ export default class PricesList extends Component {
 
             <div ref={this.myRef}>
 
-            <div style = {{ position: 'absolute', top: 890, right: 280, zIndex: '999' ,opacity: .6 }}>
+            <div style = {{ position: 'absolute', top: 890, right: 400, zIndex: '999' ,opacity: .6 }}>
                 <RadialProgress
                         ringBgColour= "#ffffff00"
                         ringFgColour= "#ffffff"

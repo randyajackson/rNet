@@ -3,7 +3,7 @@ div.all_results_bc{
 
     grid-auto-flow: row;
 
-    left: 250px;
+    left: 50px;
     right: 250x;
     top: 150px;
 
@@ -12,8 +12,8 @@ div.all_results_bc{
     text-align: center;
 
     display: grid;
-    grid-template-columns:700px 700px;
-    grid-template-rows:150px 150px 150px 150px;
+    grid-template-columns:900px 900px;
+    grid-template-rows:175px 175px 175px 175px;
     grid-auto-flow: column;
 
     background-color: white;
@@ -21,8 +21,9 @@ div.all_results_bc{
 }
 
 div.single_result_bc{
+    justify-content: center;
     display: grid;
-    grid-template-columns: 85px 85px 300px 200px;
+    grid-template-columns: 85px 85px 450px 200px;
     grid-template-rows: 20px 20px 20px 40px 20px 20px;
 
 }
@@ -51,7 +52,7 @@ div.single_result_bc{
 
     color: black;
     
-    font-size: 17px;
+    font-size: 25px;
 
     grid-column-start: 3;
     grid-column-end: 4;
@@ -63,6 +64,7 @@ div.single_result_bc{
     text-align: left;
     font-family: 'Barlow', sans-serif;
     text-transform: lowercase;
+    font-size: 20px;
 
     padding-left: 5px;
     padding-right: 5px;
@@ -77,6 +79,7 @@ div.single_result_bc{
     text-align: left;
     font-family: 'Barlow', sans-serif;
     text-transform: lowercase;
+    font-size: 20px;
 
     padding-left: 5px;
     padding-right: 5px;
@@ -91,7 +94,8 @@ div.single_result_bc{
     text-align: left;
     font-family: 'Barlow', sans-serif;
     text-transform: lowercase;
-
+    font-size: 20px;
+    
     padding-left: 5px;
     padding-right: 5px;
     padding-top: 5px;
