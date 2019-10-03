@@ -121,15 +121,15 @@ export default class newMovieList extends Component {
         allProps = this.state.movies.map(
             (currentMovies, index) =>  <Movies results = {currentMovies} />);
         
-        if(allProps.length % 14 !== 0)
-            numberOfSlides = parseInt( (allProps.length / 14) + 1);
+        if(allProps.length % 8 !== 0)
+            numberOfSlides = parseInt( (allProps.length / 8) + 1);
         else
-            numberOfSlides = parseInt( (allProps.length / 14) );
+            numberOfSlides = parseInt( (allProps.length / 8) );
         
         var outputProps = [numberOfSlides];
         
         var x,y,z;
-        for(x = 0, y = 0, z = 14; x < numberOfSlides; x++, y+=14, z+=14)
+        for(x = 0, y = 0, z = 8; x < numberOfSlides; x++, y+=8, z+=8)
         {
             if (x !== numberOfSlides - 1)
             {
