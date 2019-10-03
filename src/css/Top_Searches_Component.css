@@ -24,7 +24,7 @@ div.single_result_top_searches{
 
 #topic{
     font-size: 22px;
-    background-color: rgb(109, 148, 255);
+    background-color: #fd1e72;
     color: white; 
     text-shadow: 1px 1px 1px #000000;
 
@@ -53,6 +53,6 @@ div.single_result_top_searches{
 
     padding-bottom: 8px;
 
-    background-color: rgb(255, 131, 131);
+    background-color: black;
     color: white;    
 }
