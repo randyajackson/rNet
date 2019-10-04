@@ -13,7 +13,7 @@ div.slide {
     width: 1600px;
     text-align: center;
     background: rgb(9,96,121);
-    background: linear-gradient(180deg, #fd1e72 0%, #8b4560b6 51%,  #1d0b1248 100%);
+    background: linear-gradient(180deg, #fd1e1e 0%, #8b4545b6 51%,  #1d0b0b48 100%);
 }
 
 img {
