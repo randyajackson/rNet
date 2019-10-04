@@ -9,6 +9,8 @@ import logo from '../img/logo.png';
 
 const requester = require('graphql-request');
 
+var i = 0; //used for truncating the artist name
+
 const bandcampQuery = 
 "{" +
     "bandcamp" +
@@ -106,6 +108,13 @@ const BandcampResultsProp = props => (
     
 )
 
+function truncate(input) {
+    if (input.length > 17)
+       return input.substring(0,20) + '...';
+    else
+       return input;
+ };
+
 function changePage() {
     setTimeout( () => {
         document.location.href = "http://localhost:3000/top_searches";
@@ -147,6 +156,12 @@ export default class BandcampResults extends Component {
             requester.request('http://localhost:8000/graphql', bandcampQuery)
             .then(response => {
                 componentDidMountThis.getPrevResult();
+
+                for(i = 0; i < response.bandcamp.length; i++)
+                {
+                    response.bandcamp[i].artist_name = truncate(response.bandcamp[i].artist_name);
+                }
+
                 componentDidMountThis.setState({
                         bandcamp_results: response.bandcamp
                     })
