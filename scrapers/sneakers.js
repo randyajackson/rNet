@@ -89,7 +89,7 @@ db.once('open', function() {
 
         setTimeout(function () {
             process.exit();
-        }, 60 * 1000);
+        }, 300 * 1000);
                 
     })
     .catch(error => {
