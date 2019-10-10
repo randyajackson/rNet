@@ -7,14 +7,18 @@ node gqlEndpoint
 npm start
 
 //starts scheduler for single-run scripts that drop their own db
+cd scrapers
 node scheduler_dropDB
 
 //starts scheduler for dropping database at certain times
+cd scrapers
 node scheduler_startScripts
 
 //starts crypto scraper
+cd scrapers
 python crypto.py
 
 //starts bandcamp scraper 
+cd scrapers
 node bandcamp
 
