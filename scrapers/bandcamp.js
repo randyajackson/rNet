@@ -75,7 +75,20 @@ async function beginCollection()
         time = await getNext(time["endDate"], time["serverTime"]); 
         }
         catch(error){
+            today = String(today.getDate()).padStart(2, '0') + '/' + //dd
+            String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
+            today.getFullYear(); //yyyy
+
+            bandcampDebugModel = db2.model('bandcamp_debug', bandcampDebugSchema);
+
+            bandcampDebugModel.create({
+                name: 'Bandcamp',
+                dateOfIssue: today,
+                error: error.toString()
+            });
+
             console.log("error", error);
+
             clearInterval(interval);
             setTimeout(function(){ beginCollection(); }, 600000);
         }
@@ -93,7 +106,6 @@ async function getInitial()
         let findCount;
         albumModel = mongoose.model('bandcamp', albumSchema);
 
-    try{
         for(let i = 0; i < response.data["feed_data"]["events"].length; i++)
         {
             for(let j = 0; j < response.data["feed_data"]["events"][i]["items"].length; j++) 
@@ -125,25 +137,8 @@ async function getInitial()
                     });
                 }
 
-            }
+            
         }
-    }
-    catch(err){
-
-        today = String(today.getDate()).padStart(2, '0') + '/' + //dd
-                String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
-                today.getFullYear(); //yyyy
-
-        bandcampDebugModel = db2.model('bandcamp_debug', bandcampDebugSchema);
-
-        bandcampDebugModel.create({
-            name: 'Bandcamp',
-            dateOfIssue: today,
-            error: err.toString()
-        });
-
-        console.log("error", err);
-        console.log("is caught");
     }
 
         console.log("*****first batch read*****");
@@ -169,7 +164,7 @@ async function getNext(endDate, serverTime)
 
             albumModel = mongoose.model('bandcamp', albumSchema);
 
-        try{
+        
             for(let i = 0; i < response.data["events"].length; i++)
             {
                 for(let j = 0; j < response.data["events"][i]["items"].length; j++) 
@@ -202,22 +197,7 @@ async function getNext(endDate, serverTime)
                     }
                 }
             }
-        }
-        catch(error){
-            today = String(today.getDate()).padStart(2, '0') + '/' + //dd
-                    String(today.getMonth() + 1).padStart(2, '0') + '/' + //mm
-                    today.getFullYear(); //yyyy
-    
-            bandcampDebugModel = db2.model('bandcamp_debug', bandcampDebugSchema);
-    
-            bandcampDebugModel.create({
-                name: 'Bandcamp',
-                dateOfIssue: today,
-                error: error.toString()
-            });
-    
-            console.log("error", error);
-        } 
+        
             console.log("*****next batch read*****");
 
             return {serverTime : response.data["server_time"], 
