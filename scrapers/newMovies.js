@@ -90,7 +90,7 @@ db.once('open', function() {
 
     setTimeout(function () {
         process.exit();
-    }, 300 * 1000);
+    }, 180 * 1000);
 });
 
 
