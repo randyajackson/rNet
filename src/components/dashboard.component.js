@@ -6,6 +6,8 @@ const axios = require('axios');
 
 const requester = require('graphql-request');
 
+require('dotenv').config();
+
 function createQuery(dataName){
 
     return( 
@@ -48,7 +50,7 @@ function getTextAreaText(results){
     {
         if(results.length > 50 && results.length < 55)
         {
-            axios.post( 'http://localhost:8000/text', {})
+            axios.post( "http://" + process.env.REACT_APP_LOCAL_HOST + ':8000/text', {})
             .then( () => console.log('in then'))
             .catch( (error) => console.log(error));
         }
@@ -67,7 +69,7 @@ function deleteData(queryName){
 
     let deleteQuery = createDeleteQuery(queryName);
 
-    requester.request('http://localhost:8000/graphql', deleteQuery).then(response => {console.log(queryName + " deleted successfully.")});
+    requester.request("http://" + process.env.REACT_APP_LOCAL_HOST + ':8000/graphql', deleteQuery).then(response => {console.log(queryName + " deleted successfully.")});
 }
 
 const DebugConsoleProp = props => (
@@ -121,7 +123,7 @@ export default class DebugDashboard extends Component {
 
         //create promise array from queries
         queryStringArray.forEach(function(element) {
-            queryPromises.push( requester.request('http://localhost:8000/graphql', element.graphqlQuery) );
+            queryPromises.push( requester.request("http://" + process.env.REACT_APP_LOCAL_HOST + ':8000/graphql', element.graphqlQuery) );
         });
 
         //set state with promise array

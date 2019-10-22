@@ -10,6 +10,7 @@ import { RadialProgress } from 'react-radial-progress-indicator';
 
 import logo from '../img/logo.png';
 
+require('dotenv').config();
 
 const requester = require('graphql-request');
 
@@ -40,7 +41,7 @@ const Movies = props => (
 
 function changePage() {
     setTimeout( () => {
-        document.location.href = "http://localhost:3000/bc";
+        document.location.href = "http://" + process.env.REACT_APP_LOCAL_HOST + ":3000/bc";
     }, 60*1000*3);
     return false;   
  };
@@ -82,7 +83,7 @@ export default class newMovieList extends Component {
         
         let getPageData = function() {
             let componentDidMountThis = this;
-            requester.request('http://localhost:8000/graphql', new_moviesQuery)
+            requester.request("http://" + process.env.REACT_APP_LOCAL_HOST + ":8000/graphql", new_moviesQuery)
             .then(response => {
                 
                 for(i = 0; i < response.new_movie.length; i++)

@@ -13,6 +13,7 @@ import { RadialProgress } from 'react-radial-progress-indicator';
 
 import logo from '../img/logo.png';
 
+require('dotenv').config();
 
 const requester = require('graphql-request');
 
@@ -68,7 +69,7 @@ const Price = props => (
 
 function changePage() {
     setTimeout( () => {
-        document.location.href = "http://localhost:3000/new_movies";
+        document.location.href = "http://" + process.env.REACT_APP_LOCAL_HOST + ":3000/new_movies";
     }, 60*1000*3);
     return false;  
  };
@@ -124,7 +125,7 @@ export default class PricesList extends Component {
         //used to read before setInterval delay
         let getPageData = function() {
             let componentDidMountThis = this;
-            requester.request('http://localhost:8000/graphql', cryptoQuery)
+            requester.request("http://" + process.env.REACT_APP_LOCAL_HOST + ':8000/graphql', cryptoQuery)
             .then(response => {
                 componentDidMountThis.getPrevPrice();
                 componentDidMountThis.setState({

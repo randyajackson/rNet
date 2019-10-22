@@ -7,6 +7,8 @@ import { RadialProgress } from 'react-radial-progress-indicator';
 
 import logo from '../img/logo.png';
 
+require('dotenv').config();
+
 const requester = require('graphql-request');
 
 var i = 0; //used for truncating the artist name
@@ -117,7 +119,7 @@ function truncate(input) {
 
 function changePage() {
     setTimeout( () => {
-        document.location.href = "http://localhost:3000/top_searches";
+        document.location.href = "http://" + process.env.REACT_APP_LOCAL_HOST + ":3000/top_searches";
     }, 60*1000*3);
     return false;    
  };
@@ -153,7 +155,7 @@ export default class BandcampResults extends Component {
         //used to read before setInterval delay
         let getPageData = function() {
             let componentDidMountThis = this;
-            requester.request('http://localhost:8000/graphql', bandcampQuery)
+            requester.request("http://" + process.env.REACT_APP_LOCAL_HOST + ':8000/graphql', bandcampQuery)
             .then(response => {
                 componentDidMountThis.getPrevResult();
 

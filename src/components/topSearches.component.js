@@ -7,6 +7,8 @@ import { RadialProgress } from 'react-radial-progress-indicator';
 
 import logo from '../img/logo.png';
 
+require('dotenv').config();
+
 const requester = require('graphql-request');
 
 const topSearchQuery = 
@@ -28,7 +30,7 @@ const TrendingSearches = props => (
 
 function changePage() {
     setTimeout( () => {
-        document.location.href = "http://localhost:3000/new_sneakers";
+        document.location.href = "http://" + process.env.REACT_APP_LOCAL_HOST + ":3000/new_sneakers";
     }, 60*1000*3);
     return false;     
  };
@@ -62,7 +64,7 @@ export default class TopSearchesResults extends Component {
 
         let getPageData = function() { // arrow function preserves this from parent function
             let componentDidMountThis = this;
-            requester.request('http://localhost:8000/graphql', topSearchQuery)
+            requester.request("http://" + process.env.REACT_APP_LOCAL_HOST + ':8000/graphql', topSearchQuery)
             .then(response => {
                 componentDidMountThis.setState({
                     search_results: response.top_searches

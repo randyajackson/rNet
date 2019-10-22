@@ -50,7 +50,7 @@ function truncate(input) {
 
  function changePage() {
     setTimeout( () => {
-        document.location.href = "http://localhost:3000/crypto";
+        document.location.href = "http://" + process.env.REACT_APP_LOCAL_HOST + ":3000/crypto";
     }, 60*1000*3)
     return false;     
  };
@@ -85,7 +85,7 @@ export default class SneakerResults extends Component {
         //used to read before setInterval delay
         let getPageData = function() {
             let componentDidMountThis = this;
-            requester.request('http://localhost:8000/graphql', sneakerQuery)
+            requester.request("http://" + process.env.REACT_APP_LOCAL_HOST + ':8000/graphql', sneakerQuery)
             .then(response => {
 
                 for(var i = 0; i < response.upcoming_sneakers.length; i++)
