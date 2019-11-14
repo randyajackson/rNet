@@ -26,7 +26,7 @@ setInterval(function () {
     }); 
 
     //runs 'python topSearches.py'
-    exec('python topSearches.py', (err, stdout, stderr) => {
+    exec('python3 topSearches.py', (err, stdout, stderr) => {
         if(err) {
             console.log('Error running topSearches');
         }
