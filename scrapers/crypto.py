@@ -10,6 +10,7 @@ import threading
 import datetime
 from datetime import datetime
 
+#ready for launch
 #chromedriver --url-base=/wd/hub
 
 chrome_options = Options()
