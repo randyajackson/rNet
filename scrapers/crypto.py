@@ -18,16 +18,18 @@ chrome_options.headless = True
 #chrome_options.add_argument('window-size=1920x1080')
 driver = webdriver.Chrome("/usr/bin/chromedriver", chrome_options = chrome_options)
 
-
-url = r"https://www.cryptocompare.com/coins/list/USD/1"
-driver.get(url)
-
-time.sleep(15)
 client = MongoClient()
-
-#collect grabs the state of the data every 5 seconds
 db2 = client['cryptoDebug']
 debug = db2.crypto_debug
+
+def connect():
+    url = r"https://www.cryptocompare.com/coins/list/USD/1"
+    driver.get(url)
+
+    time.sleep(15)
+    #collect grabs the state of the data every 5 seconds
+
+connect()
 
 def collect():
     threading.Timer(5.0, collect).start()
@@ -55,20 +57,26 @@ def collect():
             # print(data[x + 3])
             # print(data[x + 4])
             # print(data[x + 6]) 
-            prices.update_one(
-                {"coinName" : data[x + 1] },
-                    {"$set" :
-                        {
-                            'id#' : data[x],
-                            'coinName' : data[x + 1],
-                            'coinSName' : data[x + 2],
-                            'coinPrice' : data[x + 3],
-                            'coinTotal' : data[x + 4],
-                            'coin24' : data[x + 6]
+
+            try:
+                prices.update_one(
+                    {"coinName" : data[x + 1] },
+                        {"$set" :
+                            {
+                                'id#' : data[x],
+                                'coinName' : data[x + 1],
+                                'coinSName' : data[x + 2],
+                                'coinPrice' : data[x + 3],
+                                'coinTotal' : data[x + 4],
+                                'coin24' : data[x + 6]
+                            }
                         }
-                    }
-            )
-            x += 7
+                )
+                x += 7
+            except IndexError:
+                time.sleep(600)
+                connect()
+
     else:
         while x < len(data):
             # print(data[x])
@@ -78,17 +86,22 @@ def collect():
             # print(data[x + 4])
             # print(data[x + 6]) 
 
-            prices.insert_one(
-                {
-                    'id#' : data[x],
-                    'coinName' : data[x + 1],
-                    'coinSName' : data[x + 2],
-                    'coinPrice' : data[x + 3],
-                    'coinTotal' : data[x + 4],
-                    'coin24' : data[x + 6]        
-                }
-            )
-            x += 7
+            try:
+                prices.insert_one(
+                    {
+                        'id#' : data[x],
+                        'coinName' : data[x + 1],
+                        'coinSName' : data[x + 2],
+                        'coinPrice' : data[x + 3],
+                        'coinTotal' : data[x + 4],
+                        'coin24' : data[x + 6]        
+                    }
+                )
+                x += 7
+            except IndexError:
+                time.sleep(600)
+                connect()
+
 
     driver.refresh()
     time.sleep(5)
