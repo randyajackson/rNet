@@ -39,6 +39,7 @@ def collect():
     if table[0]:
         data = table[0].text.splitlines()
     else:
+        print("sleeping")
         time.sleep(60*10)
         collect()
     
@@ -59,25 +60,29 @@ def collect():
             # print(data[x + 4])
             # print(data[x + 6]) 
 
-            try:
-                prices.update_one(
-                    {"coinName" : data[x + 1] },
-                        {"$set" :
-                            {
-                                'id#' : data[x],
-                                'coinName' : data[x + 1],
-                                'coinSName' : data[x + 2],
-                                'coinPrice' : data[x + 3],
-                                'coinTotal' : data[x + 4],
-                                'coin24' : data[x + 6]
+            if data[x] and data[x + 1] and data[x + 2] and data[x + 3] and data[x + 4] and data[x + 6]:
+                try:
+                    prices.update_one(
+                        {"coinName" : data[x + 1] },
+                            {"$set" :
+                                {
+                                    'id#' : data[x],
+                                    'coinName' : data[x + 1],
+                                    'coinSName' : data[x + 2],
+                                    'coinPrice' : data[x + 3],
+                                    'coinTotal' : data[x + 4],
+                                    'coin24' : data[x + 6]
+                                }
                             }
-                        }
-                )
-                x += 7
-            except IndexError:
+                    )
+                    x += 7
+                except IndexError:
+                    time.sleep(600)
+                    connect()
+            else:
+                print("no pass")
                 time.sleep(600)
                 connect()
-
     else:
         while x < len(data):
             # print(data[x])
