@@ -23,25 +23,32 @@ client = MongoClient()
 db2 = client['cryptoDebug']
 debug = db2.crypto_debug
 
-def connect():
-    url = r"https://www.cryptocompare.com/coins/list/USD/1"
-    driver.get(url)
-
-    time.sleep(15)
-    #collect grabs the state of the data every 5 seconds
-
-connect()
-
 def collect():
     threading.Timer(5.0, collect).start()
     table = driver.find_elements_by_class_name("table-coins")
 
-    if table[0]:
+    try:
         data = table[0].text.splitlines()
-    else:
+    except:
         print("sleeping")
         time.sleep(60*10)
-        collect()
+        
+        e = str( sys.exc_info()[0] )
+
+        name = str( 'Cryptocurrency' )
+        dateOfIssue = str( "{:%B %d, %Y}".format(datetime.now()) )
+        error = str( 'Error with updating database: %s' % e )
+
+        debug.insert_one(
+            {
+                'name' : name,
+                'dateOfIssue' : dateOfIssue,
+                'error' : error
+            }
+        )
+        
+        connect()
+        return
     
     db = client['crypto']
     prices = db.crypto_data_prices
@@ -111,24 +118,14 @@ def collect():
 
     driver.refresh()
     time.sleep(5)
-
-try:
-    collect()
-except:
-        e = str( sys.exc_info()[0] )
-
-        name = str( 'Cryptocurrency' )
-        dateOfIssue = str( "{:%B %d, %Y}".format(datetime.now()) )
-        error = str( 'Error with updating database: %s' % e )
-
-        debug.insert_one(
-            {
-                'name' : name,
-                'dateOfIssue' : dateOfIssue,
-                'error' : error
-            }
-        )
-        
-        print("error")
     
+def connect():
+    url = r"https://www.cryptocompare.com/coins/list/USD/1"
+    driver.get(url)
 
+    time.sleep(15)
+    #collect grabs the state of the data every 5 seconds
+    collect()
+
+#this function starts the process on first run
+connect()
