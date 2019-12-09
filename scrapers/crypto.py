@@ -20,13 +20,18 @@ chrome_options.headless = True
 driver = webdriver.Chrome("/usr/bin/chromedriver", chrome_options = chrome_options)
 
 client = MongoClient()
+
 db2 = client['cryptoDebug']
 debug = db2.crypto_debug
 
-def collect():
-    threading.Timer(5.0, collect).start()
-    table = driver.find_elements_by_class_name("table-coins")
+db = client['crypto']
+prices = db.crypto_data_prices
 
+def collect():
+    # threading.Timer(5.0, collect).start()
+    table = driver.find_elements_by_class_name("table-coins")
+    print(table)
+    
     try:
         data = table[0].text.splitlines()
     except:
@@ -49,9 +54,6 @@ def collect():
         
         connect()
         return
-    
-    db = client['crypto']
-    prices = db.crypto_data_prices
 
     #if sponsored exists, set x to 11
     x = 1
@@ -118,6 +120,7 @@ def collect():
 
     driver.refresh()
     time.sleep(5)
+    collect()
     
 def connect():
     url = r"https://www.cryptocompare.com/coins/list/USD/1"
