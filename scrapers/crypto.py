@@ -15,8 +15,6 @@ from datetime import datetime
 
 chrome_options = Options()
 chrome_options.headless = True
-#chrome_options.add_argument('--headless')
-#chrome_options.add_argument('window-size=1920x1080')
 driver = webdriver.Chrome("/usr/bin/chromedriver", chrome_options = chrome_options)
 
 client = MongoClient()
@@ -27,32 +25,17 @@ debug = db2.crypto_debug
 db = client['crypto']
 prices = db.crypto_data_prices
 
+proceed = True
+
 def collect():
-    # threading.Timer(5.0, collect).start()
+
     table = driver.find_elements_by_class_name("table-coins")
-    print(table)
     
     try:
         data = table[0].text.splitlines()
     except:
-        print("sleeping")
-        time.sleep(60*10)
-        
-        e = str( sys.exc_info()[0] )
-
-        name = str( 'Cryptocurrency' )
-        dateOfIssue = str( "{:%B %d, %Y}".format(datetime.now()) )
-        error = str( 'Error with updating database: %s' % e )
-
-        debug.insert_one(
-            {
-                'name' : name,
-                'dateOfIssue' : dateOfIssue,
-                'error' : error
-            }
-        )
-        
-        connect()
+        global proceed
+        proceed = False
         return
 
     #if sponsored exists, set x to 11
@@ -69,29 +52,21 @@ def collect():
             # print(data[x + 4])
             # print(data[x + 6]) 
 
-            if data[x] and data[x + 1] and data[x + 2] and data[x + 3] and data[x + 4] and data[x + 6]:
-                try:
-                    prices.update_one(
-                        {"coinName" : data[x + 1] },
-                            {"$set" :
-                                {
-                                    'id#' : data[x],
-                                    'coinName' : data[x + 1],
-                                    'coinSName' : data[x + 2],
-                                    'coinPrice' : data[x + 3],
-                                    'coinTotal' : data[x + 4],
-                                    'coin24' : data[x + 6]
-                                }
-                            }
-                    )
-                    x += 7
-                except IndexError:
-                    time.sleep(600)
-                    connect()
-            else:
-                print("no pass")
-                time.sleep(600)
-                connect()
+            prices.update_one(
+                {"coinName" : data[x + 1] },
+                    {"$set" :
+                        {
+                            'id#' : data[x],
+                            'coinName' : data[x + 1],
+                            'coinSName' : data[x + 2],
+                            'coinPrice' : data[x + 3],
+                            'coinTotal' : data[x + 4],
+                            'coin24' : data[x + 6]
+                        }
+                    }
+            )
+            x += 7
+
     else:
         while x < len(data):
             # print(data[x])
@@ -101,34 +76,55 @@ def collect():
             # print(data[x + 4])
             # print(data[x + 6]) 
 
-            try:
-                prices.insert_one(
-                    {
-                        'id#' : data[x],
-                        'coinName' : data[x + 1],
-                        'coinSName' : data[x + 2],
-                        'coinPrice' : data[x + 3],
-                        'coinTotal' : data[x + 4],
-                        'coin24' : data[x + 6]        
-                    }
-                )
-                x += 7
-            except IndexError:
-                time.sleep(600)
-                connect()
+            prices.insert_one(
+                {
+                    'id#' : data[x],
+                    'coinName' : data[x + 1],
+                    'coinSName' : data[x + 2],
+                    'coinPrice' : data[x + 3],
+                    'coinTotal' : data[x + 4],
+                    'coin24' : data[x + 6]        
+                }
+            )
+            x += 7
 
 
     driver.refresh()
     time.sleep(5)
-    collect()
+    return
     
 def connect():
     url = r"https://www.cryptocompare.com/coins/list/USD/1"
     driver.get(url)
-
     time.sleep(15)
-    #collect grabs the state of the data every 5 seconds
-    collect()
+    return
+
+def gatherer():
+    
+    connect()
+
+    while(True):
+        global proceed
+
+        if (proceed == True):
+            collect()
+        else:
+            print("sleeping")
+            time.sleep(60*10)
+            proceed = True
+
+            name = str( 'Cryptocurrency' )
+            dateOfIssue = str( "{:%B %d, %Y}".format(datetime.now()) )
+            error = str( 'Error with updating database' )
+
+            debug.insert_one(
+                {
+                    'name' : name,
+                    'dateOfIssue' : dateOfIssue,
+                    'error' : error
+                }
+            )
+            connect()
 
 #this function starts the process on first run
-connect()
+gatherer()
