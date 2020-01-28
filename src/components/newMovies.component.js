@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import * as THREE from 'three';
+import FOG from 'vanta/dist/vanta.fog.min';
+
 import '../css/Movie_Component.css';
 import './../css/progress_bar.css';
 
@@ -69,7 +72,7 @@ export default class newMovieList extends Component {
     {
         changePage();
 
-        this.effect = window.VANTA.FOG({
+        this.effect = FOG({
             el: this.myRef.current,
             highlightColor: 0xfff3f3,
             midtoneColor: 0x8fbdff,
@@ -77,7 +80,8 @@ export default class newMovieList extends Component {
             baseColor: 0xffffff,
             blurFactor: 0.47,
             speed: 1.5,
-            zoom: 3.5
+            zoom: 3.5,
+            THREE: THREE
             });
 
         
@@ -158,7 +162,7 @@ export default class newMovieList extends Component {
 
         return (
             <React.Fragment>
-                <div ref={this.myRef}>
+                <div ref={this.myRef} style={{width: '1920px', height: '1080px'}}>
             
             <div className = "headline">
                         upcoming<span class="bigger"> movies</span>
