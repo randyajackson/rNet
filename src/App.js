@@ -6,6 +6,8 @@ import newMovieList from "./components/newMovies.component";
 import BandcampResults from "./components/bandcamp.component";
 import SneakerResults from "./components/sneakers.component";
 import TopSearchesResults from "./components/topSearches.component";
+import plain from "./components/plain.component";
+import Options from "./components/popularOptions.component";
 import DebugDashboard from "./components/dashboard.component";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Route path="/bc" component={BandcampResults} />
         <Route path="/new_sneakers" component={SneakerResults} />
         <Route path="/top_searches" component={TopSearchesResults} />
+        <Route path="/popular_options" component={Options} />
+        <Route path="/default" component={plain} />
         <Route path="/dashboard" component={DebugDashboard} />
     </Router>
   );

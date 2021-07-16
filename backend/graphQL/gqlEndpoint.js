@@ -24,23 +24,25 @@ const {
 
 const app = Express();
 //used for supplying components with data
-const bandcamp = mongoose.createConnection('mongodb://localhost/bc', {useNewUrlParser: true});
-const crypto = mongoose.createConnection('mongodb://localhost/crypto', {useNewUrlParser: true});
-const newMovies = mongoose.createConnection('mongodb://localhost/upcoming_movies', {useNewUrlParser: true});
-const newOnSteam = mongoose.createConnection('mongodb://localhost/new_on_steam', {useNewUrlParser: true});
-const topSearches = mongoose.createConnection('mongodb://localhost/googleSearches', {useNewUrlParser: true});
-const upcomingSneakers = mongoose.createConnection('mongodb://localhost/upcoming_sneakers', {useNewUrlParser: true});
+const bandcamp = mongoose.createConnection('mongodb://localhost/bc', {useNewUrlParser: true, useUnifiedTopology: true});
+const crypto = mongoose.createConnection('mongodb://localhost/crypto', {useNewUrlParser: true, useUnifiedTopology: true});
+const newMovies = mongoose.createConnection('mongodb://localhost/upcoming_movies', {useNewUrlParser: true, useUnifiedTopology: true});
+const newOnSteam = mongoose.createConnection('mongodb://localhost/new_on_steam', {useNewUrlParser: true, useUnifiedTopology: true});
+const topSearches = mongoose.createConnection('mongodb://localhost/googleSearches', {useNewUrlParser: true, useUnifiedTopology: true});
+const upcomingSneakers = mongoose.createConnection('mongodb://localhost/upcoming_sneakers', {useNewUrlParser: true, useUnifiedTopology: true});
+const popularOptions = mongoose.createConnection('mongodb://localhost/options', {useNewUrlParser: true, useUnifiedTopology: true});
 
 //used for supplying debugging dashboard with data
-const bandcamp_debug = mongoose.createConnection('mongodb://localhost/bandcampDebug', {useNewUrlParser: true});
-const crypto_debug = mongoose.createConnection('mongodb://localhost/cryptoDebug', {useNewUrlParser: true});
-const newMovies_debug = mongoose.createConnection('mongodb://localhost/upcoming_movies_debug', {useNewUrlParser: true});
+const bandcamp_debug = mongoose.createConnection('mongodb://localhost/bandcampDebug', {useNewUrlParser: true, useUnifiedTopology: true});
+const crypto_debug = mongoose.createConnection('mongodb://localhost/cryptoDebug', {useNewUrlParser: true, useUnifiedTopology: true});
+const newMovies_debug = mongoose.createConnection('mongodb://localhost/upcoming_movies_debug', {useNewUrlParser: true, useUnifiedTopology: true});
 //const newOnSteam_debug = mongoose.createConnection('mongodb://localhost/new_on_steam', {useNewUrlParser: true});
-const topSearches_debug = mongoose.createConnection('mongodb://localhost/googleSearchesDebug', {useNewUrlParser: true});
-const upcomingSneakers_debug = mongoose.createConnection('mongodb://localhost/upcoming_sneakers_debug', {useNewUrlParser: true});
+const topSearches_debug = mongoose.createConnection('mongodb://localhost/googleSearchesDebug', {useNewUrlParser: true, useUnifiedTopology: true});
+const upcomingSneakers_debug = mongoose.createConnection('mongodb://localhost/upcoming_sneakers_debug', {useNewUrlParser: true, useUnifiedTopology: true});
+const popularOptions_debug = mongoose.createConnection('mongodb://localhost/optionDebug', {useNewUrlParser: true, useUnifiedTopology: true});
 
-Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneakers,
-             bandcamp_debug, crypto_debug, newMovies_debug, topSearches_debug, upcomingSneakers_debug]).then(() => {
+Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneakers, popularOptions,
+             bandcamp_debug, crypto_debug, newMovies_debug, topSearches_debug, upcomingSneakers_debug, popularOptions_debug]).then(() => {
     
     //START data model and type for component data
     /********************************************/
@@ -183,6 +185,36 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
         }
     });
 
+    // model and type for popularOptions
+    //----------------------------------------------------------------
+    const popularOptionsModel = popularOptions.model("option",
+    {
+        symbol: String,
+        name: String,
+        price: String,
+        iv_rank: String,
+        total_volume: String,
+        put_volume_pct: String,
+        call_volume_pct: String,
+        put_call_ratio: String,
+        time: String
+    });
+
+    const popularOptionsType = new GraphQLObjectType({
+        name: "optionsRecords",
+        fields: {
+            symbol: { type: GraphQLString },
+            name: { type: GraphQLString },
+            price: { type: GraphQLString },
+            iv_rank: { type: GraphQLString },
+            total_volume: { type: GraphQLString },
+            put_volume_pct: { type: GraphQLString },
+            call_volume_pct: { type: GraphQLString },
+            put_call_ratio: { type: GraphQLString },
+            time: { type: GraphQLString }
+        }
+    });
+
     //----------------------------------------------------------------
     //START data model and type for debugging dashboard data
     /******************************************************/
@@ -284,6 +316,26 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
         }
     });
     //----------------------------------------------------------------
+
+    // model and type for popular options debug data
+    //----------------------------------------------------------------
+
+    const popularOptionsDebugModel = popularOptions_debug.model("options_debug",
+    {
+        name: String,
+        dateOfIssue: String,
+        error: String
+    });
+
+    const popularOptionsDebugType = new GraphQLObjectType({
+        name: "options_debug", 
+        fields: { 
+            name: { type: GraphQLString },
+            dateOfIssue: { type: GraphQLString },
+            error: { type: GraphQLString }
+        }
+    });
+    //----------------------------------------------------------------
     
 
     /****************************************************************/
@@ -327,6 +379,13 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
                     type: (upcomingSneakersDebugType),
                     resolve: (root, args, context, info) => {
                         return upcomingSneakersDebugModel.deleteMany({}).exec();
+                    }
+                },
+
+                deletePopularOptionsDebug: {
+                    type: (popularOptionsDebugType),
+                    resolve: (root, args, context, info) => {
+                        return popularOptionsDebugModel.deleteMany({}).exec();
                     }
                 },
 
@@ -381,6 +440,13 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
                     }
                 },
 
+                popular_options: {
+                    type: GraphQLList(popularOptionsType),
+                    resolve: (root, args, context, info) => {
+                        return popularOptionsModel.find().sort({_id : 1}).exec();
+                    }
+                },
+
                 //defining debugging fields
                 //-------------------------------------------------------------------
                 bandcamp_debug: {
@@ -415,6 +481,13 @@ Promise.all([bandcamp, crypto, newMovies, newOnSteam, topSearches, upcomingSneak
                     type: GraphQLList(upcomingSneakersDebugType),
                     resolve: (root, args, context, info) => {
                         return upcomingSneakersDebugModel.find().sort({_id : -1}).exec();
+                    }
+                },
+
+                popular_options_debug: {
+                    type: GraphQLList(popularOptionsDebugType),
+                    resolve: (root, args, context, info) => {
+                        return popularOptionsDebugModel.find().sort({_id : 1}).exec();
                     }
                 }
 

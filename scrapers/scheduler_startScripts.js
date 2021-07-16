@@ -35,6 +35,14 @@ setInterval(function () {
         }
     }); 
 
-
+    //runs 'node popularOptions'
+    exec('node popularOptions', (err, stdout, stderr) => {
+        if(err) {
+            console.log('Error running popularOptions');
+        }
+        if(err === null){
+            console.log('popularOptions run completed: ' + Date.now());
+        }
+    }); 
 
  }, 1 * 60 * 60 * 1000);
