@@ -219,7 +219,7 @@ export default class PricesList extends Component {
             (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices10[index]}/>)
         
 
-        for(var i = 0; i < 10; i++)
+        for(var i = 0; i < 4; i++)
         {
             outputData[i] =  <div className = "slide">
             <table>
@@ -228,7 +228,7 @@ export default class PricesList extends Component {
                 <th>Coin Name</th>
                 <th>Short Name</th>
                 <th>Price</th>
-                <th>Total</th>
+                <th>Total Volume</th>
                 <th>Value Last 24 Hrs</th>
             </tr>
             </thead>    
@@ -274,16 +274,16 @@ export default class PricesList extends Component {
 
             <div className= "upcoming_list">
                 <div className= "list_entry one">upcoming <span class="bigger_next">movies</span></div>
+                <div className= "list_entry three">popular <span class="bigger_next">options</span></div>
                 <div className= "list_entry two">bandcamp <span class="bigger_next">trends</span></div>
                 <div className= "list_entry three">search <span class="bigger_next">trends</span></div>
-                <div className= "list_entry four">upcoming <span class="bigger_next">shoes</span></div>
             </div>
             
                 <CarouselProvider
                 naturalSlideWidth={100}
                 naturalSlideHeight={125}
                 isPlaying = {true}
-                totalSlides={10}
+                totalSlides={4}
                 interval={20000}
             >
                                 <Slider>
@@ -291,12 +291,12 @@ export default class PricesList extends Component {
                                 <Slide index={1}>{outputData[1]}</Slide>
                                 <Slide index={2}>{outputData[2]}</Slide>
                                 <Slide index={3}>{outputData[3]}</Slide>
-                                <Slide index={4}>{outputData[4]}</Slide>
+                                {/*<Slide index={4}>{outputData[4]}</Slide>
                                 <Slide index={5}>{outputData[5]}</Slide>
                                 <Slide index={6}>{outputData[6]}</Slide>
                                 <Slide index={7}>{outputData[7]}</Slide>
                                 <Slide index={8}>{outputData[8]}</Slide>
-                                <Slide index={9}>{outputData[9]}</Slide>
+                                <Slide index={9}>{outputData[9]}</Slide> */}
                                 </Slider>
                 </CarouselProvider>
             </div>

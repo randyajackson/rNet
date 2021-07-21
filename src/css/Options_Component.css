@@ -1,0 +1,93 @@
+div.slidePut {
+    position: absolute;
+
+    left: 125px;
+    top: 125px;
+
+    padding-right: -10px;
+    padding-left: -10px;
+
+    border-radius: 25px;
+    
+    background: rgb(9,96,121);
+    background: linear-gradient(180deg, #fd1e1e 0%, #8b4545b6 51%,  #1d0b0b48 100%);
+}
+
+div.slideCall {
+    position: absolute;
+
+    left: 125px;
+    top: 125px;
+
+    padding-right: -10px;
+    padding-left: -10px;
+
+    border-radius: 25px;
+    
+    background: rgb(9,96,121);
+    background: linear-gradient(180deg, #289c10 0%, #3b722db6 51%,  #16502948 100%);
+}
+
+.tableOptions{
+    table-layout: fixed;
+    margin-left: -70px;
+    border-collapse: separate;
+    border-spacing: 25px 30px;
+    width: 1750px;
+    text-align: center;
+    font-family: 'Barlow', sans-serif;
+    text-transform: lowercase;
+    letter-spacing: 0.10em;
+    font-size: 18px;
+    color: white;
+    text-shadow:
+      1px 1px 1px #000,
+      1px 2px 1px #000,
+      1px 3px 1px #000;
+    
+}
+
+.changeGreen{
+-webkit-animation: greenFlash 5s;
+}
+
+@keyframes greenFlash{
+    0% {color: green;}
+    100% {color: white;}
+}
+
+.changeRed{
+-webkit-animation: redFlash 5s;
+}
+
+@keyframes redFlash{
+    0% {color: red;}
+    100% {color: white;}
+}
+
+
+
+thead>tr{
+    text-align: right;    
+}
+
+thead>th{
+    font-size: 35px;
+}
+
+tbody>tr{
+    text-align: right;
+}
+
+tbody>td{
+    padding: 5px;
+}
+
+#bgVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%; 
+    min-height: 100%;
+  }
+

@@ -192,8 +192,8 @@ export default class SneakerResults extends Component {
                     <div className= "upcoming_list">
                         <div className= "list_entry one">crypto<span class="bigger_next">currency</span></div>
                         <div className= "list_entry two">upcoming <span class="bigger_next">movies</span></div>
-                        <div className= "list_entry three">bandcamp <span class="bigger_next">trends</span></div>
-                        <div className= "list_entry four">search <span class="bigger_next">trends</span></div>
+                        <div className= "list_entry three">popular <span class="bigger_next">options</span></div>
+                        <div className= "list_entry four">bandcamp <span class="bigger_next">trends</span></div>
                     </div>
 
                     <CarouselProvider

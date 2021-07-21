@@ -138,7 +138,7 @@ export default class TopSearchesResults extends Component {
                         <div className= "list_entry one">upcoming <span class="bigger_next">shoes</span></div>
                         <div className= "list_entry two">crypto<span class="bigger_next">currency</span></div>
                         <div className= "list_entry three">upcoming <span class="bigger_next">movies</span></div>
-                        <div className= "list_entry four">bandcamp <span class="bigger_next">trends</span></div>
+                        <div className= "list_entry four">popular <span class="bigger_next">options</span></div>
                     </div>
             </div>
             </React.Fragment>

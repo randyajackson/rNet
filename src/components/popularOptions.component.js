@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import * as THREE from 'three';
 import FOG from 'vanta/dist/vanta.fog.min';
 
-import '../css/Crypto_Component.css';
+import '../css/Options_Component.css';
 import './../css/progress_bar.css';
 
 import { CarouselProvider, Slider, Slide} from 'pure-react-carousel';
@@ -44,7 +44,6 @@ const OptionsRow = props => (
         <td>{props.current.total_volume}</td>
         <td>{props.current.put_volume_pct}</td>
         <td>{props.current.call_volume_pct}</td>
-        <td>{props.current.put_call_ratio}</td>
         <td>{props.current.time}</td>
     </tr>
 )
@@ -122,19 +121,25 @@ export default class Options extends Component {
         outputData[1] = this.state.optionsPut.map(
             (putOptions, index) =>  <OptionsRow current = {putOptions} />);
         
+        let slideType;
         for(var i = 0; i < 2; i++)
         {
-            outputData[i] =  <div className = "slide">
-            <table>
+            if(i == 0)
+                slideType = "slideCall";
+            else
+                slideType = "slidePut";
+
+            outputData[i] =  <div className = {slideType}>
+            <table class="tableOptions">
             <thead>
             <tr> 
                 <th>Symbol</th>
                 <th>Name</th>
+                <th>Price</th>
                 <th>IV Rank</th>
                 <th>Total Volume</th>
                 <th>Put Volume Percent</th>
                 <th>Call Volume Percent</th>
-                <th>Put Call Ratio</th>
                 <th>Date</th>
             </tr>
             </thead>    
@@ -179,10 +184,10 @@ export default class Options extends Component {
             </div>
 
             <div className= "upcoming_list">
-                <div className= "list_entry one">upcoming <span class="bigger_next">movies</span></div>
-                <div className= "list_entry two">bandcamp <span class="bigger_next">trends</span></div>
-                <div className= "list_entry three">search <span class="bigger_next">trends</span></div>
-                <div className= "list_entry four">upcoming <span class="bigger_next">shoes</span></div>
+                <div className= "list_entry one">bandcamp <span class="bigger_next">trends</span></div>
+                <div className= "list_entry two">search <span class="bigger_next">trends</span></div>
+                <div className= "list_entry three">upcoming <span class="bigger_next">shoes</span></div>
+                <div className= "list_entry four">crypto <span class="bigger_next">currency</span></div>
             </div>
             
                 <CarouselProvider

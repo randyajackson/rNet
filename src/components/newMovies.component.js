@@ -44,7 +44,7 @@ const Movies = props => (
 
 function changePage() {
     setTimeout( () => {
-        document.location.href = "http://" + process.env.REACT_APP_LOCAL_HOST + ":3000/bc";
+        document.location.href = "http://" + process.env.REACT_APP_LOCAL_HOST + ":3000/popular_options";
     }, 60*1000*3);
     return false;   
  };
@@ -192,10 +192,10 @@ export default class newMovieList extends Component {
             </div>
 
             <div className= "upcoming_list">
+                <div className= "list_entry one">popular <span class="bigger_next">options</span></div>
                 <div className= "list_entry one">bandcamp <span class="bigger_next">trends</span></div>
                 <div className= "list_entry two">search <span class="bigger_next">trends</span></div>
                 <div className= "list_entry three">upcoming <span class="bigger_next">shoes</span></div>
-                <div className= "list_entry four">crypto<span class="bigger_next">currency</span></div>
             </div>
 
                     <CarouselProvider
