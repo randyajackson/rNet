@@ -124,12 +124,7 @@ export default class Options extends Component {
         let slideType;
         for(var i = 0; i < 2; i++)
         {
-            if(i == 0)
-                slideType = "slideCall";
-            else
-                slideType = "slidePut";
-
-            outputData[i] =  <div className = {slideType}>
+            outputData[i] =  <div className = "slideCall">
             <table class="tableOptions">
             <thead>
             <tr> 
