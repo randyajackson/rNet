@@ -21,7 +21,7 @@
     "mongoose": "^5.7.8",
     "node-cmd": "^3.0.0",
     "node-jq": "^1.10.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "paper": "^0.12.4",
     "parse-currency": "^0.1.0",
     "parse-decimal-number": "^1.0.0",
