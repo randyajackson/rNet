@@ -15,7 +15,9 @@ from datetime import datetime
 
 chrome_options = Options()
 chrome_options.headless = True
+# chrome_options.add_argument('log-level=3')
 driver = webdriver.Chrome("/usr/bin/chromedriver", chrome_options = chrome_options)
+# driver = webdriver.Chrome(r"C:\\Users\\Randy\\Desktop\\Programming\\crypto\\chromedriver\\chromedriver.exe", chrome_options = chrome_options)
 
 client = MongoClient()
 
@@ -29,68 +31,69 @@ proceed = True
 
 def collect():
     global proceed
+    # print(driver)
+    table = driver.find_elements_by_class_name("rc-table-row.rc-table-row-level-0")
 
-    table = driver.find_elements_by_class_name("table-coins")
+    data = []
     
     try:
-        data = table[0].text.splitlines()
+        for x, output in enumerate(table):
+            data.append(table[x].text.splitlines())
     except:
         proceed = False
         return
-
-    #if sponsored exists, set x to 11
-    x = 1
-    # print(data)
     
-     
+    x = 0
+    # print("*****************************TEST")
+    # print(data)
+    # print('Coin Name' + data[0][0]) 
+    # print('Short Name' + data[0][1]) 
+    # print('Price' + data[0][2])
+    # print('Total Volume' + data[0][4])   
+    # print('24' + data[0][3]) 
+    
     if "crypto_data_prices" in db.list_collection_names():
         while x < len(data): 
-            # print(data[x])
-            # print(data[x + 1])
-            # print(data[x + 2])
-            # print(data[x + 3])
-            # print(data[x + 4])
-            # print(data[x + 6]) 
             try:
                 prices.update_one(
-                    {"coinName" : data[x + 1] },
+                    {"coinName" : data[x][0]},
                         {"$set" :
                             {
-                                'id#' : data[x],
-                                'coinName' : data[x + 1],
-                                'coinSName' : data[x + 2],
-                                'coinPrice' : data[x + 3],
-                                'coinTotal' : data[x + 4],
-                                'coin24' : data[x + 6]
+                                'id#' : x,
+                                'coinName' : data[x][0],
+                                'coinSName' : data[x][1],
+                                'coinPrice' : data[x][2],
+                                'coinTotal' : data[x][4],
+                                'coin24' : data[x][3]
                             }
                         }
                 )
-                x += 7
+                x += 1
             except IndexError:
                 proceed = False
                 return
-
-
     else:
+        # print(data)
+        # print(x)
+        # print(data[x][0])
+        # print(data[x][1])
+        # print(data[x][2])
+        # print(data[x][7])
+        # print(data[x][3])
+      
         while x < len(data):
-            # print(data[x])
-            # print(data[x + 1])
-            # print(data[x + 2])
-            # print(data[x + 3])
-            # print(data[x + 4])
-            # print(data[x + 6]) 
             try:
                 prices.insert_one(
                     {
-                        'id#' : data[x],
-                        'coinName' : data[x + 1],
-                        'coinSName' : data[x + 2],
-                        'coinPrice' : data[x + 3],
-                        'coinTotal' : data[x + 4],
-                        'coin24' : data[x + 6]        
+                        'id#' : x,
+                        'coinName' : data[x][0],
+                        'coinSName' : data[x][1],
+                        'coinPrice' : data[x][2],
+                        'coinTotal' : data[x][4],
+                        'coin24' : data[x][3]
                     }
                 )
-                x += 7
+                x += 1
             except IndexError:
                 proceed = False
                 return
@@ -101,7 +104,7 @@ def collect():
     return
     
 def connect():
-    url = r"https://www.cryptocompare.com/coins/list/USD/1"
+    url = r"https://www.binance.us/en/markets"
     driver.get(url)
     time.sleep(15)
     return
@@ -109,7 +112,6 @@ def connect():
 def gatherer():
     
     connect()
-
     while(True):
         global proceed
 

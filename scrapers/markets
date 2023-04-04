@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Under Maintenance</title>
+  <style type="text/css">
+    @font-face {
+        font-family: 'BinancePlex';
+        font-display: swap;
+        src: url("https://static.binance.us/static/fonts/bp/BinancePlex-Regular.otf");
+        font-weight: 200
+    }
+
+    @font-face {
+        font-family: 'BinancePlex';
+        font-display: swap;
+        src:  url("https://static.binance.us/static/fonts/bp/BinancePlex-Regular.otf");
+        font-weight: 300
+    }
+
+    @font-face {
+        font-family: 'BinancePlex';
+        font-display: swap;
+        src: url("https://static.binance.us/static/fonts/bp/BinancePlex-Regular.otf");
+        font-weight: 400
+    }
+
+    @font-face {
+        font-family: 'BinancePlex';
+        font-display: swap;
+        src: url("https://static.binance.us/static/fonts/bp/BinancePlex-SemiBold.otf");
+        font-weight: 500
+    }
+
+    @font-face {
+        font-family: 'BinancePlex';
+        font-display: swap;
+        src: url("https://static.binance.us/static/fonts/bp/BinancePlex-SemiBold.otf");
+        font-weight: 600
+    }
+
+    @font-face {
+        font-family: 'BinancePlex';
+        font-display: swap;
+        src: url("https://static.binance.us/static/fonts/bp/BinancePlex-SemiBold.otf");
+        font-weight: 700
+    }
+
+    @font-face {
+        font-family: 'BinancePlex';
+        font-display: swap;
+        src: url("https://static.binance.us/static/fonts/bp/BinancePlex-SemiBold.otf");
+        font-weight: 800
+    }
+    html, body, div, span, applet, object, iframe,
+    h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+    a, abbr, acronym, address, big, cite, code,
+    del, dfn, em, img, ins, kbd, q, s, samp,
+    small, strike, strong, sub, sup, tt, var,
+    b, u, i, center,
+    dl, dt, dd, ol, ul, li,
+    fieldset, form, label, legend,
+    table, caption, tbody, tfoot, thead, tr, th, td,
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
+    menu, nav, output, ruby, section, summary,
+    time, mark, audio, video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      vertical-align: baseline;
+    }
+
+    /* HTML5 display-role reset for older browsers */
+    article, aside, details, figcaption, figure,
+    footer, header, hgroup, menu, nav, section {
+      display: block;
+    }
+
+    body {
+      line-height: 1;
+    }
+
+    ol, ul {
+      list-style: none;
+    }
+
+    blockquote, q {
+      quotes: none;
+    }
+
+    blockquote:before, blockquote:after,
+    q:before, q:after {
+      content: "";
+      content: none;
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+    }
+
+    body {
+      font-family: BinancePlex, Arial,PingFangSC-Regular,'Microsoft YaHei',sans-serif;
+      color: #ffffff;
+      background-color: #0B0E11;
+    }
+
+    header {
+      height: 60px;
+    }
+    header img {
+      margin: 18px 50px;
+      width: 150px;
+      height: 24px;
+    }
+
+    section {
+      margin: 0 auto;
+    }
+
+    .maintenance-wrap {
+      margin: 0 auto;
+      display: flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      align-items: center;
+      width: 616px;
+    }
+    .maintenance-wrap .icon {
+      margin: 98px 0 0;
+    }
+    .maintenance-wrap .icon img {
+      width: 112px;
+      height: 112px;
+    }
+    .maintenance-wrap .title {
+      margin: 24px 0 16px;
+      font-size: 66px;
+      text-align: center;
+    }
+    .maintenance-wrap .desc {
+      line-height: 1.8em;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .content {
+      margin: 114px auto 195px;
+      width: 832px;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .content .faq-wrap, .content .community-wrap {
+      padding: 32px 0 0 32px;
+      flex: 0 0 auto;
+      width: 372px;
+      height: 201px;
+      background: #14151A;
+      border-radius: 4px;
+    }
+    .content .community-wrap .desc {
+      width: 303px;
+    }
+    .content .title {
+      font-size: 24px;
+    }
+    .content .desc {
+      margin: 11px 0 24px;
+      width: 237px;
+      line-height: 24px;
+      font-size: 16px;
+    }
+    .content .button {
+      display: inline-block;
+      padding: 14px 24px;
+      color: #ffffff;
+      text-decoration: none;
+      border: 1px solid #ffffff;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    @media screen and (max-width: 968px) {
+      section {
+        margin: 0 35px;
+      }
+
+      .content {
+        margin: 114px auto 195px;
+        width: 698px;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .content .faq-wrap, .content .community-wrap {
+        padding: 32px 0 0 32px;
+        flex: 0 0 auto;
+        width: 309px;
+        height: 190px;
+        background: #14151A;
+        border-radius: 4px;
+      }
+      .content .community-wrap .desc {
+        width: 303px;
+      }
+      .content .title {
+        font-size: 24px;
+      }
+      .content .desc {
+        margin: 11px 0 24px;
+        width: 237px;
+        line-height: 24px;
+        font-size: 16px;
+      }
+      .content .button {
+        display: inline-block;
+        padding: 14px 24px;
+        color: #ffffff;
+        text-decoration: none;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      header {
+        height: 60px;
+        text-align: center;
+      }
+      header img {
+        display: inline-block;
+        height: 24px;
+      }
+
+      section {
+        margin: 0 auto;
+        width: 86%;
+      }
+
+      .maintenance-wrap {
+        margin: 0 auto;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+      .maintenance-wrap .icon {
+        margin: 71px 0 0;
+      }
+      .maintenance-wrap .icon img {
+        width: 112px;
+        height: 112px;
+      }
+      .maintenance-wrap .title {
+        margin: 24px 0 16px;
+        font-size: 32px;
+        text-align: center;
+      }
+      .maintenance-wrap .desc {
+        line-height: 1.8em;
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .content {
+        margin: 79px auto 195px;
+        width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .content .faq-wrap, .content .community-wrap {
+        padding: 20px 0 0 20px;
+        flex: 0 0 auto;
+        width: 100%;
+        height: 185px;
+        background: #14151A;
+        border-radius: 4px;
+      }
+      .content .community-wrap {
+        margin: 32px 0 0 0;
+      }
+      .content .community-wrap .desc {
+        width: 90%;
+      }
+      .content .title {
+        font-size: 24px;
+      }
+      .content .desc {
+        margin: 11px 0 24px;
+        width: 80%;
+        line-height: 24px;
+        font-size: 16px;
+      }
+      .content .button {
+        display: inline-block;
+        padding: 14px 24px;
+        color: #ffffff;
+        text-decoration: none;
+        border: 1px solid #ffffff;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="/images/logo.svg">
+  </header>
+  <section>
+    <div class="maintenance-wrap">
+      <div class="icon"><img src="/images/maintenance.svg"></div>
+      <h1 class="title">Under Maintenance</h1>
+      <div class="desc">We are currently working on a better trading experience for you. We’ll be back soon.</div>
+    </div>
+    <div class="content">
+      <div class="faq-wrap">
+        <div class="title">FAQ</div>
+        <div class="desc">Get quick solutions to the most asked questions</div>
+        <a class="button"  href="https://support.binance.us/hc/en-us">Visit now</a>
+      </div>
+      <div class="community-wrap">
+        <div class="title">Community</div>
+        <div class="desc">Join other Binancians for discussions in our communities</div>
+        <a class="button" href="https://twitter.com/binanceus">Explore the Community</a>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

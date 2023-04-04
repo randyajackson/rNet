@@ -1,7 +1,10 @@
+require('dotenv').config();
 const axios = require('axios');
 const mongoose = require('mongoose');
 
-const url = 'https://www.rottentomatoes.com/api/private/v2.0/browse?type="opening"';
+const queryURL = process.env.newMoviesURL;
+const currentDate = new Date().toISOString().slice(0, 10);
+const url = `${queryURL}&region=US&language=en-US&release_date.gte=${currentDate}`;
 
 var title;
 var releaseDate;
@@ -46,14 +49,14 @@ db.once('open', function() {
     
     axios.get(url)
     .then(response => {
-        console.log(  response.data["counts"]["total"] );
-        for(var i = 0; i < parseInt(response.data["counts"]["total"]); i++)
+        const responses = response.data["results"];
+        for(var i = 0; i < responses.length; i++)
         {
-            title = response.data["results"][i]["title"];
-            releaseDate = response.data["results"][i]["theaterReleaseDate"];
-            rating = response.data["results"][i]["mpaaRating"];
-            synopsis = response.data["results"][i]["synopsis"];
-            poster = response.data["results"][i]["posters"]["primary"];
+            title = responses[i]["title"];
+            releaseDate = responses[i]["release_date"];
+            rating = (responses[i]["vote_average"] === 0) ? "-" : responses[i]["vote_average"];
+            synopsis = responses[i]["overview"];
+            poster = "https://image.tmdb.org/t/p/w500" + responses[i]["poster_path"];
             
             upcomingMovie = new upcomingModel({
                 title: title,

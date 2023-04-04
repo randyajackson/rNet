@@ -219,7 +219,7 @@ export default class PricesList extends Component {
             (currentprice, index) =>  <Price price = {currentprice} prevPrice = {this.state.prevPrices10[index]}/>)
         
 
-        for(var i = 0; i < 4; i++)
+        for(var i = 0; i < 3; i++)
         {
             outputData[i] =  <div className = "slide">
             <table>
@@ -228,7 +228,7 @@ export default class PricesList extends Component {
                 <th>Coin Name</th>
                 <th>Short Name</th>
                 <th>Price</th>
-                <th>Total Volume</th>
+                <th>Daily High</th>
                 <th>Value Last 24 Hrs</th>
             </tr>
             </thead>    
@@ -283,15 +283,15 @@ export default class PricesList extends Component {
                 naturalSlideWidth={100}
                 naturalSlideHeight={125}
                 isPlaying = {true}
-                totalSlides={4}
+                totalSlides={3}
                 interval={20000}
             >
                                 <Slider>
                                 <Slide index={0}>{outputData[0]}</Slide>
                                 <Slide index={1}>{outputData[1]}</Slide>
                                 <Slide index={2}>{outputData[2]}</Slide>
-                                <Slide index={3}>{outputData[3]}</Slide>
-                                {/*<Slide index={4}>{outputData[4]}</Slide>
+                                {/*<Slide index={3}>{outputData[3]}</Slide>
+                                <Slide index={4}>{outputData[4]}</Slide>
                                 <Slide index={5}>{outputData[5]}</Slide>
                                 <Slide index={6}>{outputData[6]}</Slide>
                                 <Slide index={7}>{outputData[7]}</Slide>
